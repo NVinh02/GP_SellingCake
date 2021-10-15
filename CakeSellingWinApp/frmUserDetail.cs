@@ -1,9 +1,12 @@
 ﻿using BusinessObject;
 using BusinessObject.Object;
+using DataAccess.Errors;
 using DataAccess.Repository;
+using DataAccess.Validation;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Data;
 using System.Drawing;
 using System.Linq;
@@ -26,7 +29,13 @@ namespace MyStoreWinApp
         public User user { get; set; }
 
         public User loginUser { get; set; }
+        private ValidationData validation = null;
         private void frmUserDetail_Load(object sender, EventArgs e)
+        {
+            LoadUserDetail();
+        }
+
+        private void LoadUserDetail()
         {
             // Update
             if (CreateOrUpdate == false)
@@ -85,6 +94,7 @@ namespace MyStoreWinApp
                 pnRole.Enabled = false;
             }
         }
+
         private void btnSave_Click(object sender, EventArgs e)
         {
             try
@@ -101,6 +111,8 @@ namespace MyStoreWinApp
                 {
                     RoleUser = "Staff";
                 }
+                validation = new ValidationData();
+
                 var TempUser = new User
                 {
                     Username = txtUserName.Text,
@@ -112,17 +124,30 @@ namespace MyStoreWinApp
                     Role = RoleUser,
                     Status = activeChecked,
                 };
-                //Add a new member
-                if (CreateOrUpdate)
+                IList<ValidationResult> errors = validation.checkValidUser(user);
+                if (errors == null)
                 {
-                   UserRepo.InsertUser(TempUser);
-                    MessageBox.Show("Add a new user Successfully!", "Add a new user", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                } //Update a member 
-                else
+                    //Add a new member
+                    if (CreateOrUpdate)
+                    {
+                        UserRepo.InsertUser(TempUser);
+                        MessageBox.Show("Add a new user Successfully!", "Add a new user", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    } //Update a member 
+                    else
+                    {
+                        TempUser.Userid = user.Userid;
+                        UserRepo.UpdateUser(TempUser);
+                        MessageBox.Show("Update a user Successfully!", "Update an user", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                } else
                 {
-                    TempUser.Userid = user.Userid;
-                    UserRepo.UpdateUser(TempUser);
-                    MessageBox.Show("Update a user Successfully!", "Update an user", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    string message = "";
+                    foreach (ValidationResult result in errors)
+                    {
+                        message = message + result.ErrorMessage + "\n";
+                    }
+                    MessageBox.Show(message.Trim(), CreateOrUpdate == true ? "Add a new member" : "Update a member", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    LoadUserDetail();
                 }
             }catch(Exception ex)
             {

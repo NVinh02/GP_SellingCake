@@ -1,14 +1,10 @@
-﻿using BusinessObject;
-using BusinessObject.Object;
+﻿using BusinessObject.Object;
+using DataAccess.Errors;
 using DataAccess.Repository;
+using DataAccess.Validation;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
 
 namespace MyStoreWinApp
@@ -21,43 +17,58 @@ namespace MyStoreWinApp
         }
         // Intialize membeRepository for function
         public IUserRepository userRepository = new UserRepository();
+        private ValidationData userValidation = new ValidationData();
+        private ValidationData validation = null;
+        private UserErrors userErrors = null;
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
-            string email = txtEmail.Text;
+            string username = txtUsername.Text;
             string password = txtPassword.Text;
-            User user = userRepository.Login(email, password);
-            // active user exists
-            if(checkLoginIn(user))
-            { 
-                string Role = user.Role;
-                // user is Admin
-                if (Role.Equals("Admin"))
+            validation = new ValidationData();
+            userErrors = new UserErrors();
+            userErrors.usernameError = validation.CheckStringType("username", username, true, 1, 50, @"^[A-Za-z0-9]*$");
+            userErrors.passwordError = validation.CheckStringType("password", password, true, 3, 30, @"^[^\s]+$");
+            if (userErrors.usernameError == null && userErrors.passwordError == null)
+            {
+                User user = userRepository.Login(username, password);
+                //active user exists
+                if (checkLoginIn(user))
                 {
-                    frmUserManagement userManagement = new frmUserManagement
+                    string Role = user.Role;
+                    // user is Admin
+                    if (Role.Equals("Admin"))
                     {
-                        loginUser = user
-                    };
-                    this.Hide();
-                    userManagement.ShowDialog();
-                    LoadfrmLogin();
-                    this.Show();
-                } 
-                // user is not Admin
-                else if (Role.Equals("Staff"))
-                {
-                    frmUserDetail userDetail = new frmUserDetail
+                        frmUserManagement userManagement = new frmUserManagement
+                        {
+                            loginUser = user
+                        };
+                        this.Hide();
+                        userManagement.ShowDialog();
+                        LoadfrmLogin();
+                        this.Show();
+                    }
+                    // user is not Admin
+                    else if (Role.Equals("Staff"))
                     {
-                        loginUser = user,
-                        UserRepo = userRepository,
-                        CreateOrUpdate = false,
-                        user = user
-                    };
-                    this.Hide();
-                    userDetail.ShowDialog();
-                    LoadfrmLogin();
-                    this.Show();
+                        frmUserDetail userDetail = new frmUserDetail
+                        {
+                            loginUser = user,
+                            UserRepo = userRepository,
+                            CreateOrUpdate = false,
+                            user = user
+                        };
+                        this.Hide();
+                        userDetail.ShowDialog();
+                        LoadfrmLogin();
+                        this.Show();
+                    }
                 }
+            }
+            else
+            {
+                MessageBox.Show($"{userErrors.usernameError}\n{userErrors.passwordError}", "Login", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -83,7 +94,7 @@ namespace MyStoreWinApp
 
         private void LoadfrmLogin()
         {
-            txtEmail.Text = String.Empty;
+            txtUsername.Text = String.Empty;
             txtPassword.Text = String.Empty;
         }
     }

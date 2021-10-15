@@ -34,7 +34,7 @@ namespace MyStoreWinApp
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.lbPassword = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.txtEmail = new System.Windows.Forms.TextBox();
+            this.txtUsername = new System.Windows.Forms.TextBox();
             this.lbUsername = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
@@ -84,19 +84,19 @@ namespace MyStoreWinApp
             // 
             // panel1
             // 
-            this.panel1.Controls.Add(this.txtEmail);
+            this.panel1.Controls.Add(this.txtUsername);
             this.panel1.Controls.Add(this.lbUsername);
             this.panel1.Location = new System.Drawing.Point(6, 39);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(414, 56);
             this.panel1.TabIndex = 7;
             // 
-            // txtEmail
+            // txtUsername
             // 
-            this.txtEmail.Location = new System.Drawing.Point(106, 17);
-            this.txtEmail.Name = "txtEmail";
-            this.txtEmail.Size = new System.Drawing.Size(276, 27);
-            this.txtEmail.TabIndex = 1;
+            this.txtUsername.Location = new System.Drawing.Point(106, 17);
+            this.txtUsername.Name = "txtUsername";
+            this.txtUsername.Size = new System.Drawing.Size(276, 27);
+            this.txtUsername.TabIndex = 1;
             // 
             // lbUsername
             // 
@@ -158,7 +158,7 @@ namespace MyStoreWinApp
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lbPassword;
-        private System.Windows.Forms.TextBox txtEmail;
+        private System.Windows.Forms.TextBox txtUsername;
     }
 }
 
