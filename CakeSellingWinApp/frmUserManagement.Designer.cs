@@ -38,8 +38,8 @@ namespace MyStoreWinApp
             this.txtID = new System.Windows.Forms.TextBox();
             this.pnButton = new System.Windows.Forms.Panel();
             this.gbRoleActive = new System.Windows.Forms.GroupBox();
-            this.lbSearchRole = new System.Windows.Forms.Label();
-            this.cbRole = new System.Windows.Forms.ComboBox();
+            this.lbSearchStatus = new System.Windows.Forms.Label();
+            this.cbStatus = new System.Windows.Forms.ComboBox();
             this.gbName = new System.Windows.Forms.GroupBox();
             this.lbSearchUserName = new System.Windows.Forms.Label();
             this.lbSearchFullName = new System.Windows.Forms.Label();
@@ -147,34 +147,34 @@ namespace MyStoreWinApp
             // 
             // gbRoleActive
             // 
-            this.gbRoleActive.Controls.Add(this.lbSearchRole);
-            this.gbRoleActive.Controls.Add(this.cbRole);
+            this.gbRoleActive.Controls.Add(this.lbSearchStatus);
+            this.gbRoleActive.Controls.Add(this.cbStatus);
             this.gbRoleActive.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.gbRoleActive.Location = new System.Drawing.Point(356, 36);
             this.gbRoleActive.Name = "gbRoleActive";
             this.gbRoleActive.Size = new System.Drawing.Size(313, 92);
             this.gbRoleActive.TabIndex = 17;
             this.gbRoleActive.TabStop = false;
-            this.gbRoleActive.Text = "Search Role/Active";
+            this.gbRoleActive.Text = "Search Status";
             // 
-            // lbSearchRole
+            // lbSearchStatus
             // 
-            this.lbSearchRole.AutoSize = true;
-            this.lbSearchRole.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbSearchRole.Location = new System.Drawing.Point(6, 32);
-            this.lbSearchRole.Name = "lbSearchRole";
-            this.lbSearchRole.Size = new System.Drawing.Size(39, 20);
-            this.lbSearchRole.TabIndex = 18;
-            this.lbSearchRole.Text = "Role";
+            this.lbSearchStatus.AutoSize = true;
+            this.lbSearchStatus.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbSearchStatus.Location = new System.Drawing.Point(6, 32);
+            this.lbSearchStatus.Name = "lbSearchStatus";
+            this.lbSearchStatus.Size = new System.Drawing.Size(49, 20);
+            this.lbSearchStatus.TabIndex = 18;
+            this.lbSearchStatus.Text = "Status";
             // 
-            // cbRole
+            // cbStatus
             // 
-            this.cbRole.FormattingEnabled = true;
-            this.cbRole.Location = new System.Drawing.Point(106, 24);
-            this.cbRole.Name = "cbRole";
-            this.cbRole.Size = new System.Drawing.Size(205, 31);
-            this.cbRole.TabIndex = 13;
-            this.cbRole.SelectedIndexChanged += new System.EventHandler(this.cbRole_SelectedIndexChanged);
+            this.cbStatus.FormattingEnabled = true;
+            this.cbStatus.Location = new System.Drawing.Point(106, 24);
+            this.cbStatus.Name = "cbStatus";
+            this.cbStatus.Size = new System.Drawing.Size(205, 31);
+            this.cbStatus.TabIndex = 13;
+            this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
             // 
             // gbName
             // 
@@ -271,8 +271,8 @@ namespace MyStoreWinApp
         private System.Windows.Forms.TextBox txtSearchFullName;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.GroupBox gbRoleActive;
-        private System.Windows.Forms.Label lbSearchRole;
-        private System.Windows.Forms.ComboBox cbRole;
+        private System.Windows.Forms.Label lbSearchStatus;
+        private System.Windows.Forms.ComboBox cbStatus;
         private System.Windows.Forms.Label lbSearchUserName;
         private System.Windows.Forms.Label lbSearchFullName;
         private System.Windows.Forms.TextBox txtSearchUserName;

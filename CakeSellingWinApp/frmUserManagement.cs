@@ -13,7 +13,6 @@ namespace MyStoreWinApp
         public User loginUser { get; set; }
         BindingSource roleSource;
         IUserRepository userRepository = new UserRepository();
-        DataTable table = null;
         DataGridViewCellEventArgs EventOfdvgUserList = null;
         public frmUserManagement()
         {
@@ -58,7 +57,7 @@ namespace MyStoreWinApp
             if (dvgUserList.RowCount > 0)
             {
                 var user = GetUser(e);
-                if (user.IsEnable == false)
+                if (user.Status == false)
                 {
                     btnActive.Text = "Active";
                 } else
@@ -79,83 +78,75 @@ namespace MyStoreWinApp
         private void LoadUserList(bool search = false, IEnumerable<User> searchDataSource = null)
         {
             IEnumerable<User> users = null;
+            DataTable table = null;
             try
             {
                 // Load user as search
                 if (search)
                 {
-                    table = null;
-                    table = new DataTable();
-                    table.Columns.Add("ID", typeof(int));
-                    table.Columns.Add("Username", typeof(string));
-                    table.Columns.Add("Full Name", typeof(string));
-                    table.Columns.Add("Email", typeof(string));
-                    table.Columns.Add("Phone Number", typeof(string));
-                    table.Columns.Add("Password", typeof(string));
-                    table.Columns.Add("Address", typeof(string));
-                    table.Columns.Add("Role", typeof(string));
-                    table.Columns.Add("Active", typeof(bool));
+                    table = setColumnNameOfTable(table);
                     users = searchDataSource;
                     foreach (var user in users)
                     {
+                        string status = user.Status.ToString();
                         table.Rows.Add(user.Userid, user.Username, user.Fullname
                             , user.Email, user.Phonenumber, user.Password,
-                            user.Address, user.Role, user.IsEnable);
+                            user.Address, user.Role, status);
                     }
-                    dvgUserList.DataSource = null;
-                    dvgUserList.DataSource = table;
                 }
                 // load user
                 else
                 {
+                    table = setColumnNameOfTable(table);
                     users = userRepository.GetUsers().OrderBy(temp => temp.Role);
                     //get Role list
-                    var RoleList = from user in users
-                               where (!string.IsNullOrEmpty(user.Role.Trim()))
-                               select user.Role;
-                    RoleList = RoleList.Prepend("All");
-                    RoleList = RoleList.Distinct();
+                    var RoleList = new List<String>();
+                    RoleList.Add("All");
+                    RoleList.Add("True");
+                    RoleList.Add("False");
                     if (users.Count() > 0)
                     {
                         roleSource = new BindingSource();
                         roleSource.DataSource = RoleList;
-                        cbRole.DataSource = null;
-                        cbRole.DataSource = roleSource;
+                        cbStatus.DataSource = null;
+                        cbStatus.DataSource = roleSource;
                     }
-                    table = null;
-                    table = new DataTable();
-                    table.Columns.Add("ID", typeof(int));
-                    table.Columns.Add("Username", typeof(string));
-                    table.Columns.Add("Full Name", typeof(string));
-                    table.Columns.Add("Email", typeof(string));
-                    table.Columns.Add("Phone Number", typeof(string));
-                    table.Columns.Add("Password", typeof(string));
-                    table.Columns.Add("Address", typeof(string));
-                    table.Columns.Add("Role", typeof(string));
-                    table.Columns.Add("Active", typeof(bool));
                     foreach (var user in users)
                     {
+                        string status = user.Status.ToString();
                         table.Rows.Add(user.Userid, user.Username, user.Fullname
                             , user.Email, user.Phonenumber, user.Password,
-                            user.Address, user.Role, user.IsEnable);
+                            user.Address, user.Role, user.Status);
                     }
-                    dvgUserList.DataSource = null;
-                    dvgUserList.DataSource = table;
                 }
-                if (users.Count() > 0)
-                {
-                    btnActive.Enabled = true;
-                }
-                else
-                {
-                    btnActive.Enabled = false;
-                }
+                dvgUserList.DataSource = null;
+                dvgUserList.DataSource = table;
+                btnActive.Enabled = users.Any();
             }
             catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, "Load Users", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        //Generating column name of table
+        public DataTable setColumnNameOfTable(DataTable table)
+        {
+            table = null;
+            table = new DataTable();
+            table.Columns.Add("ID", typeof(int));
+            table.Columns.Add("Username", typeof(string));
+            table.Columns.Add("Full Name", typeof(string));
+            table.Columns.Add("Email", typeof(string));
+            table.Columns.Add("Phone Number", typeof(string));
+            table.Columns.Add("Password", typeof(string));
+            table.Columns.Add("Address", typeof(string));
+            table.Columns.Add("Role", typeof(string));
+            table.Columns.Add("Status", typeof(string));
+            return table;
+        }
+
+
         //Get User
         private User GetUser(DataGridViewCellEventArgs e = null)
         {
@@ -184,7 +175,7 @@ namespace MyStoreWinApp
                         Phonenumber = selectRow.Cells[5].Value.ToString(),
                         Address = selectRow.Cells[6].Value.ToString(),
                         Role = selectRow.Cells[7].Value.ToString(),
-                        IsEnable = activeChecker
+                        Status = activeChecker
                     };
                 }
                 catch (Exception ex)
@@ -232,10 +223,7 @@ namespace MyStoreWinApp
                 if (isNullOrEmptySearchUserName == false
                     && isNullOrEmptySearchFullName == false)
                 {
-                    using var context = new CakeManagementContext();
-                    searchDataSource = context.Users.Where(temp =>
-                    temp.Fullname.Trim().ToLower().Contains(txtSearchFullName.Text.Trim().ToLower())
-                    && temp.Username.Trim().ToLower().Contains(txtSearchUserName.Text.Trim().ToLower()));
+                    searchDataSource = userRepository.SearchUserByFullNameAndUserName(txtSearchFullName.Text, txtSearchUserName.Text);
                     if (searchDataSource.Any())
                     {
                         LoadUserList(true, searchDataSource);
@@ -246,9 +234,7 @@ namespace MyStoreWinApp
                     }
                 } else if (isNullOrEmptySearchFullName == false)
                 {
-                    using var context = new CakeManagementContext();
-                    searchDataSource = context.Users.Where(temp =>
-                    temp.Fullname.Trim().ToLower().Contains(txtSearchFullName.Text.Trim().ToLower()));
+                    searchDataSource = searchDataSource = userRepository.SearchUserByFullName(txtSearchFullName.Text);
 
                     if (searchDataSource.Any())
                     {
@@ -260,9 +246,7 @@ namespace MyStoreWinApp
                     }
                 } else
                 {
-                    using var context = new CakeManagementContext();
-                    searchDataSource = context.Users.Where(temp =>
-                    temp.Username.Trim().ToLower().Contains(txtSearchUserName.Text.Trim().ToLower()));
+                    searchDataSource = searchDataSource = userRepository.SearchUserByUserName(txtSearchUserName.Text);
                     if (searchDataSource.Count() > 0)
                     {
                         LoadUserList(true, searchDataSource);
@@ -274,34 +258,32 @@ namespace MyStoreWinApp
                 }
             }
         }
-        //Search by role
-        private void cbRole_SelectedIndexChanged(object sender, EventArgs e)
-        {
 
+        //Search by role
+        private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
+        {
             try
             {
-                if (cbRole.DataSource != null)
+                if (cbStatus.DataSource != null)
                 {
-                    string role = cbRole.SelectedItem.ToString();
-                    if (!string.IsNullOrEmpty(role))
+                    string status = cbStatus.SelectedItem.ToString();
+                    if (!string.IsNullOrEmpty(status))
                     {
-                        if (role.Equals("All"))
+                        if (status.Equals("All"))
                         {
                             LoadUserList();
                         }
                         else
                         {
-                            using var context = new CakeManagementContext();
-                            IEnumerable<User>searchDataSource = context.Users.Where(temp =>
-                            temp.Role.Equals(role));
-                            // role exists
+                            IEnumerable<User> searchDataSource = userRepository.SearchUserByStatus(status);
+                            // status exists
                             if (searchDataSource.Any())
                             {
                                 LoadUserList(true, searchDataSource);
-                            }// role does not exist
+                            }// status does not exist
                             else
                             {
-                                MessageBox.Show("No result matches with role", "Search role", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show("No result matches with status", "Search status", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                         }
                     }
@@ -309,9 +291,10 @@ namespace MyStoreWinApp
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Search Role", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message, "Search Status", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
         //(in)active the user
         private void btnActive_Click(object sender, EventArgs e)
         {
@@ -330,10 +313,10 @@ namespace MyStoreWinApp
                     {
                         if (btnActive.Text.Equals("Active"))
                         {
-                            user.IsEnable = true;
+                            user.Status = true;
                         } else
                         {
-                            user.IsEnable = false;
+                            user.Status = false;
                         }
                         userRepository.UpdateUser(user);
                         LoadUserList();

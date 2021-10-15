@@ -118,6 +118,7 @@ namespace MyStoreWinApp
             this.pnActive.Controls.Add(this.rbNo);
             this.pnActive.Controls.Add(this.rbYes);
             this.pnActive.Controls.Add(this.label1);
+            this.pnActive.Enabled = false;
             this.pnActive.Location = new System.Drawing.Point(6, 473);
             this.pnActive.Name = "pnActive";
             this.pnActive.Size = new System.Drawing.Size(414, 60);

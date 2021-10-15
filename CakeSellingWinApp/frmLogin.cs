@@ -27,15 +27,13 @@ namespace MyStoreWinApp
             string email = txtEmail.Text;
             string password = txtPassword.Text;
             User user = userRepository.Login(email, password);
-            // user exists
-            if(user != null)
+            // active user exists
+            if(checkLoginIn(user))
             { 
                 string Role = user.Role;
-                bool IsEnable = user.IsEnable;
                 // user is Admin
                 if (Role.Equals("Admin"))
                 {
-                    MessageBox.Show("Login Successfully", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     frmUserManagement userManagement = new frmUserManagement
                     {
                         loginUser = user
@@ -48,34 +46,36 @@ namespace MyStoreWinApp
                 // user is not Admin
                 else if (Role.Equals("Staff"))
                 {
-                    if (IsEnable)
+                    frmUserDetail userDetail = new frmUserDetail
                     {
-                        MessageBox.Show("Login Successfully", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        frmUserDetail userDetail = new frmUserDetail
-                        {
-                            loginUser = user,
-                            UserRepo = userRepository,
-                            CreateOrUpdate = false,
-                            user = user
-                        };
-                        this.Hide();
-                        userDetail.ShowDialog();
-                        LoadfrmLogin();
-                        this.Show();
-                    } else
-                    {
-                        MessageBox.Show("Your Account is banned by Manager!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information); ;
-                    }
+                        loginUser = user,
+                        UserRepo = userRepository,
+                        CreateOrUpdate = false,
+                        user = user
+                    };
+                    this.Hide();
+                    userDetail.ShowDialog();
+                    LoadfrmLogin();
+                    this.Show();
                 }
             }
-            //member does not exist
-            else
+        }
+
+        public bool checkLoginIn(User user)
+        {
+            bool result = false;
+            if (user != null && user.Status == true)
             {
-                if (MessageBox.Show("Login Failed","Login",MessageBoxButtons.RetryCancel,MessageBoxIcon.Error) == DialogResult.Cancel)
-                {
-                    Close();
-                }
+                MessageBox.Show("Login Successfully", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                result = true;
+            } else if (user == null)
+            {
+                MessageBox.Show("User does not exist!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            } else if (user.Status == false)
+            {
+                MessageBox.Show("Your Account is banned!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            return result;
         }
 
         private void btnExit_Click(object sender, EventArgs e)

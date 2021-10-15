@@ -27,7 +27,7 @@ namespace BusinessObject.Object
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=SE150998\\SQLEXPRESS;uid=sa;pwd=123;database=CakeManagement");
+                optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=123;database=CakeManagement");
             }
         }
 
@@ -53,11 +53,11 @@ namespace BusinessObject.Object
                     .HasMaxLength(50)
                     .HasColumnName("category");
 
-                entity.Property(e => e.IsEnable).HasColumnName("isEnable");
-
                 entity.Property(e => e.Price)
                     .HasColumnType("money")
                     .HasColumnName("price");
+
+                entity.Property(e => e.Status).HasColumnName("status");
             });
 
             modelBuilder.Entity<Order>(entity =>
@@ -65,7 +65,7 @@ namespace BusinessObject.Object
                 entity.Property(e => e.Orderid).HasColumnName("orderid");
 
                 entity.Property(e => e.Createddate)
-                    .HasColumnType("datetime")
+                    .HasColumnType("date")
                     .HasColumnName("createddate")
                     .HasDefaultValueSql("(getdate())");
 
@@ -85,8 +85,9 @@ namespace BusinessObject.Object
                     .HasDefaultValueSql("(N'None')");
 
                 entity.Property(e => e.Shippingdate)
-                    .HasColumnType("datetime")
-                    .HasColumnName("shippingdate");
+                    .HasColumnType("date")
+                    .HasColumnName("shippingdate")
+                    .HasDefaultValueSql("(getdate())");
 
                 entity.Property(e => e.Shippingfee)
                     .HasColumnType("money")
@@ -102,7 +103,7 @@ namespace BusinessObject.Object
                 entity.HasOne(d => d.Staff)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.Staffid)
-                    .HasConstraintName("FK__Orders__staffid__4E88ABD4");
+                    .HasConstraintName("FK__Orders__staffid__74AE54BC");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
@@ -124,17 +125,17 @@ namespace BusinessObject.Object
                 entity.HasOne(d => d.Cake)
                     .WithMany()
                     .HasForeignKey(d => d.Cakeid)
-                    .HasConstraintName("FK__OrderDeta__cakei__5535A963");
+                    .HasConstraintName("FK__OrderDeta__cakei__7C4F7684");
 
                 entity.HasOne(d => d.Order)
                     .WithMany()
                     .HasForeignKey(d => d.Orderid)
-                    .HasConstraintName("FK__OrderDeta__order__5441852A");
+                    .HasConstraintName("FK__OrderDeta__order__7B5B524B");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Users__AB6E6164B85DEDAE")
+                entity.HasIndex(e => e.Email, "UQ__Users__AB6E61644D5858AF")
                     .IsUnique();
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
@@ -152,8 +153,6 @@ namespace BusinessObject.Object
                     .HasMaxLength(50)
                     .HasColumnName("fullname");
 
-                entity.Property(e => e.IsEnable).HasColumnName("isEnable");
-
                 entity.Property(e => e.Password)
                     .IsRequired()
                     .HasMaxLength(30)
@@ -167,6 +166,8 @@ namespace BusinessObject.Object
                     .IsRequired()
                     .HasMaxLength(25)
                     .HasColumnName("role");
+
+                entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Username)
                     .IsRequired()

@@ -12,6 +12,6 @@ namespace BusinessObject.Object
         public decimal Price { get; set; }
         public int Amount { get; set; }
         public string Category { get; set; }
-        public bool IsEnable { get; set; }
+        public bool Status { get; set; }
     }
 }

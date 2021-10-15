@@ -21,7 +21,7 @@ CREATE TABLE Users(
 	address			NVARCHAR(50)		NULL,
 	email			NVARCHAR(50)		unique,
 	role			NVARCHAR(25)		NOT NULL,
-	isEnable		BIT					NOT NULL,
+	status			BIT					NOT NULL,
 )
 
 -- Amount
@@ -33,7 +33,7 @@ CREATE TABLE Cake(
 	price			MONEY				NOT NULL,
 	amount			INT					NOT NULL,
 	category		NVARCHAR(50)		NOT NULL,
-	isEnable		BIT					NOT NULL 
+	status			BIT					NOT NULL 
 )
 
 CREATE TABLE Orders(
@@ -44,8 +44,8 @@ CREATE TABLE Orders(
 	customeraddress			NVARCHAR(50)		DEFAULT N'Quận 9',
 	customerphonenumber		NVARCHAR(10)		DEFAULT N'None',
 	shippingfee				MONEY				DEFAULT 0,
-	createddate				datetime			DEFAULT GETDATE(),
-	shippingdate			datetime			NULL		
+	createddate				date				DEFAULT GETDATE(),
+	shippingdate			date				DEFAULT GETDATE()		
 )
 
 
@@ -56,7 +56,7 @@ CREATE TABLE OrderDetail(
 	totalprice		MONEY			NOT NULL,
 )
 
-INSERT INTO Users(username, password, fullname, phonenumber, address, email, role, isEnable)
+INSERT INTO Users(username, password, fullname, phonenumber, address, email, role, status)
  VALUES
  (N'vinhnd', '123',N'Nguyễn Đức Vinh', '0784691235', N'Quận 9', N'vinhnd@fpt.edu.vn', 'Admin', 1),
  (N'vanntt', '123',N'Nguyễn Thị Thanh Vân', '0784691235', N'Quận 9', N'vanntt@fpt.edu.vn', 'Admin', 1),
@@ -68,7 +68,7 @@ INSERT INTO Users(username, password, fullname, phonenumber, address, email, rol
  -- DELETE FROM dbo.Users
  --select * from dbo.Cake
 
- INSERT INTO Cake(cakename, amount, price, category, isEnable)
+ INSERT INTO Cake(cakename, amount, price, category, status)
  VALUES
  (N'Tiramisu', 5, 100000, N'Desert', 1),
  (N'Gato', 5, 150000, N'Desert',1),

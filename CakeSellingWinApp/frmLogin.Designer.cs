@@ -35,7 +35,7 @@ namespace MyStoreWinApp
             this.lbPassword = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
             this.txtEmail = new System.Windows.Forms.TextBox();
-            this.lbEmail = new System.Windows.Forms.Label();
+            this.lbUsername = new System.Windows.Forms.Label();
             this.btnExit = new System.Windows.Forms.Button();
             this.btnLogin = new System.Windows.Forms.Button();
             this.gbLogin.SuspendLayout();
@@ -85,7 +85,7 @@ namespace MyStoreWinApp
             // panel1
             // 
             this.panel1.Controls.Add(this.txtEmail);
-            this.panel1.Controls.Add(this.lbEmail);
+            this.panel1.Controls.Add(this.lbUsername);
             this.panel1.Location = new System.Drawing.Point(6, 39);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(414, 56);
@@ -98,15 +98,15 @@ namespace MyStoreWinApp
             this.txtEmail.Size = new System.Drawing.Size(276, 27);
             this.txtEmail.TabIndex = 1;
             // 
-            // lbEmail
+            // lbUsername
             // 
-            this.lbEmail.AutoSize = true;
-            this.lbEmail.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lbEmail.Location = new System.Drawing.Point(11, 17);
-            this.lbEmail.Name = "lbEmail";
-            this.lbEmail.Size = new System.Drawing.Size(46, 20);
-            this.lbEmail.TabIndex = 7;
-            this.lbEmail.Text = "Email";
+            this.lbUsername.AutoSize = true;
+            this.lbUsername.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbUsername.Location = new System.Drawing.Point(11, 17);
+            this.lbUsername.Name = "lbUsername";
+            this.lbUsername.Size = new System.Drawing.Size(75, 20);
+            this.lbUsername.TabIndex = 7;
+            this.lbUsername.Text = "Username";
             // 
             // btnExit
             // 
@@ -154,7 +154,7 @@ namespace MyStoreWinApp
         private System.Windows.Forms.Button btnExit;
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.Panel panel1;
-        private System.Windows.Forms.Label lbEmail;
+        private System.Windows.Forms.Label lbUsername;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TextBox txtPassword;
         private System.Windows.Forms.Label lbPassword;

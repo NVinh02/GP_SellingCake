@@ -56,14 +56,14 @@ namespace DataAccess
             return user;
         }
 
-        public User Login(string email, string password)
+        public User Login(string username, string password)
         {
             User user = null;
             try
             {
                 using var context = new CakeManagementContext();
                 user = context.Users.SingleOrDefault(temp
-                    => temp.Email.Equals(email) && temp.Password.Equals(password));
+                    => temp.Username.Equals(username) && temp.Password.Equals(password));
             }
             catch (Exception ex)
             {
@@ -115,6 +115,123 @@ namespace DataAccess
                 throw new Exception(ex.Message);
             }
         }
-        
+
+        public IEnumerable<User> SearchUserByStatus(string status)
+        {
+            var users = new List<User>();
+            try
+            {
+                users = new List<User>();
+                using var context = new CakeManagementContext();
+                if (status.Equals("All"))
+                {
+                    users = context.Users.ToList();
+                }
+                else
+                {
+                    bool temp = status.Equals("True");
+                    foreach (User user in context.Users.ToList())
+                    {
+                        if (user.Status == temp)
+                        {
+                            users.Add(user);
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return users;
+        }
+
+        public IEnumerable<User> SearchUserByFullName(string fullname)
+        {
+            var users = new List<User>();
+            try
+            {
+                users = new List<User>();
+                if (!String.IsNullOrEmpty(fullname))
+                {
+                    using var context = new CakeManagementContext();
+                    foreach (User user in context.Users.ToList())
+                    {
+                        if (user.Fullname.ToLower().Trim().Contains(fullname.ToLower().Trim()))
+                        {
+                            users.Add(user);
+                        }
+                    }
+                } else
+                {
+                    throw new Exception("full name is empty");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return users;
+        }
+
+        public IEnumerable<User> SearchUserByUserName(string username)
+        {
+            var users = new List<User>();
+            try
+            {
+                users = new List<User>();
+                if (!String.IsNullOrEmpty(username))
+                {
+                    using var context = new CakeManagementContext();
+                    foreach (User user in context.Users.ToList())
+                    {
+                        if (user.Username.ToLower().Trim().Contains(username.ToLower().Trim()))
+                        {
+                            users.Add(user);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("user name is empty");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return users;
+        }
+
+        public IEnumerable<User> SearchUserByFullNameAndUserName(string fullname, string username)
+        {
+            var users = new List<User>();
+            try
+            {
+
+                if (!String.IsNullOrEmpty(fullname) || !String.IsNullOrEmpty(username))
+                {
+                    using var context = new CakeManagementContext();
+                    foreach (User user in context.Users.ToList())
+                    {
+                        if (user.Fullname.ToLower().Trim().Contains(fullname.ToLower().Trim()) 
+                            && user.Username.ToLower().Trim().Contains(username.ToLower().Trim()))
+                        {
+                            users.Add(user);
+                        }
+                    }
+                }
+                else
+                {
+                    throw new Exception("full name or username are empty");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return users;
+        }
+
     }
 }

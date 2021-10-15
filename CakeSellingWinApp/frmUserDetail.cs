@@ -62,7 +62,7 @@ namespace MyStoreWinApp
         private void LoadUserDetail_IsEnable()
         { 
             //user is enable
-            if (user.IsEnable)
+            if (user.Status)
             {
                 rbYes.Checked = true;
                 rbNo.Checked = false;
@@ -79,11 +79,9 @@ namespace MyStoreWinApp
         {
             if (loginUser.Role.Equals("Admin"))
             {
-                pnActive.Enabled = true;
                 pnRole.Enabled = true;
             } else
             {
-                pnActive.Enabled = false;
                 pnRole.Enabled = false;
             }
         }
@@ -112,7 +110,7 @@ namespace MyStoreWinApp
                     Phonenumber =txtPhoneNumber.Text,
                     Address = txtAddress.Text,
                     Role = RoleUser,
-                    IsEnable = activeChecked,
+                    Status = activeChecked,
                 };
                 //Add a new member
                 if (CreateOrUpdate)
