@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data Layer", "Data Layer", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation Layer", "Presentation Layer", "{EF8EC00A-66A6-494C-9511-B8AC885CB072}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{E7083AD0-FDF5-46F0-A907-374BA44847EF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObject", "BusinessObject\BusinessObject.csproj", "{E7083AD0-FDF5-46F0-A907-374BA44847EF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{BFE707FD-21A6-4E46-8C01-94A7AF2BD6E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{BFE707FD-21A6-4E46-8C01-94A7AF2BD6E7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CakeSellingWinApp", "CakeSellingWinApp\CakeSellingWinApp.csproj", "{B9293668-A3E1-4DEC-8FE5-EB05A57BD161}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CakeSellingWinApp", "CakeSellingWinApp\CakeSellingWinApp.csproj", "{B9293668-A3E1-4DEC-8FE5-EB05A57BD161}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
