@@ -61,7 +61,7 @@ namespace MyStoreWinApp
             this.bntLoad.Name = "bntLoad";
             this.bntLoad.Size = new System.Drawing.Size(104, 29);
             this.bntLoad.TabIndex = 15;
-            this.bntLoad.Text = "Load";
+            this.bntLoad.Text = "Reload";
             this.bntLoad.UseVisualStyleBackColor = true;
             this.bntLoad.Click += new System.EventHandler(this.bntLoad_Click);
             // 
@@ -73,7 +73,7 @@ namespace MyStoreWinApp
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(104, 29);
             this.btnCreate.TabIndex = 16;
-            this.btnCreate.Text = "Create";
+            this.btnCreate.Text = "Add";
             this.btnCreate.UseVisualStyleBackColor = true;
             this.btnCreate.Click += new System.EventHandler(this.btnCreate_Click);
             // 

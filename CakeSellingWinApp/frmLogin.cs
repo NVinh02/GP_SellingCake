@@ -1,10 +1,9 @@
 ﻿using BusinessObject.Object;
 using DataAccess.Errors;
 using DataAccess.Repository;
-using DataAccess.Validation;
+using DataAccess.Repository.Implement;
+using DataAccess.Repository.Interface;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Windows.Forms;
 
 namespace MyStoreWinApp
@@ -15,21 +14,26 @@ namespace MyStoreWinApp
         {
             InitializeComponent();
         }
+
+        #region Initialized Objects
         // Intialize membeRepository for function
         public IUserRepository userRepository = new UserRepository();
-        private ValidationData userValidation = new ValidationData();
-        private ValidationData validation = null;
         private UserErrors userErrors = null;
+        private IUserValidationRepository validation = new UserValidationReposiroty();
+        #endregion
+
+        #region Event
 
         private void btnLogin_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text;
             string password = txtPassword.Text;
-            validation = new ValidationData();
-            userErrors = new UserErrors();
-            userErrors.usernameError = validation.CheckStringType("username", username, true, 1, 50, @"^[A-Za-z0-9]*$");
-            userErrors.passwordError = validation.CheckStringType("password", password, true, 3, 30, @"^[^\s]+$");
-            if (userErrors.usernameError == null && userErrors.passwordError == null)
+            var tempUser = new User
+            {
+                Username = username,
+                Password = password
+            };
+            if (checkValidationUser(tempUser))
             {
                 User user = userRepository.Login(username, password);
                 //active user exists
@@ -44,9 +48,11 @@ namespace MyStoreWinApp
                             loginUser = user
                         };
                         this.Hide();
-                        userManagement.ShowDialog();
-                        LoadfrmLogin();
-                        this.Show();
+                        if (userManagement.ShowDialog() == DialogResult.Cancel)
+                        {
+                            LoadfrmLogin();
+                            this.Show();
+                        }
                     }
                     // user is not Admin
                     else if (Role.Equals("Staff"))
@@ -59,9 +65,11 @@ namespace MyStoreWinApp
                             user = user
                         };
                         this.Hide();
-                        userDetail.ShowDialog();
-                        LoadfrmLogin();
-                        this.Show();
+                        if (userDetail.ShowDialog() == DialogResult.Cancel)
+                        {
+                            LoadfrmLogin();
+                            this.Show();
+                        }
                     }
                 }
             }
@@ -70,6 +78,18 @@ namespace MyStoreWinApp
                 MessageBox.Show($"{userErrors.usernameError}\n{userErrors.passwordError}", "Login", 
                     MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        private bool checkValidationUser(User user)
+        {
+            bool result = false;
+            userErrors = null;
+            userErrors = new UserErrors();
+            validation = null;
+            validation = new UserValidationReposiroty();
+            userErrors.usernameError = validation.checkUserName(user.Username);
+            userErrors.passwordError = validation.checkUserPassword(user.Password);
+            return result = userErrors.usernameError == null && userErrors.passwordError == null;
         }
 
         public bool checkLoginIn(User user)
@@ -96,6 +116,16 @@ namespace MyStoreWinApp
         {
             txtUsername.Text = String.Empty;
             txtPassword.Text = String.Empty;
+        }
+
+        #endregion
+
+        private void btnLogin_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnLogin_Click(sender, e);
+            }
         }
     }
 }

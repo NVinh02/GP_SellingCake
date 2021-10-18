@@ -72,6 +72,14 @@ namespace DataAccess
             return user;
         }
 
+        public User DuplicatedUsername (string username)
+        {
+            User user = null;
+            using var context = new CakeManagementContext();
+            user = context.Users.SingleOrDefault(temp => temp.Username.Equals(username));
+            return user;
+        }
+
         public void AddUser(User user)
         {
             try

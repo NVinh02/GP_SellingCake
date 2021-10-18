@@ -72,7 +72,7 @@ namespace BusinessObject.Object
                 entity.Property(e => e.Customeraddress)
                     .HasMaxLength(50)
                     .HasColumnName("customeraddress")
-                    .HasDefaultValueSql("(N'Quận 9')");
+                    .HasDefaultValueSql("(N'Quan 9')");
 
                 entity.Property(e => e.Customername)
                     .IsRequired()
@@ -103,7 +103,7 @@ namespace BusinessObject.Object
                 entity.HasOne(d => d.Staff)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.Staffid)
-                    .HasConstraintName("FK__Orders__staffid__74AE54BC");
+                    .HasConstraintName("FK__Orders__staffid__07C12930");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
@@ -125,17 +125,17 @@ namespace BusinessObject.Object
                 entity.HasOne(d => d.Cake)
                     .WithMany()
                     .HasForeignKey(d => d.Cakeid)
-                    .HasConstraintName("FK__OrderDeta__cakei__7C4F7684");
+                    .HasConstraintName("FK__OrderDeta__cakei__0F624AF8");
 
                 entity.HasOne(d => d.Order)
                     .WithMany()
                     .HasForeignKey(d => d.Orderid)
-                    .HasConstraintName("FK__OrderDeta__order__7B5B524B");
+                    .HasConstraintName("FK__OrderDeta__order__0E6E26BF");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Users__AB6E61644D5858AF")
+                entity.HasIndex(e => e.Username, "UQ__Users__F3DBC5723555748A")
                     .IsUnique();
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
@@ -145,6 +145,7 @@ namespace BusinessObject.Object
                     .HasColumnName("address");
 
                 entity.Property(e => e.Email)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("email");
 
@@ -170,7 +171,6 @@ namespace BusinessObject.Object
                 entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Username)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("username");
             });

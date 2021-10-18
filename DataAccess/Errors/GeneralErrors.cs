@@ -15,5 +15,8 @@ namespace DataAccess.Errors
         public string NUMBERFORMATEXCEPTION = " is not number";
         public string ERROR_NEGATIVE_NUMBER = " is negative number";
         public string ERROR_OVER_NUMBER = " is over than required number";
+        public string ERROR_WHITESPACE = "is redundant whitespace";
+        public string DUPLICATED_NAME = " exists!";
+        public string ERROR_DATEFORMAT = " is not date";
     }
 }

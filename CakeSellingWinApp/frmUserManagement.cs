@@ -10,15 +10,19 @@ namespace MyStoreWinApp
 {
     public partial class frmUserManagement : Form
     {
+        #region Initialized Objects
         public User loginUser { get; set; }
         BindingSource roleSource;
         IUserRepository userRepository = new UserRepository();
         DataGridViewCellEventArgs EventOfdvgUserList = null;
+        #endregion
         public frmUserManagement()
         {
             InitializeComponent();
+            LoadUserList();
         }
 
+        #region Event
         // Update member
         private void dvgUserList_CellDoubleClick_1(object sender, DataGridViewCellEventArgs e)
         {
@@ -69,7 +73,6 @@ namespace MyStoreWinApp
         //Load user
         private void frmUserManagement_Load(object sender, EventArgs e)
         {
-            btnActive.Enabled = false;
             dvgUserList.CellDoubleClick += dvgUserList_CellDoubleClick_1;
         }
         //Load User
@@ -101,7 +104,6 @@ namespace MyStoreWinApp
                     users = userRepository.GetUsers().OrderBy(temp => temp.Role);
                     //get Role list
                     var RoleList = new List<String>();
-                    RoleList.Add("All");
                     RoleList.Add("True");
                     RoleList.Add("False");
                     if (users.Count() > 0)
@@ -113,10 +115,13 @@ namespace MyStoreWinApp
                     }
                     foreach (var user in users)
                     {
-                        string status = user.Status.ToString();
-                        table.Rows.Add(user.Userid, user.Username, user.Fullname
-                            , user.Email, user.Phonenumber, user.Password,
-                            user.Address, user.Role, user.Status);
+                        if (user.Status)
+                        {
+                            string status = user.Status.ToString();
+                            table.Rows.Add(user.Userid, user.Username, user.Fullname
+                                , user.Email, user.Phonenumber, user.Password,
+                                user.Address, user.Role, status);
+                        }
                     }
                 }
                 dvgUserList.DataSource = null;
@@ -146,7 +151,6 @@ namespace MyStoreWinApp
             return table;
         }
 
-
         //Get User
         private User GetUser(DataGridViewCellEventArgs e = null)
         {
@@ -171,8 +175,8 @@ namespace MyStoreWinApp
                         Username = selectRow.Cells[1].Value.ToString(),
                         Fullname = selectRow.Cells[2].Value.ToString(),
                         Email = selectRow.Cells[3].Value.ToString(),
-                        Password = selectRow.Cells[4].Value.ToString(),
-                        Phonenumber = selectRow.Cells[5].Value.ToString(),
+                        Phonenumber = selectRow.Cells[4].Value.ToString(),
+                        Password = selectRow.Cells[5].Value.ToString(),
                         Address = selectRow.Cells[6].Value.ToString(),
                         Role = selectRow.Cells[7].Value.ToString(),
                         Status = activeChecker
@@ -269,23 +273,13 @@ namespace MyStoreWinApp
                     string status = cbStatus.SelectedItem.ToString();
                     if (!string.IsNullOrEmpty(status))
                     {
-                        if (status.Equals("All"))
-                        {
-                            LoadUserList();
-                        }
+                        IEnumerable<User> searchDataSource = userRepository.SearchUserByStatus(status);
+                        // status exists
+                        if (searchDataSource.Any())
+                            LoadUserList(true, searchDataSource);
+                        // status does not exist
                         else
-                        {
-                            IEnumerable<User> searchDataSource = userRepository.SearchUserByStatus(status);
-                            // status exists
-                            if (searchDataSource.Any())
-                            {
-                                LoadUserList(true, searchDataSource);
-                            }// status does not exist
-                            else
-                            {
-                                MessageBox.Show("No result matches with status", "Search status", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                        }
+                            MessageBox.Show("No result matches with status", "Search status", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
             }
@@ -328,5 +322,6 @@ namespace MyStoreWinApp
                 }
             }
         }
+        #endregion
     }
 }

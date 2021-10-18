@@ -2,6 +2,8 @@
 using BusinessObject.Object;
 using DataAccess.Errors;
 using DataAccess.Repository;
+using DataAccess.Repository.Implement;
+using DataAccess.Repository.Interface;
 using DataAccess.Validation;
 using System;
 using System.Collections.Generic;
@@ -23,13 +25,17 @@ namespace MyStoreWinApp
             InitializeComponent();
         }
 
-        // Initialize
+        #region Initialize Object
         public IUserRepository UserRepo { get; set; }
         public bool CreateOrUpdate { get; set; } //Insert: True; Update: False
         public User user { get; set; }
 
         public User loginUser { get; set; }
-        private ValidationData validation = null;
+        private UserErrors userErrors = null;
+        private IUserValidationRepository validation = new UserValidationReposiroty();
+        #endregion
+
+        #region Event
         private void frmUserDetail_Load(object sender, EventArgs e)
         {
             LoadUserDetail();
@@ -111,8 +117,7 @@ namespace MyStoreWinApp
                 {
                     RoleUser = "Staff";
                 }
-                validation = new ValidationData();
-
+                checkRedudantString();
                 var TempUser = new User
                 {
                     Username = txtUserName.Text,
@@ -124,8 +129,12 @@ namespace MyStoreWinApp
                     Role = RoleUser,
                     Status = activeChecked,
                 };
-                IList<ValidationResult> errors = validation.checkValidUser(user);
-                if (errors == null)
+                bool checkDuplicateUserName = true;
+                if (loginUser.Username.Equals(TempUser.Username))
+                {
+                    checkDuplicateUserName = false;
+                }
+                if ((userErrors = checkUserInformationT(TempUser, checkDuplicateUserName)) == null)
                 {
                     //Add a new member
                     if (CreateOrUpdate)
@@ -141,12 +150,7 @@ namespace MyStoreWinApp
                     }
                 } else
                 {
-                    string message = "";
-                    foreach (ValidationResult result in errors)
-                    {
-                        message = message + result.ErrorMessage + "\n";
-                    }
-                    MessageBox.Show(message.Trim(), CreateOrUpdate == true ? "Add a new member" : "Update a member", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show(userErrors.Display(), CreateOrUpdate == true ? "Add a new member" : "Update a member", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     LoadUserDetail();
                 }
             }catch(Exception ex)
@@ -155,6 +159,31 @@ namespace MyStoreWinApp
             }
         }
 
+        private UserErrors checkUserInformationT(User user, bool checkDuplicateUserName)
+        {
+            validation = null;
+            validation = new UserValidationReposiroty();
+            return validation.checkUser(user, checkDuplicateUserName);
+        }
+
+        private void checkRedudantString()
+        {
+            validation = null; 
+            validation = new UserValidationReposiroty();
+            txtUserName.Text = validation.checkRedundantWhiteSpace(txtUserName.Text);
+            txtFullName.Text = validation.checkRedundantWhiteSpace(txtFullName.Text);
+            txtAddress.Text = validation.checkRedundantWhiteSpace(txtAddress.Text);
+        }
+
         private void btnCancel_Click(object sender, EventArgs e) => Close();
+        #endregion
+
+        private void btnSave_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                btnSave_Click(sender, e);
+            }
+        }
     }
 }
