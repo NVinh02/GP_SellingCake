@@ -123,16 +123,21 @@ namespace CakeSellingWinApp
 
         private void btnChangeStatus_Click(object sender, EventArgs e)
         {
-            bool status = cboStatusFilter.Text == "Active" ? true : false;
-            if (status)
+            DialogResult result = MessageBox.Show($"Do you want to {btnChangeStatus.Text.ToLower()} this cake?", $"{btnChangeStatus.Text} a cake", MessageBoxButtons.OKCancel);
+            if (result == DialogResult.OK)
             {
-                cakeRepository.InactivateCake(SelectedCakeID);
-            } else
-            {
-                cakeRepository.ActivateCake(SelectedCakeID);
+                bool status = cboStatusFilter.Text == "Active" ? true : false;
+                if (status)
+                {
+                    cakeRepository.InactivateCake(SelectedCakeID);
+                }
+                else
+                {
+                    cakeRepository.ActivateCake(SelectedCakeID);
+                }
+                list = cakeRepository.GetCakeList(status);
+                LoadCakeList();
             }
-            list = cakeRepository.GetCakeList(status);
-            LoadCakeList();
         }
 
         private void dgvCakeList_CellClick(object sender, DataGridViewCellEventArgs e)

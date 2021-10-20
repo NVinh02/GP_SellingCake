@@ -27,6 +27,7 @@ namespace BusinessObject.DBContext
         {
             if (!optionsBuilder.IsConfigured)
             {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=(local);uid=sa;pwd=admin;database=CakeManagement");
             }
         }
@@ -39,12 +40,14 @@ namespace BusinessObject.DBContext
             {
                 entity.ToTable("Cake");
 
+                entity.HasIndex(e => e.Cakename, "UQ__Cake__3C7A13CA4C5FB5A6")
+                    .IsUnique();
+
                 entity.Property(e => e.Cakeid).HasColumnName("cakeid");
 
                 entity.Property(e => e.Amount).HasColumnName("amount");
 
                 entity.Property(e => e.Cakename)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("cakename");
 
@@ -72,7 +75,7 @@ namespace BusinessObject.DBContext
                 entity.Property(e => e.Customeraddress)
                     .HasMaxLength(50)
                     .HasColumnName("customeraddress")
-                    .HasDefaultValueSql("(N'Quận 9')");
+                    .HasDefaultValueSql("(N'Quan 9')");
 
                 entity.Property(e => e.Customername)
                     .IsRequired()
@@ -103,39 +106,42 @@ namespace BusinessObject.DBContext
                 entity.HasOne(d => d.Staff)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.Staffid)
-                    .HasConstraintName("FK__Orders__staffid__6B24EA82");
+                    .HasConstraintName("FK__Orders__staffid__08B54D69");
             });
 
             modelBuilder.Entity<OrderDetail>(entity =>
             {
-                entity.HasNoKey();
+                entity.HasKey(e => new { e.Orderid, e.Cakeid })
+                    .HasName("PK__OrderDet__2505F1336D9ECCB9");
 
                 entity.ToTable("OrderDetail");
 
-                entity.Property(e => e.Amount).HasColumnName("amount");
+                entity.Property(e => e.Orderid).HasColumnName("orderid");
 
                 entity.Property(e => e.Cakeid).HasColumnName("cakeid");
 
-                entity.Property(e => e.Orderid).HasColumnName("orderid");
+                entity.Property(e => e.Amount).HasColumnName("amount");
 
                 entity.Property(e => e.Totalprice)
                     .HasColumnType("money")
                     .HasColumnName("totalprice");
 
                 entity.HasOne(d => d.Cake)
-                    .WithMany()
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.Cakeid)
-                    .HasConstraintName("FK__OrderDeta__cakei__72C60C4A");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__OrderDeta__cakei__114A936A");
 
                 entity.HasOne(d => d.Order)
-                    .WithMany()
+                    .WithMany(p => p.OrderDetails)
                     .HasForeignKey(d => d.Orderid)
-                    .HasConstraintName("FK__OrderDeta__order__71D1E811");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK__OrderDeta__order__10566F31");
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasIndex(e => e.Email, "UQ__Users__AB6E616484C92808")
+                entity.HasIndex(e => e.Username, "UQ__Users__F3DBC572DF0101AB")
                     .IsUnique();
 
                 entity.Property(e => e.Userid).HasColumnName("userid");
@@ -145,6 +151,7 @@ namespace BusinessObject.DBContext
                     .HasColumnName("address");
 
                 entity.Property(e => e.Email)
+                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("email");
 
@@ -170,7 +177,6 @@ namespace BusinessObject.DBContext
                 entity.Property(e => e.Status).HasColumnName("status");
 
                 entity.Property(e => e.Username)
-                    .IsRequired()
                     .HasMaxLength(50)
                     .HasColumnName("username");
             });

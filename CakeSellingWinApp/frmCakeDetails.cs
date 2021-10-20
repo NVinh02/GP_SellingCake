@@ -151,7 +151,7 @@ namespace CakeSellingWinApp
                     this.DialogResult = DialogResult.OK;
                 } catch (Exception ex)
                 {
-                    lbCakeName.Text = ex.Message;
+                    lbNameError.Text = ex.Message;
                 }
             }
         }

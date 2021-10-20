@@ -7,6 +7,11 @@ namespace BusinessObject.Object
 {
     public partial class Order
     {
+        public Order()
+        {
+            OrderDetails = new HashSet<OrderDetail>();
+        }
+
         public int Orderid { get; set; }
         public int? Staffid { get; set; }
         public decimal Totalprice { get; set; }
@@ -18,5 +23,6 @@ namespace BusinessObject.Object
         public DateTime? Shippingdate { get; set; }
 
         public virtual User Staff { get; set; }
+        public virtual ICollection<OrderDetail> OrderDetails { get; set; }
     }
 }

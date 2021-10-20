@@ -39,7 +39,6 @@ namespace CakeSellingWinApp
             this.btnChangeStatus = new System.Windows.Forms.Button();
             this.ListFilterBox = new System.Windows.Forms.GroupBox();
             this.cboStatusFilter = new System.Windows.Forms.ComboBox();
-            this.lbStatusFilter = new System.Windows.Forms.Label();
             this.SearchBox = new System.Windows.Forms.GroupBox();
             this.lbSearchError = new System.Windows.Forms.Label();
             this.lbSearchName = new System.Windows.Forms.Label();
@@ -128,7 +127,6 @@ namespace CakeSellingWinApp
             this.ActionBox.Size = new System.Drawing.Size(117, 112);
             this.ActionBox.TabIndex = 12;
             this.ActionBox.TabStop = false;
-            this.ActionBox.Text = "Action";
             // 
             // btnChangeStatus
             // 
@@ -144,7 +142,6 @@ namespace CakeSellingWinApp
             // ListFilterBox
             // 
             this.ListFilterBox.Controls.Add(this.cboStatusFilter);
-            this.ListFilterBox.Controls.Add(this.lbStatusFilter);
             this.ListFilterBox.Location = new System.Drawing.Point(372, 24);
             this.ListFilterBox.Name = "ListFilterBox";
             this.ListFilterBox.Size = new System.Drawing.Size(176, 112);
@@ -163,15 +160,6 @@ namespace CakeSellingWinApp
             this.cboStatusFilter.Size = new System.Drawing.Size(121, 23);
             this.cboStatusFilter.TabIndex = 7;
             this.cboStatusFilter.SelectedIndexChanged += new System.EventHandler(this.cboStatusFilter_SelectedIndexChanged);
-            // 
-            // lbStatusFilter
-            // 
-            this.lbStatusFilter.AutoSize = true;
-            this.lbStatusFilter.Location = new System.Drawing.Point(65, 29);
-            this.lbStatusFilter.Name = "lbStatusFilter";
-            this.lbStatusFilter.Size = new System.Drawing.Size(39, 15);
-            this.lbStatusFilter.TabIndex = 8;
-            this.lbStatusFilter.Text = "Status";
             // 
             // SearchBox
             // 
@@ -258,7 +246,6 @@ namespace CakeSellingWinApp
             this.panelAction.PerformLayout();
             this.ActionBox.ResumeLayout(false);
             this.ListFilterBox.ResumeLayout(false);
-            this.ListFilterBox.PerformLayout();
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
             this.ResumeLayout(false);
@@ -275,7 +262,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.TextBox txtSearchID;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnChangeStatus;
-        private System.Windows.Forms.Label lbStatusFilter;
         private System.Windows.Forms.ComboBox cboStatusFilter;
         private System.Windows.Forms.GroupBox ActionBox;
         private System.Windows.Forms.GroupBox ListFilterBox;
