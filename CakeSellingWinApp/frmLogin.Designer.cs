@@ -36,13 +36,13 @@ namespace CakeSellingWinApp
             this.panelLogin = new System.Windows.Forms.Panel();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panelPassword = new System.Windows.Forms.Panel();
+            this.lbPassword = new System.Windows.Forms.Label();
             this.txtPassword = new System.Windows.Forms.TextBox();
             this.panelUsername = new System.Windows.Forms.Panel();
+            this.lbUsername = new System.Windows.Forms.Label();
             this.txtUsername = new System.Windows.Forms.TextBox();
             this.lbLoginTitle = new System.Windows.Forms.Label();
             this.btnCloseApp = new System.Windows.Forms.Button();
-            this.lbUsername = new System.Windows.Forms.Label();
-            this.lbPassword = new System.Windows.Forms.Label();
             this.panelWelcome.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
             this.panelLogin.SuspendLayout();
@@ -127,7 +127,7 @@ namespace CakeSellingWinApp
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
-            this.btnLogin.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.btnLogin_KeyPress);
+            this.btnLogin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.btnLogin_KeyDown);
             // 
             // panelPassword
             // 
@@ -138,6 +138,17 @@ namespace CakeSellingWinApp
             this.panelPassword.Name = "panelPassword";
             this.panelPassword.Size = new System.Drawing.Size(490, 45);
             this.panelPassword.TabIndex = 5;
+            // 
+            // lbPassword
+            // 
+            this.lbPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbPassword.AutoSize = true;
+            this.lbPassword.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbPassword.Location = new System.Drawing.Point(6, 9);
+            this.lbPassword.Name = "lbPassword";
+            this.lbPassword.Size = new System.Drawing.Size(97, 25);
+            this.lbPassword.TabIndex = 3;
+            this.lbPassword.Text = "Password";
             // 
             // txtPassword
             // 
@@ -159,6 +170,17 @@ namespace CakeSellingWinApp
             this.panelUsername.Name = "panelUsername";
             this.panelUsername.Size = new System.Drawing.Size(490, 45);
             this.panelUsername.TabIndex = 4;
+            // 
+            // lbUsername
+            // 
+            this.lbUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.lbUsername.AutoSize = true;
+            this.lbUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.lbUsername.Location = new System.Drawing.Point(3, 9);
+            this.lbUsername.Name = "lbUsername";
+            this.lbUsername.Size = new System.Drawing.Size(101, 25);
+            this.lbUsername.TabIndex = 2;
+            this.lbUsername.Text = "Username";
             // 
             // txtUsername
             // 
@@ -198,28 +220,6 @@ namespace CakeSellingWinApp
             this.btnCloseApp.Text = "X";
             this.btnCloseApp.UseVisualStyleBackColor = true;
             this.btnCloseApp.Click += new System.EventHandler(this.btnCloseApp_Click);
-            // 
-            // lbUsername
-            // 
-            this.lbUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbUsername.AutoSize = true;
-            this.lbUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbUsername.Location = new System.Drawing.Point(3, 9);
-            this.lbUsername.Name = "lbUsername";
-            this.lbUsername.Size = new System.Drawing.Size(101, 25);
-            this.lbUsername.TabIndex = 2;
-            this.lbUsername.Text = "Username";
-            // 
-            // lbPassword
-            // 
-            this.lbPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.lbPassword.AutoSize = true;
-            this.lbPassword.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbPassword.Location = new System.Drawing.Point(6, 9);
-            this.lbPassword.Name = "lbPassword";
-            this.lbPassword.Size = new System.Drawing.Size(97, 25);
-            this.lbPassword.TabIndex = 3;
-            this.lbPassword.Text = "Password";
             // 
             // frmLogin
             // 

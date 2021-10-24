@@ -14,7 +14,9 @@ namespace CakeSellingWinApp
 {
     public partial class frmManagement : Form
     {
-        ICakeRepository cakeRepository = new CakeRepository();
+        private ICakeRepository cakeRepository = new CakeRepository();
+        public IUserRepository userRepository { get; set; }
+        public User userInfo { get; set; }
 
         public frmManagement()
         {
@@ -45,6 +47,15 @@ namespace CakeSellingWinApp
             openChildForm(new frmCakeList()
             {
                 cakeRepository = cakeRepository
+            });
+        }
+
+        private void btnSatffList_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmUserManagement
+            {
+                loginUser = userInfo,
+                userRepository = userRepository
             });
         }
     }

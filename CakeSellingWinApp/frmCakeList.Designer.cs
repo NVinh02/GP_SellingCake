@@ -58,10 +58,10 @@ namespace CakeSellingWinApp
             // 
             this.dgvCakeList.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvCakeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCakeList.Location = new System.Drawing.Point(40, 8);
+            this.dgvCakeList.Location = new System.Drawing.Point(12, 8);
             this.dgvCakeList.Name = "dgvCakeList";
             this.dgvCakeList.RowTemplate.Height = 25;
-            this.dgvCakeList.Size = new System.Drawing.Size(694, 320);
+            this.dgvCakeList.Size = new System.Drawing.Size(750, 320);
             this.dgvCakeList.TabIndex = 0;
             this.dgvCakeList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCakeList_CellClick);
             // 

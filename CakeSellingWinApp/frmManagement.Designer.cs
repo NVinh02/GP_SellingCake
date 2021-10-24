@@ -115,6 +115,7 @@ namespace CakeSellingWinApp
             this.btnSatffList.TabIndex = 2;
             this.btnSatffList.Text = "Staff List";
             this.btnSatffList.UseVisualStyleBackColor = false;
+            this.btnSatffList.Click += new System.EventHandler(this.btnSatffList_Click);
             // 
             // btnCakeList
             // 
