@@ -25,7 +25,7 @@ namespace CakeSellingWinApp
         // Intialize membeRepository for function
         public IUserRepository userRepository = new UserRepository();
         private UserErrors userErrors = null;
-        private IUserValidationRepository validation = new UserValidationReposiroty();
+        private IUserValidationRepository validation = new UserValidationRepository();
         #endregion
 
         #region Event
@@ -46,38 +46,15 @@ namespace CakeSellingWinApp
                 //active user exists
                 if (checkLoginIn(user))
                 {
-                    string Role = user.Role;
-                    // user is Admin
-                    if (Role.Equals("Admin"))
+                    frmManagement management = new frmManagement
                     {
-                        frmManagement management = new frmManagement
-                        {
-                            userInfo = user,
-                            userRepository = userRepository
-                        };
-                        this.Hide();
-                        if (management.ShowDialog() == DialogResult.Cancel)
-                        {
-                            LoadfrmLogin();
-                            this.Show();
-                        }
-                    }
-                    // user is not Admin
-                    else if (Role.Equals("Staff"))
+                        userInfo = user
+                    };
+                    this.Hide();
+                    if (management.ShowDialog() == DialogResult.Cancel)
                     {
-                        frmUserDetail userDetail = new frmUserDetail
-                        {
-                            loginUser = user,
-                            UserRepo = userRepository,
-                            CreateOrUpdate = false,
-                            user = user
-                        };
-                        this.Hide();
-                        if (userDetail.ShowDialog() == DialogResult.Cancel)
-                        {
-                            LoadfrmLogin();
-                            this.Show();
-                        }
+                        LoadfrmLogin();
+                        this.Show();
                     }
                 }
             }
@@ -94,7 +71,7 @@ namespace CakeSellingWinApp
             userErrors = null;
             userErrors = new UserErrors();
             validation = null;
-            validation = new UserValidationReposiroty();
+            validation = new UserValidationRepository();
             userErrors.usernameError = validation.checkUserName(user.Username);
             userErrors.passwordError = validation.checkUserPassword(user.Password);
             return result = userErrors.usernameError == null && userErrors.passwordError == null;
@@ -105,16 +82,16 @@ namespace CakeSellingWinApp
             bool result = false;
             if (user != null && user.Status == true)
             {
-                MessageBox.Show("Login Successfully", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lbLoginStatus.Text = "Login Success";
                 result = true;
             }
             else if (user == null)
             {
-                MessageBox.Show("User does not exist!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lbLoginStatus.Text = "Wrong username or password";
             }
             else if (user.Status == false)
             {
-                MessageBox.Show("Your Account is banned!", "Login", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lbLoginStatus.Text = "Your account have been banned!";
             }
             return result;
         }
@@ -123,6 +100,7 @@ namespace CakeSellingWinApp
         {
             txtUsername.Text = String.Empty;
             txtPassword.Text = String.Empty;
+            lbLoginStatus.Text = String.Empty;
         }
         #endregion
 

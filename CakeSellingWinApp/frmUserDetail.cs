@@ -26,19 +26,42 @@ namespace CakeSellingWinApp
         #region Initialize Object
         public IUserRepository UserRepo { get; set; }
         public bool CreateOrUpdate { get; set; } //Insert: True; Update: False
+        public bool isProfile { get; set; }
         public User user { get; set; }
 
         public User loginUser { get; set; }
         private UserErrors userErrors = null;
-        private IUserValidationRepository validation = new UserValidationReposiroty();
+        private IUserValidationRepository validation = new UserValidationRepository();
         #endregion
 
         #region Event
+        private void SizeOfUserDetailForm()
+        {
+            //Insert
+            if (CreateOrUpdate)
+            {
+                //Insert: true; Update: false
+                lbTitle.Text = "Create";
+                pnExtraInfo.Visible = false;
+                gbUserInfo.Size = new Size { Width = 749, Height = 240 };
+            } else
+            {
+                if (isProfile)
+                {
+                    pnExtraInfo.Visible = false;
+                    lbTitle.Text = "Profile";
+                    gbUserInfo.Size = new Size { Width = 749, Height = 240 };
+                } else
+                {
+                    lbTitle.Text = "Update";
+                }
+            }
+        }
         private void frmUserDetail_Load(object sender, EventArgs e)
         {
+            SizeOfUserDetailForm();
             LoadUserDetail();
         }
-
         private void LoadUserDetail()
         {
             // Update
@@ -50,71 +73,17 @@ namespace CakeSellingWinApp
                 txtPassword.Text = user.Password.Trim().ToString();
                 txtPhoneNumber.Text = user.Phonenumber.Trim().ToString();
                 txtAddress.Text = user.Address.Trim().ToString();
-                checkLoginUser();
-                LoadUserDetail_Role();
-                LoadUserDetail_IsEnable();
+                lbRoleInformation.Text = user.Role.Trim().ToString();
+                lbStatusInformation.Text = user.Status == true? "Active" : "Inactive";
             }
         }
-
-        private void LoadUserDetail_Role()
-        {
-            // user is admin
-            if (user.Role.Equals("Admin"))
-            {
-                rbAdmin.Checked = true;
-                rbStaff.Checked = false;
-            }
-            // user is staff
-            else
-            {
-                rbAdmin.Checked = false;
-                rbStaff.Checked = true;
-            }
-        }
-
-        private void LoadUserDetail_IsEnable()
-        { 
-            //user is enable
-            if (user.Status)
-            {
-                rbYes.Checked = true;
-                rbNo.Checked = false;
-            }
-            // user is banned
-            else
-            {
-                rbNo.Checked = true;
-                rbYes.Checked = false;
-            }
-        }
-
-        private void checkLoginUser()
-        {
-            if (loginUser.Role.Equals("Admin"))
-            {
-                pnRole.Enabled = true;
-            } else
-            {
-                pnRole.Enabled = false;
-            }
-        }
-
         private void btnSave_Click(object sender, EventArgs e)
         {
+            String role = String.Empty;
+            bool status = true;
+            checkRoleAndStatus(ref role, ref status);
             try
             {
-                bool activeChecked = true;
-                // if banning the account
-                if (rbNo.Checked)
-                {
-                    activeChecked = false;
-                }
-                string RoleUser = "Admin";
-                // if role is Staff
-                if (rbStaff.Checked)
-                {
-                    RoleUser = "Staff";
-                }
                 checkRedudantString();
                 var TempUser = new User
                 {
@@ -124,15 +93,10 @@ namespace CakeSellingWinApp
                     Password = txtPassword.Text,
                     Phonenumber =txtPhoneNumber.Text,
                     Address = txtAddress.Text,
-                    Role = RoleUser,
-                    Status = activeChecked,
+                    Role = role,
+                    Status = status,
                 };
-                bool checkDuplicateUserName = true;
-                if (loginUser.Username.Equals(TempUser.Username))
-                {
-                    checkDuplicateUserName = false;
-                }
-                if ((userErrors = checkUserInformationT(TempUser, checkDuplicateUserName)) == null)
+                if (checkUserDetail(TempUser))
                 {
                     //Add a new member
                     if (CreateOrUpdate)
@@ -156,32 +120,69 @@ namespace CakeSellingWinApp
                 MessageBox.Show(ex.Message, CreateOrUpdate == true ? "Add a new member" : "Update a member");
             }
         }
+        private void btnCancel_Click(object sender, EventArgs e) => Close();
+        #endregion
 
-        private UserErrors checkUserInformationT(User user, bool checkDuplicateUserName)
+        #region check
+        private bool checkUserDetail(User tempUser)
         {
             validation = null;
-            validation = new UserValidationReposiroty();
-            return validation.checkUser(user, checkDuplicateUserName);
+            validation = new UserValidationRepository();
+            bool checkDuplicateUserName = true;
+            //Insert
+            if (CreateOrUpdate)
+            {
+                if (String.IsNullOrEmpty(tempUser.Username))
+                {
+                    userErrors = new UserErrors();
+                    userErrors.usernameError = "Username is required";
+                    return false;
+                }
+                if ((userErrors = validation.checkUser(tempUser, checkDuplicateUserName)) != null)
+                    return false;
+            }
+            //Update
+            else
+            {
+                string username = user.Username;
+                if (username.Equals(tempUser.Username))
+                    checkDuplicateUserName = false;
+                if ((userErrors = validation.checkUser(user, checkDuplicateUserName)) != null)
+                    return false;
+            }
+            return true;
         }
-
+        public void checkRoleAndStatus(ref string role, ref bool status)
+        {
+            //Insert
+            if (CreateOrUpdate)
+            {
+                role = "Staff";
+                status = true;
+            }
+            else
+            {
+                role = lbRoleInformation.Text;
+                bool Active = lbStatusInformation.Text.Equals("Active") ? true : false;
+                status = Active;
+            }
+        }
         private void checkRedudantString()
         {
-            validation = null; 
-            validation = new UserValidationReposiroty();
+            validation = null;
+            validation = new UserValidationRepository();
             txtUserName.Text = validation.checkRedundantWhiteSpace(txtUserName.Text);
             txtFullName.Text = validation.checkRedundantWhiteSpace(txtFullName.Text);
             txtAddress.Text = validation.checkRedundantWhiteSpace(txtAddress.Text);
         }
-
-        private void btnCancel_Click(object sender, EventArgs e) => Close();
         #endregion
 
+        #region Key Down
         private void btnSave_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
-            {
                 btnSave_Click(sender, e);
-            }
         }
+        #endregion
     }
 }

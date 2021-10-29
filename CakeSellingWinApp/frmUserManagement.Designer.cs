@@ -32,9 +32,8 @@ namespace CakeSellingWinApp
             this.bntLoad = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnActive = new System.Windows.Forms.Button();
-            this.gbInformation = new System.Windows.Forms.GroupBox();
+            this.gbButton = new System.Windows.Forms.GroupBox();
             this.dvgUserList = new System.Windows.Forms.DataGridView();
-            this.txtID = new System.Windows.Forms.TextBox();
             this.gbRoleActive = new System.Windows.Forms.GroupBox();
             this.cbStatus = new System.Windows.Forms.ComboBox();
             this.gbName = new System.Windows.Forms.GroupBox();
@@ -43,12 +42,10 @@ namespace CakeSellingWinApp
             this.txtSearchUserName = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
             this.txtSearchFullName = new System.Windows.Forms.TextBox();
-            this.gbButton = new System.Windows.Forms.GroupBox();
-            this.gbInformation.SuspendLayout();
+            this.gbButton.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dvgUserList)).BeginInit();
             this.gbRoleActive.SuspendLayout();
             this.gbName.SuspendLayout();
-            this.gbButton.SuspendLayout();
             this.SuspendLayout();
             // 
             // bntLoad
@@ -90,48 +87,35 @@ namespace CakeSellingWinApp
             this.btnActive.UseVisualStyleBackColor = true;
             this.btnActive.Click += new System.EventHandler(this.btnActive_Click);
             // 
-            // gbInformation
+            // gbButton
             // 
-            this.gbInformation.Controls.Add(this.gbButton);
-            this.gbInformation.Controls.Add(this.dvgUserList);
-            this.gbInformation.Controls.Add(this.txtID);
-            this.gbInformation.Controls.Add(this.gbRoleActive);
-            this.gbInformation.Controls.Add(this.gbName);
-            this.gbInformation.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gbInformation.Location = new System.Drawing.Point(0, 0);
-            this.gbInformation.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbInformation.Name = "gbInformation";
-            this.gbInformation.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbInformation.Size = new System.Drawing.Size(758, 461);
-            this.gbInformation.TabIndex = 10;
-            this.gbInformation.TabStop = false;
+            this.gbButton.Controls.Add(this.bntLoad);
+            this.gbButton.Controls.Add(this.btnCreate);
+            this.gbButton.Controls.Add(this.btnActive);
+            this.gbButton.Location = new System.Drawing.Point(555, 11);
+            this.gbButton.Name = "gbButton";
+            this.gbButton.Size = new System.Drawing.Size(131, 123);
+            this.gbButton.TabIndex = 21;
+            this.gbButton.TabStop = false;
             // 
             // dvgUserList
             // 
             this.dvgUserList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dvgUserList.Location = new System.Drawing.Point(15, 155);
+            this.dvgUserList.Location = new System.Drawing.Point(12, 161);
             this.dvgUserList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dvgUserList.Name = "dvgUserList";
             this.dvgUserList.RowHeadersWidth = 51;
             this.dvgUserList.RowTemplate.Height = 29;
-            this.dvgUserList.Size = new System.Drawing.Size(731, 295);
+            this.dvgUserList.Size = new System.Drawing.Size(750, 328);
             this.dvgUserList.TabIndex = 18;
             this.dvgUserList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUserList_CellClick_1);
             this.dvgUserList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUserList_CellDoubleClick_1);
-            // 
-            // txtID
-            // 
-            this.txtID.Location = new System.Drawing.Point(83, 265);
-            this.txtID.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.txtID.Name = "txtID";
-            this.txtID.Size = new System.Drawing.Size(98, 23);
-            this.txtID.TabIndex = 20;
             // 
             // gbRoleActive
             // 
             this.gbRoleActive.Controls.Add(this.cbStatus);
             this.gbRoleActive.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.gbRoleActive.Location = new System.Drawing.Point(350, 16);
+            this.gbRoleActive.Location = new System.Drawing.Point(348, 11);
             this.gbRoleActive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbRoleActive.Name = "gbRoleActive";
             this.gbRoleActive.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -143,7 +127,7 @@ namespace CakeSellingWinApp
             // cbStatus
             // 
             this.cbStatus.FormattingEnabled = true;
-            this.cbStatus.Location = new System.Drawing.Point(28, 54);
+            this.cbStatus.Location = new System.Drawing.Point(35, 54);
             this.cbStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.cbStatus.Name = "cbStatus";
             this.cbStatus.Size = new System.Drawing.Size(137, 23);
@@ -159,7 +143,7 @@ namespace CakeSellingWinApp
             this.gbName.Controls.Add(this.btnSearch);
             this.gbName.Controls.Add(this.txtSearchFullName);
             this.gbName.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.gbName.Location = new System.Drawing.Point(82, 16);
+            this.gbName.Location = new System.Drawing.Point(80, 11);
             this.gbName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbName.Name = "gbName";
             this.gbName.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
@@ -219,36 +203,26 @@ namespace CakeSellingWinApp
             this.txtSearchFullName.Size = new System.Drawing.Size(176, 23);
             this.txtSearchFullName.TabIndex = 10;
             // 
-            // gbButton
-            // 
-            this.gbButton.Controls.Add(this.bntLoad);
-            this.gbButton.Controls.Add(this.btnCreate);
-            this.gbButton.Controls.Add(this.btnActive);
-            this.gbButton.Location = new System.Drawing.Point(557, 16);
-            this.gbButton.Name = "gbButton";
-            this.gbButton.Size = new System.Drawing.Size(131, 123);
-            this.gbButton.TabIndex = 21;
-            this.gbButton.TabStop = false;
-            // 
             // frmUserManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(758, 461);
-            this.Controls.Add(this.gbInformation);
+            this.ClientSize = new System.Drawing.Size(774, 500);
+            this.Controls.Add(this.gbButton);
+            this.Controls.Add(this.dvgUserList);
+            this.Controls.Add(this.gbName);
+            this.Controls.Add(this.gbRoleActive);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "frmUserManagement";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "User Management";
             this.Load += new System.EventHandler(this.frmUserManagement_Load);
-            this.gbInformation.ResumeLayout(false);
-            this.gbInformation.PerformLayout();
+            this.gbButton.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dvgUserList)).EndInit();
             this.gbRoleActive.ResumeLayout(false);
             this.gbName.ResumeLayout(false);
             this.gbName.PerformLayout();
-            this.gbButton.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -257,7 +231,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.Button bntLoad;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnActive;
-        private System.Windows.Forms.GroupBox gbInformation;
         private System.Windows.Forms.GroupBox gbName;
         private System.Windows.Forms.TextBox txtSearchFullName;
         private System.Windows.Forms.Button btnSearch;
@@ -266,7 +239,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.Label lbSearchUserName;
         private System.Windows.Forms.Label lbSearchFullName;
         private System.Windows.Forms.TextBox txtSearchUserName;
-        private System.Windows.Forms.TextBox txtID;
         private System.Windows.Forms.DataGridView dvgUserList;
         private System.Windows.Forms.GroupBox gbButton;
     }

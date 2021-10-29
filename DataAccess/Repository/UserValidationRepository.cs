@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess.Repository
 {
-    public class UserValidationReposiroty : IUserValidationRepository
+    public class UserValidationRepository : IUserValidationRepository
     {
         public string checkRedundantWhiteSpace(string obj)
         => UserValidation.Instance.checkRedundantWhiteSpace(obj);

@@ -49,6 +49,7 @@ namespace CakeSellingWinApp
             this.lbNameError = new System.Windows.Forms.Label();
             this.lbPriceError = new System.Windows.Forms.Label();
             this.lbAmountError = new System.Windows.Forms.Label();
+            this.btnUpdateOrder = new System.Windows.Forms.Button();
             this.CakeInfoBox.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -252,11 +253,22 @@ namespace CakeSellingWinApp
             this.lbAmountError.Size = new System.Drawing.Size(0, 15);
             this.lbAmountError.TabIndex = 13;
             // 
+            // btnUpdateOrder
+            // 
+            this.btnUpdateOrder.Location = new System.Drawing.Point(383, 267);
+            this.btnUpdateOrder.Name = "btnUpdateOrder";
+            this.btnUpdateOrder.Size = new System.Drawing.Size(99, 29);
+            this.btnUpdateOrder.TabIndex = 17;
+            this.btnUpdateOrder.Text = "Update Order";
+            this.btnUpdateOrder.UseVisualStyleBackColor = true;
+            this.btnUpdateOrder.Click += new System.EventHandler(this.btnUpdateOrder_Click);
+            // 
             // frmCakeDetails
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(656, 325);
+            this.Controls.Add(this.btnUpdateOrder);
             this.Controls.Add(this.CakeInfoBox);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.btnConfirm);
@@ -294,5 +306,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.Label lbCategoryError;
         private System.Windows.Forms.Label lbNameError;
         private System.Windows.Forms.Label lbPriceError;
+        private System.Windows.Forms.Button btnUpdateOrder;
     }
 }

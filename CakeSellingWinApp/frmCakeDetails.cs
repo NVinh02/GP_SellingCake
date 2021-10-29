@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessObject.Object;
-using BusinessObject.ObjectValidation;
+using DataAccess.Validation;
 using DataAccess.Repository;
 
 namespace CakeSellingWinApp
@@ -19,6 +19,16 @@ namespace CakeSellingWinApp
         public Cake cakeInfo { get; set; }
         public bool InsertOrUpdate { get; set; }
 
+        //-----------------
+        //Update order vars
+        public bool OrderUpdate { get; set; }
+        public OrderDetail updateOrderDetail { get; set; }
+        public IOrderDetailRepository orderDetailRepository { get; set; }
+        public int OrderId { get; set; }
+        public int CurrentOrderAmount {get; set;}
+
+        //
+
         public frmCakeDetails()
         {
             InitializeComponent();
@@ -26,6 +36,8 @@ namespace CakeSellingWinApp
 
         private void frmCakeDetails_Load(object sender, EventArgs e)
         {
+            btnUpdateOrder.Visible = false;
+
             cboCategory.SelectedIndex = 0;
             if (InsertOrUpdate == true)
             {
@@ -46,6 +58,38 @@ namespace CakeSellingWinApp
                 lbStatus.Visible = false;
                 txtStatus.Visible = false;
             }
+
+            if (OrderUpdate)
+            {
+                LoadFormOrderUpdate();
+            };
+
+        }
+
+        private void LoadFormOrderUpdate()
+        {
+            btnUpdateOrder.Visible = true;
+            btnConfirm.Visible = false;
+
+            lbTitle.Text = "Update Order";
+            btnConfirm.Text = "Update Order";
+
+            //txtAmount.Text = updateOrderDetail.Amount.ToString();
+            txtAmount.Text = CurrentOrderAmount.ToString();
+            cboCategory.Text = cakeInfo.Category.Trim();
+            txtCakeName.Text = cakeInfo.Cakename.ToString();
+            txtCakeID.Text = cakeInfo.Cakeid.ToString();
+            txtPrice.Text = cakeInfo.Price.ToString();
+
+
+            txtCakeID.Enabled = false;
+            txtStatus.Enabled = false;
+            txtCakeName.Enabled = false;
+            txtPrice.Enabled = false;
+            cboCategory.Enabled = false;
+
+
+            
         }
 
         private void btnConfirm_Click(object sender, EventArgs e)
@@ -157,5 +201,20 @@ namespace CakeSellingWinApp
         }
 
         private void button2_Click(object sender, EventArgs e) => Close();
+
+        private void btnUpdateOrder_Click(object sender, EventArgs e)
+        {
+            //Just update amount of this orderdetail
+            OrderDetail detail = new OrderDetail
+            {
+                Orderid = updateOrderDetail.Orderid,
+                Cakeid = updateOrderDetail.Cakeid,
+                Cake = updateOrderDetail.Cake,
+                Amount = int.Parse(txtAmount.Text.ToString())
+            };
+            orderDetailRepository.UpdateOrderDetails(detail);
+
+            this.Close();
+        }
     }
 }

@@ -37,7 +37,6 @@ namespace CakeSellingWinApp
             this.lbListStatus = new System.Windows.Forms.Label();
             this.ActionBox = new System.Windows.Forms.GroupBox();
             this.btnChangeStatus = new System.Windows.Forms.Button();
-            this.ListFilterBox = new System.Windows.Forms.GroupBox();
             this.cboStatusFilter = new System.Windows.Forms.ComboBox();
             this.SearchBox = new System.Windows.Forms.GroupBox();
             this.lbSearchError = new System.Windows.Forms.Label();
@@ -46,12 +45,13 @@ namespace CakeSellingWinApp
             this.txtSearchName = new System.Windows.Forms.TextBox();
             this.txtSearchID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
+            this.gbListFilter = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCakeList)).BeginInit();
             this.panelListView.SuspendLayout();
             this.panelAction.SuspendLayout();
             this.ActionBox.SuspendLayout();
-            this.ListFilterBox.SuspendLayout();
             this.SearchBox.SuspendLayout();
+            this.gbListFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvCakeList
@@ -98,9 +98,9 @@ namespace CakeSellingWinApp
             // 
             // panelAction
             // 
+            this.panelAction.Controls.Add(this.gbListFilter);
             this.panelAction.Controls.Add(this.lbListStatus);
             this.panelAction.Controls.Add(this.ActionBox);
-            this.panelAction.Controls.Add(this.ListFilterBox);
             this.panelAction.Controls.Add(this.SearchBox);
             this.panelAction.Dock = System.Windows.Forms.DockStyle.Top;
             this.panelAction.Location = new System.Drawing.Point(0, 0);
@@ -139,23 +139,13 @@ namespace CakeSellingWinApp
             this.btnChangeStatus.UseVisualStyleBackColor = true;
             this.btnChangeStatus.Click += new System.EventHandler(this.btnChangeStatus_Click);
             // 
-            // ListFilterBox
-            // 
-            this.ListFilterBox.Controls.Add(this.cboStatusFilter);
-            this.ListFilterBox.Location = new System.Drawing.Point(372, 24);
-            this.ListFilterBox.Name = "ListFilterBox";
-            this.ListFilterBox.Size = new System.Drawing.Size(176, 112);
-            this.ListFilterBox.TabIndex = 11;
-            this.ListFilterBox.TabStop = false;
-            this.ListFilterBox.Text = "Status";
-            // 
             // cboStatusFilter
             // 
             this.cboStatusFilter.FormattingEnabled = true;
             this.cboStatusFilter.Items.AddRange(new object[] {
             "Active",
             "Inactive"});
-            this.cboStatusFilter.Location = new System.Drawing.Point(27, 53);
+            this.cboStatusFilter.Location = new System.Drawing.Point(33, 49);
             this.cboStatusFilter.Name = "cboStatusFilter";
             this.cboStatusFilter.Size = new System.Drawing.Size(121, 23);
             this.cboStatusFilter.TabIndex = 7;
@@ -228,6 +218,16 @@ namespace CakeSellingWinApp
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
+            // gbListFilter
+            // 
+            this.gbListFilter.Controls.Add(this.cboStatusFilter);
+            this.gbListFilter.Location = new System.Drawing.Point(372, 23);
+            this.gbListFilter.Name = "gbListFilter";
+            this.gbListFilter.Size = new System.Drawing.Size(176, 111);
+            this.gbListFilter.TabIndex = 14;
+            this.gbListFilter.TabStop = false;
+            this.gbListFilter.Text = "Status";
+            // 
             // frmCakeList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -245,9 +245,9 @@ namespace CakeSellingWinApp
             this.panelAction.ResumeLayout(false);
             this.panelAction.PerformLayout();
             this.ActionBox.ResumeLayout(false);
-            this.ListFilterBox.ResumeLayout(false);
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
+            this.gbListFilter.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -264,12 +264,12 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.Button btnChangeStatus;
         private System.Windows.Forms.ComboBox cboStatusFilter;
         private System.Windows.Forms.GroupBox ActionBox;
-        private System.Windows.Forms.GroupBox ListFilterBox;
         private System.Windows.Forms.GroupBox SearchBox;
         private System.Windows.Forms.Label lbSearchName;
         private System.Windows.Forms.Label lbSearchID;
         private System.Windows.Forms.TextBox txtSearchName;
         private System.Windows.Forms.Label lbListStatus;
         private System.Windows.Forms.Label lbSearchError;
+        private System.Windows.Forms.GroupBox gbListFilter;
     }
 }

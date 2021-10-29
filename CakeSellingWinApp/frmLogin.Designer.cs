@@ -34,6 +34,7 @@ namespace CakeSellingWinApp
             this.lbIntroduction = new System.Windows.Forms.Label();
             this.lbWelcomeTitle = new System.Windows.Forms.Label();
             this.panelLogin = new System.Windows.Forms.Panel();
+            this.lbLoginStatus = new System.Windows.Forms.Label();
             this.btnLogin = new System.Windows.Forms.Button();
             this.panelPassword = new System.Windows.Forms.Panel();
             this.lbPassword = new System.Windows.Forms.Label();
@@ -103,6 +104,7 @@ namespace CakeSellingWinApp
             // 
             // panelLogin
             // 
+            this.panelLogin.Controls.Add(this.lbLoginStatus);
             this.panelLogin.Controls.Add(this.btnLogin);
             this.panelLogin.Controls.Add(this.panelPassword);
             this.panelLogin.Controls.Add(this.panelUsername);
@@ -114,13 +116,24 @@ namespace CakeSellingWinApp
             this.panelLogin.Size = new System.Drawing.Size(490, 441);
             this.panelLogin.TabIndex = 1;
             // 
+            // lbLoginStatus
+            // 
+            this.lbLoginStatus.AutoSize = true;
+            this.lbLoginStatus.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbLoginStatus.ForeColor = System.Drawing.Color.Red;
+            this.lbLoginStatus.Location = new System.Drawing.Point(66, 268);
+            this.lbLoginStatus.Name = "lbLoginStatus";
+            this.lbLoginStatus.Size = new System.Drawing.Size(0, 20);
+            this.lbLoginStatus.TabIndex = 7;
+            this.lbLoginStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // btnLogin
             // 
             this.btnLogin.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnLogin.Location = new System.Drawing.Point(51, 275);
+            this.btnLogin.Location = new System.Drawing.Point(26, 304);
             this.btnLogin.Name = "btnLogin";
             this.btnLogin.Size = new System.Drawing.Size(144, 42);
             this.btnLogin.TabIndex = 6;
@@ -261,5 +274,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.TextBox txtUsername;
         private System.Windows.Forms.Label lbPassword;
         private System.Windows.Forms.Label lbUsername;
+        private System.Windows.Forms.Label lbLoginStatus;
     }
 }

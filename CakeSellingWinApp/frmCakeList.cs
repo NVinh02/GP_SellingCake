@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using BusinessObject.Object;
 using DataAccess.Repository;
-using BusinessObject.ObjectValidation;
+using DataAccess.Validation;
 
 namespace CakeSellingWinApp
 {
@@ -18,7 +18,7 @@ namespace CakeSellingWinApp
         private DataTable table = null;
         private IEnumerable<Cake> list = null;
         private int SelectedCakeID;
-        public ICakeRepository cakeRepository { get; set; }
+        private ICakeRepository cakeRepository = new CakeRepository();
 
         public frmCakeList()
         {

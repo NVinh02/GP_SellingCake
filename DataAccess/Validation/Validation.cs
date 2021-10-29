@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Globalization;
 
-namespace BusinessObject.ObjectValidation
+namespace DataAccess.Validation
 //Format for cmt on each function 
 //1st cmt: Specify what ur validation code is used for which class (total of five: Cake, Employee, Order, Order Detail, with Common being a universal function
 //2nd cmt: Briefly explain what the function does, if the name of the function name is alreay self explainatory just type it here

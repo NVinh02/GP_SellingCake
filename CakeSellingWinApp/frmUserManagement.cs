@@ -12,12 +12,14 @@ namespace CakeSellingWinApp
     {
         #region Initialized Objects
         public User loginUser { get; set; }
-        BindingSource roleSource;
-        public IUserRepository userRepository { get; set; }
-        DataGridViewCellEventArgs EventOfdvgUserList = null;
+        private BindingSource roleSource;
+        private IUserRepository userRepository = new UserRepository();
+        private DataGridViewCellEventArgs EventOfdvgUserList = null;
         #endregion
         public frmUserManagement()
         {
+            if (userRepository == null)
+                userRepository = new UserRepository();
             InitializeComponent();
             LoadUserList();
         }
@@ -62,17 +64,14 @@ namespace CakeSellingWinApp
             {
                 var user = GetUser(e);
                 if (user.Status == false)
-                {
                     btnActive.Text = "Active";
-                } else
-                {
+                else
                     btnActive.Text = "InActive";
-                }
             }
         }
         //Load user
         private void frmUserManagement_Load(object sender, EventArgs e)
-        {
+        {                
             dvgUserList.CellDoubleClick += dvgUserList_CellDoubleClick_1;
         }
         //Load User
@@ -202,6 +201,7 @@ namespace CakeSellingWinApp
             frmUserDetail userDetail = new frmUserDetail
             {
                 Text = "Add a new member",
+                loginUser = loginUser,
                 CreateOrUpdate = true, //Insert: true, Update: false
                 UserRepo = userRepository
             };

@@ -14,9 +14,8 @@ namespace CakeSellingWinApp
 {
     public partial class frmManagement : Form
     {
-        private ICakeRepository cakeRepository = new CakeRepository();
-        public IUserRepository userRepository { get; set; }
         public User userInfo { get; set; }
+        private IUserRepository userRepository = new UserRepository();
 
         public frmManagement()
         {
@@ -44,18 +43,55 @@ namespace CakeSellingWinApp
 
         private void btnCakeList_Click(object sender, EventArgs e)
         {
-            openChildForm(new frmCakeList()
-            {
-                cakeRepository = cakeRepository
-            });
+            openChildForm(new frmCakeList());
         }
 
-        private void btnSatffList_Click(object sender, EventArgs e)
+        private void btnStaffList_Click(object sender, EventArgs e)
         {
             openChildForm(new frmUserManagement
             {
-                loginUser = userInfo,
-                userRepository = userRepository
+                loginUser = userInfo
+            });
+        }
+
+        private void btnOrderList_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmOrderList
+            {
+                staff = userInfo
+            });
+        }
+
+        private void btnOrder_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmOrderList
+            {
+                staff = userInfo
+            });
+        }
+
+        private void frmManagement_Load(object sender, EventArgs e)
+        {
+            if (userInfo.Role.Equals("Admin"))
+            {
+                btnOrder.Visible = false;
+            } else
+            {
+                btnCakeList.Visible = false;
+                btnOrderList.Visible = false;
+                btnStaffList.Visible = false;
+            }
+            lbWelcome.Text = "Welcome " + userInfo.Fullname;
+        }
+
+        private void btnProfile_Click(object sender, EventArgs e)
+        {
+            openChildForm(new frmUserDetail
+            {
+                user = userInfo,
+                UserRepo = userRepository,
+                CreateOrUpdate = false,
+                isProfile = true
             });
         }
     }
