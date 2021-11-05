@@ -589,6 +589,7 @@ namespace CakeSellingWinApp
                         Customername = txtCustomerName.Text,
                         Customerphonenumber = txtCustomerPhoneNumber.Text,
                         Customeraddress = txtCustomerAddress.Text,
+                        Createddate = updateOrderInfo.Createddate,
                         Shippingdate = DateTime.Parse(dtpShippingDate.Text),
                         Shippingfee = 30000 //shipping fee is always 30k for shipping order
                     };
@@ -602,6 +603,8 @@ namespace CakeSellingWinApp
                         Totalprice = price,
                         Customername = txtCustomerName.Text,
                         Customerphonenumber = txtCustomerPhoneNumber.Text,
+                        Createddate = updateOrderInfo.Createddate,
+                        Shippingdate = DateTime.Parse(dtpShippingDate.Text),
                         Shippingfee = 0
                     };
                 }
@@ -618,7 +621,7 @@ namespace CakeSellingWinApp
                     //create the order detail object to add into the db
                     var orderItem = new OrderDetail
                     {
-                        Orderid = SelectedOrderID, 
+                        Orderid = SelectedOrderID,
                         Cakeid = c.Cakeid,
                         Amount = c.Amount,
                         Totalprice = c.Amount * original.Price
@@ -634,8 +637,8 @@ namespace CakeSellingWinApp
                         Price = original.Price,
                         Amount = original.Amount - c.Amount //the recalculate stock part is here 
                     };
-                    
-                    
+
+
                     cakeRepository.UpdateCake(updateCake);
                     //run update for the cake
 
