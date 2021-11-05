@@ -30,6 +30,7 @@ namespace CakeSellingWinApp
         private void InitializeComponent()
         {
             this.panelSidebar = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
             this.btnLogout = new System.Windows.Forms.Button();
             this.btnProfile = new System.Windows.Forms.Button();
             this.btnOrder = new System.Windows.Forms.Button();
@@ -40,7 +41,6 @@ namespace CakeSellingWinApp
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelDisplayer = new System.Windows.Forms.Panel();
             this.lbWelcome = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
             this.panelSidebar.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
@@ -63,6 +63,18 @@ namespace CakeSellingWinApp
             this.panelSidebar.Name = "panelSidebar";
             this.panelSidebar.Size = new System.Drawing.Size(177, 500);
             this.panelSidebar.TabIndex = 0;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label1.Location = new System.Drawing.Point(0, 470);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 30);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Develop by \r\nGroup 2";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
             // btnLogout
             // 
@@ -198,18 +210,6 @@ namespace CakeSellingWinApp
             this.lbWelcome.TabIndex = 0;
             this.lbWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
-            this.label1.Location = new System.Drawing.Point(0, 470);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(69, 30);
-            this.label1.TabIndex = 8;
-            this.label1.Text = "Develop by \r\nGroup 2";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
-            // 
             // frmManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -219,6 +219,7 @@ namespace CakeSellingWinApp
             this.Controls.Add(this.panelSidebar);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmManagement";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmManagement";
             this.Load += new System.EventHandler(this.frmManagement_Load);
             this.panelSidebar.ResumeLayout(false);

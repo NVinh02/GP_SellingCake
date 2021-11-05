@@ -252,13 +252,14 @@ namespace CakeSellingWinApp
                 orderDetailRepository = orderDetailRepository,
                 cakeRepository = cakeRepository,
                 updateOrderInfo = order,
-                SelectedOrderID = SelectedOrderID
+                SelectedOrderID = SelectedOrderID,
+                isAdmin = isAdmin
             };
 
             //Email & ID from current logged in user
             frmNewOrder.currentUserEmail = staff.Email;
             frmNewOrder.currentUserID = staff.Userid;
-            frmNewOrder.Show();
+            //frmNewOrder.Show();
             if (frmNewOrder.ShowDialog() == DialogResult.OK)
             {
                 list = orderRepository.GetOrdersByStaffID(staff.Userid).Reverse();
