@@ -1,21 +1,91 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Globalization;
+using BusinessObject.ErrorsObject;
 
 namespace DataAccess.Validation
-//Format for cmt on each function 
-//1st cmt: Specify what ur validation code is used for which class (total of five: Cake, Employee, Order, Order Detail, with Common being a universal function
-//2nd cmt: Briefly explain what the function does, if the name of the function name is alreay self explainatory just type it here
-//3rd cmt: Further elaborate on what the function does (if needed)
-//4th cmt: Give a specification on what does ur function checking (the range, reg ex, ...)
-//also, everything that is hard code in this project won't be checked in this validation class
+
 {
     public class Validation
     {
+    
+        #region Note
+        //Format for cmt on each function 
+        //1st cmt: Specify what ur validation code is used for which class (total of five: Cake, Employee, Order, Order Detail, with Common being a universal function
+        //2nd cmt: Briefly explain what the function does, if the name of the function name is alreay self explainatory just type it here
+        //3rd cmt: Further elaborate on what the function does (if needed)
+        //4th cmt: Give a specification on what does ur function checking (the range, reg ex, ...)
+        //also, everything that is hard code in this project won't be checked in this validation class
+        #endregion
+    
+        #region User - Phượng
+        //Constant error
+        private GeneralErrors generalErrors = new GeneralErrors();
+
+    #region String
+    public string CheckStringType(string name, string checkString, bool isRequired, int? min, int max,
+        string pattern)
+    {
+        string BodyErrorMessage = null;
+        if (isRequired)
+        {
+            if ((BodyErrorMessage = checkStringRequired(name, checkString)) != null)
+            {
+                return BodyErrorMessage;
+            }
+        }
+        if ((BodyErrorMessage = checkStringLength(name, checkString, min, max)) == null)
+        {
+            BodyErrorMessage = checkStringPattern(name, checkString, pattern);
+        }
+        return BodyErrorMessage;
+    }
+    public string checkStringLength(string name, string checkString, int? min, int max)
+    {
+        string errorMessage = null;
+        if (checkString.Length > max)
+        {
+            errorMessage = name + generalErrors.ERROR_OVER_LENGTH;
+        }
+        else if (checkString.Length < min && min is not null)
+        {
+            errorMessage = name + generalErrors.ERROR_LESSTHAN_LENGTH;
+        }
+        return errorMessage;
+    }
+
+    public string checkStringRequired(string name, string checkString)
+    {
+        string errorMessage = null;
+        if (String.IsNullOrEmpty(checkString))
+        {
+            errorMessage = name + generalErrors.ERROR_REQUIRED;
+        }
+        return errorMessage;
+    }
+
+    public string checkStringPattern(string name, string checkString, string pattern)
+    {
+        string errorMessage = null;
+        if (Regex.IsMatch(checkString, pattern) == false)
+        {
+            errorMessage = name + generalErrors.ERROR_PATTERN;
+        }
+        return errorMessage;
+    }
+
+    public string checkDuplicatedUserName(string username)
+    {
+        string errorMessage = null;
+        UserDAO dao = new UserDAO();
+        if (dao.DuplicatedUsername(username) is not null)
+            errorMessage = username + generalErrors.DUPLICATED_NAME;
+        return errorMessage;
+    }
+    #endregion
+    #endregion
+
+        #region Cake
         //For Cake
         //Checking Cake Name
         //Including checking both the length and regex as well
@@ -106,7 +176,9 @@ namespace DataAccess.Validation
                 return true;
             }
         }
+        #endregion
 
+        #region Employee
         /*--------------------------------------------------------------------------------*/
         //For Employee
         //Checking Employee Username
@@ -217,7 +289,9 @@ namespace DataAccess.Validation
                 return false;
             }
         }
+        #endregion
 
+        #region Customer
         /*--------------------------------------------------------------------------------*/
         //For Customer
         //Checking Customer name
@@ -253,7 +327,9 @@ namespace DataAccess.Validation
                 return false;
             }
         }
+        #endregion
 
+        #region Order
         /*--------------------------------------------------------------------------------*/
         //For Order
         //Check Customer Phone Number
@@ -349,5 +425,6 @@ namespace DataAccess.Validation
                 return false;
             }
         }
+        #endregion
     }
 }

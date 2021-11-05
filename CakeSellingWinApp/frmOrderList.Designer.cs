@@ -43,12 +43,13 @@ namespace CakeSellingWinApp
             this.btnSearchOrderID = new System.Windows.Forms.Button();
             this.txtOrderID = new System.Windows.Forms.TextBox();
             this.gbCustomerSearch = new System.Windows.Forms.GroupBox();
+            this.btnSearchCustomerNameAndPhone = new System.Windows.Forms.Button();
             this.lbCustomerPhoneNumber = new System.Windows.Forms.Label();
             this.txtCustomerPhone = new System.Windows.Forms.TextBox();
             this.txtCustomerName = new System.Windows.Forms.TextBox();
             this.lbCustomerName = new System.Windows.Forms.Label();
             this.lbListStatus = new System.Windows.Forms.Label();
-            this.btnSearchCustomerNameAndPhone = new System.Windows.Forms.Button();
+            this.lbCustomerSearchError = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvOrderList)).BeginInit();
             this.gpFilter.SuspendLayout();
             this.gpSearch.SuspendLayout();
@@ -176,7 +177,7 @@ namespace CakeSellingWinApp
             // 
             // btnSearchOrderID
             // 
-            this.btnSearchOrderID.Location = new System.Drawing.Point(126, 55);
+            this.btnSearchOrderID.Location = new System.Drawing.Point(137, 55);
             this.btnSearchOrderID.Name = "btnSearchOrderID";
             this.btnSearchOrderID.Size = new System.Drawing.Size(75, 23);
             this.btnSearchOrderID.TabIndex = 52;
@@ -188,11 +189,12 @@ namespace CakeSellingWinApp
             // 
             this.txtOrderID.Location = new System.Drawing.Point(47, 20);
             this.txtOrderID.Name = "txtOrderID";
-            this.txtOrderID.Size = new System.Drawing.Size(154, 23);
+            this.txtOrderID.Size = new System.Drawing.Size(165, 23);
             this.txtOrderID.TabIndex = 50;
             // 
             // gbCustomerSearch
             // 
+            this.gbCustomerSearch.Controls.Add(this.lbCustomerSearchError);
             this.gbCustomerSearch.Controls.Add(this.btnSearchCustomerNameAndPhone);
             this.gbCustomerSearch.Controls.Add(this.lbCustomerPhoneNumber);
             this.gbCustomerSearch.Controls.Add(this.txtCustomerPhone);
@@ -204,6 +206,16 @@ namespace CakeSellingWinApp
             this.gbCustomerSearch.TabIndex = 55;
             this.gbCustomerSearch.TabStop = false;
             this.gbCustomerSearch.Text = "Customer";
+            // 
+            // btnSearchCustomerNameAndPhone
+            // 
+            this.btnSearchCustomerNameAndPhone.Location = new System.Drawing.Point(170, 106);
+            this.btnSearchCustomerNameAndPhone.Name = "btnSearchCustomerNameAndPhone";
+            this.btnSearchCustomerNameAndPhone.Size = new System.Drawing.Size(75, 23);
+            this.btnSearchCustomerNameAndPhone.TabIndex = 56;
+            this.btnSearchCustomerNameAndPhone.Text = "Search";
+            this.btnSearchCustomerNameAndPhone.UseVisualStyleBackColor = true;
+            this.btnSearchCustomerNameAndPhone.Click += new System.EventHandler(this.btnSearchCustomerNameAndPhone_Click);
             // 
             // lbCustomerPhoneNumber
             // 
@@ -246,15 +258,15 @@ namespace CakeSellingWinApp
             this.lbListStatus.Size = new System.Drawing.Size(0, 21);
             this.lbListStatus.TabIndex = 48;
             // 
-            // btnSearchCustomerNameAndPhone
+            // lbCustomerSearchError
             // 
-            this.btnSearchCustomerNameAndPhone.Location = new System.Drawing.Point(157, 106);
-            this.btnSearchCustomerNameAndPhone.Name = "btnSearchCustomerNameAndPhone";
-            this.btnSearchCustomerNameAndPhone.Size = new System.Drawing.Size(75, 23);
-            this.btnSearchCustomerNameAndPhone.TabIndex = 56;
-            this.btnSearchCustomerNameAndPhone.Text = "Search";
-            this.btnSearchCustomerNameAndPhone.UseVisualStyleBackColor = true;
-            this.btnSearchCustomerNameAndPhone.Click += new System.EventHandler(this.btnSearchCustomerNameAndPhone_Click);
+            this.lbCustomerSearchError.AutoSize = true;
+            this.lbCustomerSearchError.ForeColor = System.Drawing.Color.Red;
+            this.lbCustomerSearchError.Location = new System.Drawing.Point(6, 110);
+            this.lbCustomerSearchError.Name = "lbCustomerSearchError";
+            this.lbCustomerSearchError.Size = new System.Drawing.Size(129, 15);
+            this.lbCustomerSearchError.TabIndex = 56;
+            this.lbCustomerSearchError.Text = "lbCustomerSearchError";
             // 
             // frmOrderList
             // 
@@ -305,5 +317,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.Label lbListStatus;
         private System.Windows.Forms.Label lbSearchIDError;
         private System.Windows.Forms.Button btnSearchCustomerNameAndPhone;
+        private System.Windows.Forms.Label lbCustomerSearchError;
     }
 }

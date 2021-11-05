@@ -16,7 +16,7 @@ namespace DataAccess.Validation
         #endregion
 
         #region Initialized Objects
-        private ValidationData validation = null;
+        private Validation validation = null;
         private static UserValidation instance = null;
         private static readonly object instanceLock = new object();
         private UserValidation() { }
@@ -55,14 +55,14 @@ namespace DataAccess.Validation
 
         public string checkUserName(string username)
         {
-            validation = new ValidationData();
+            validation = new Validation();
             string error = validation.CheckStringType("username", username, true, 1, 50, @"^[a-zA-Z0-9]{1,50}$");
             return error;
         }
 
         public string checkUserNameDuplicated(string username)
         {
-            validation = new ValidationData();
+            validation = new Validation();
             string error = validation.checkDuplicatedUserName(username);
             return error;
         }
@@ -75,7 +75,7 @@ namespace DataAccess.Validation
 
         public string checkUserPassword(string password)
         {
-            validation = new ValidationData();
+            validation = new Validation();
             string error = validation.CheckStringType("password", password, true, 1, 30, @"^[^\s]+$");
             return error;
         }
@@ -87,7 +87,7 @@ namespace DataAccess.Validation
 
         public string checkUserFullName(string fullname)
         {
-            validation = new ValidationData();
+            validation = new Validation();
             string error = validation.CheckStringType("full name", fullname, true, 1, 30, @"^[a-zA-Z\s]{1,50}$");
             return error;
         }
@@ -99,7 +99,7 @@ namespace DataAccess.Validation
         //Specification: Only number, exactly 10 characrers
         public string checkUserPhoneNumber(string phonenumber)
         {
-            validation = new ValidationData();
+            validation = new Validation();
             string error = validation.CheckStringType("phone number", phonenumber, true, 1, 10, @"^[0-9]{10}$");
             return error;
         }
@@ -112,7 +112,7 @@ namespace DataAccess.Validation
         //For Member Overall
         public string checkUserAddress(string address)
         {
-            validation = new ValidationData();
+            validation = new Validation();
             string error = validation.CheckStringType("address", address, true, 1, 50, @"^[A-Za-z0-9/\s]*$");
             return error;
         }
@@ -125,7 +125,7 @@ namespace DataAccess.Validation
 
         public string checkUserEmail(string email)
         {
-            validation = new ValidationData();
+            validation = new Validation();
             string error = validation.CheckStringType("email", email, true, null, 50, @"^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$");
             return error;
         }

@@ -63,10 +63,13 @@ namespace CakeSellingWinApp
             if (dvgUserList.RowCount > 0)
             {
                 var user = GetUser(e);
-                if (user.Status == false)
-                    btnActive.Text = "Active";
-                else
-                    btnActive.Text = "InActive";
+                if (user != null)
+                {
+                    if (user.Status == false)
+                        btnActive.Text = "Active";
+                    else
+                        btnActive.Text = "InActive";
+                }
             }
         }
         //Load user
@@ -183,7 +186,8 @@ namespace CakeSellingWinApp
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message, "Get User", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    if (e.RowIndex > 0)
+                        MessageBox.Show(ex.Message, "Get User", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             return user;
@@ -290,31 +294,35 @@ namespace CakeSellingWinApp
         private void btnActive_Click(object sender, EventArgs e)
         {
             var user = GetUser(EventOfdvgUserList);
-            if (user.Userid.Equals(loginUser.Userid))
+            if (user != null)
             {
-                MessageBox.Show($"You cannot {btnActive.Text.ToLower()} this {user.Fullname}", $"{btnActive.Text} a user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
-            else
-            {
-                DialogResult result;
-                result = MessageBox.Show($"Do you want to {btnActive.Text.ToLower()} this {user.Fullname}?", $"{btnActive.Text} a user", MessageBoxButtons.OKCancel);
-                if (result == DialogResult.OK)
+                if (user.Userid.Equals(loginUser.Userid))
                 {
-                    try
+                    MessageBox.Show($"You cannot {btnActive.Text.ToLower()} this {user.Fullname}", $"{btnActive.Text} a user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+                else
+                {
+                    DialogResult result;
+                    result = MessageBox.Show($"Do you want to {btnActive.Text.ToLower()} this {user.Fullname}?", $"{btnActive.Text} a user", MessageBoxButtons.OKCancel);
+                    if (result == DialogResult.OK)
                     {
-                        if (btnActive.Text.Equals("Active"))
+                        try
                         {
-                            user.Status = true;
-                        } else
-                        {
-                            user.Status = false;
+                            if (btnActive.Text.Equals("Active"))
+                            {
+                                user.Status = true;
+                            }
+                            else
+                            {
+                                user.Status = false;
+                            }
+                            userRepository.UpdateUser(user);
+                            LoadUserList();
                         }
-                        userRepository.UpdateUser(user);
-                        LoadUserList();
-                    }
-                    catch (Exception ex)
-                    {
-                        MessageBox.Show(ex.Message, $"{btnActive.Text.ToLower()} a user");
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show(ex.Message, $"{btnActive.Text.ToLower()} a user");
+                        }
                     }
                 }
             }

@@ -40,6 +40,7 @@ namespace CakeSellingWinApp
             this.pictureBoxLogo = new System.Windows.Forms.PictureBox();
             this.panelDisplayer = new System.Windows.Forms.Panel();
             this.lbWelcome = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.panelSidebar.SuspendLayout();
             this.panelLogo.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).BeginInit();
@@ -48,7 +49,8 @@ namespace CakeSellingWinApp
             // 
             // panelSidebar
             // 
-            this.panelSidebar.BackColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.panelSidebar.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panelSidebar.Controls.Add(this.label1);
             this.panelSidebar.Controls.Add(this.btnLogout);
             this.panelSidebar.Controls.Add(this.btnProfile);
             this.panelSidebar.Controls.Add(this.btnOrder);
@@ -196,6 +198,18 @@ namespace CakeSellingWinApp
             this.lbWelcome.TabIndex = 0;
             this.lbWelcome.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label1.ImageAlign = System.Drawing.ContentAlignment.BottomRight;
+            this.label1.Location = new System.Drawing.Point(0, 470);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(69, 30);
+            this.label1.TabIndex = 8;
+            this.label1.Text = "Develop by \r\nGroup 2";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
+            // 
             // frmManagement
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -208,6 +222,7 @@ namespace CakeSellingWinApp
             this.Text = "frmManagement";
             this.Load += new System.EventHandler(this.frmManagement_Load);
             this.panelSidebar.ResumeLayout(false);
+            this.panelSidebar.PerformLayout();
             this.panelLogo.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxLogo)).EndInit();
             this.panelDisplayer.ResumeLayout(false);
@@ -228,5 +243,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.Button btnProfile;
         private System.Windows.Forms.Button btnOrder;
         private System.Windows.Forms.Label lbWelcome;
+        private System.Windows.Forms.Label label1;
     }
 }

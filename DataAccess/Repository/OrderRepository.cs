@@ -16,10 +16,6 @@ namespace DataAccess.Repository
 
         public IEnumerable<Order> GetDeliveryOrderListByStaffID(int staffID) => OrderDAO.Instance.GetDeliveryOrderByStaffID(staffID);
 
-        public IEnumerable<Order> GetOrderByCustomerNameAndStaffId(string customerName, int staffId) => OrderDAO.Instance.GetOrderByCustomerNameAndStaffID(customerName, staffId);
-
-        public IEnumerable<Order> GetOrderByCustomerPhoneAndStaffId(string customerPhone, int staffId) => OrderDAO.Instance.GetOrderByCustomerPhoneAndStaffID(customerPhone, staffId);
-
         public IEnumerable<Order> GetOrdersByEitherCustomerNameOrPhoneOrBothBasedOnStaffId(string phone, string customerName, int staffID) => OrderDAO.Instance.SearchOrderByPhoneAndCustomerNameBasedOnStaffID(phone, customerName, staffID);
 
         public Order GetOrderByID(int orderId) => OrderDAO.Instance.GetOrderByID(orderId);
@@ -37,5 +33,7 @@ namespace DataAccess.Repository
         public IEnumerable<Order> GetTakeawaytOrderListByStaffId(int staffID) => OrderDAO.Instance.GetTakeawayOrderByStaffID(staffID);
 
         public void UpdateOrder(Order order) => OrderDAO.Instance.Update(order);
+
+        public IEnumerable<Order> GetOrdersByEitherCustomerNameOrPhoneOrBoth(string phone, string customerName) => OrderDAO.Instance.SearchOrderByPhoneAndCustomerName(phone, customerName);
     }
 }

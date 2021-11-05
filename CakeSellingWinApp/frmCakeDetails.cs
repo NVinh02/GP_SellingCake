@@ -36,8 +36,6 @@ namespace CakeSellingWinApp
 
         private void frmCakeDetails_Load(object sender, EventArgs e)
         {
-            btnUpdateOrder.Visible = false;
-
             cboCategory.SelectedIndex = 0;
             if (InsertOrUpdate == true)
             {
@@ -59,38 +57,9 @@ namespace CakeSellingWinApp
                 txtStatus.Visible = false;
             }
 
-            if (OrderUpdate)
-            {
-                LoadFormOrderUpdate();
-            };
 
         }
 
-        private void LoadFormOrderUpdate()
-        {
-            btnUpdateOrder.Visible = true;
-            btnConfirm.Visible = false;
-
-            lbTitle.Text = "Update Order";
-            btnConfirm.Text = "Update Order";
-
-            //txtAmount.Text = updateOrderDetail.Amount.ToString();
-            txtAmount.Text = CurrentOrderAmount.ToString();
-            cboCategory.Text = cakeInfo.Category.Trim();
-            txtCakeName.Text = cakeInfo.Cakename.ToString();
-            txtCakeID.Text = cakeInfo.Cakeid.ToString();
-            txtPrice.Text = cakeInfo.Price.ToString();
-
-
-            txtCakeID.Enabled = false;
-            txtStatus.Enabled = false;
-            txtCakeName.Enabled = false;
-            txtPrice.Enabled = false;
-            cboCategory.Enabled = false;
-
-
-            
-        }
 
         private void btnConfirm_Click(object sender, EventArgs e)
         {
@@ -202,19 +171,5 @@ namespace CakeSellingWinApp
 
         private void button2_Click(object sender, EventArgs e) => Close();
 
-        private void btnUpdateOrder_Click(object sender, EventArgs e)
-        {
-            //Just update amount of this orderdetail
-            OrderDetail detail = new OrderDetail
-            {
-                Orderid = updateOrderDetail.Orderid,
-                Cakeid = updateOrderDetail.Cakeid,
-                Cake = updateOrderDetail.Cake,
-                Amount = int.Parse(txtAmount.Text.ToString())
-            };
-            orderDetailRepository.UpdateOrderDetails(detail);
-
-            this.Close();
-        }
     }
 }

@@ -1,17 +1,8 @@
-﻿using BusinessObject;
-using BusinessObject.Object;
+﻿using BusinessObject.Object;
 using BusinessObject.ErrorsObject;
 using DataAccess.Repository;
-using DataAccess.Validation;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace CakeSellingWinApp
@@ -43,17 +34,23 @@ namespace CakeSellingWinApp
                 //Insert: true; Update: false
                 lbTitle.Text = "Create";
                 pnExtraInfo.Visible = false;
-                gbUserInfo.Size = new Size { Width = 749, Height = 240 };
+                btnSave.Text = "Create";
+                //cấu hình bên máy Phượng
+                gbUserInfo.Size = new Size { Width = 856, Height = 323 };
+                //Cấu hình bên máy Vinh
+                //gbUserInfo.Size = new Size { Width = 749, Height = 240 };
             } else
             {
                 if (isProfile)
                 {
                     pnExtraInfo.Visible = false;
                     lbTitle.Text = "Profile";
-                    gbUserInfo.Size = new Size { Width = 749, Height = 240 };
+                    //Cấu hình bên máy Vinh
+                    //gbUserInfo.Size = new Size { Width = 749, Height = 240 };
                 } else
                 {
                     lbTitle.Text = "Update";
+                    btnSave.Text = "Save";
                 }
             }
         }
@@ -61,6 +58,8 @@ namespace CakeSellingWinApp
         {
             SizeOfUserDetailForm();
             LoadUserDetail();
+            // Không hiển thị text của các label error khi update hay insert lần đầu
+            ClearLabelError();
         }
         private void LoadUserDetail()
         {
@@ -76,6 +75,16 @@ namespace CakeSellingWinApp
                 lbRoleInformation.Text = user.Role.Trim().ToString();
                 lbStatusInformation.Text = user.Status == true? "Active" : "Inactive";
             }
+        }
+
+        private void ClearLabelError()
+        {
+            lbUsernameError.Text= String.Empty;
+            lbFullnameError.Text= String.Empty;
+            lbPasswordError.Text= String.Empty;
+            lbPhoneNumberError.Text= String.Empty;
+            lbEmailError.Text= String.Empty;
+            lbAddressError.Text= String.Empty;
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
@@ -110,12 +119,11 @@ namespace CakeSellingWinApp
                         UserRepo.UpdateUser(TempUser);
                         MessageBox.Show("Update a user Successfully!", "Update an user", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
-                } else
-                {
-                    MessageBox.Show(userErrors.Display(), CreateOrUpdate == true ? "Add a new member" : "Update a member", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                } 
+                else
                     LoadUserDetail();
-                }
-            }catch(Exception ex)
+            }
+            catch(Exception ex)
             {
                 MessageBox.Show(ex.Message, CreateOrUpdate == true ? "Add a new member" : "Update a member");
             }
@@ -124,6 +132,7 @@ namespace CakeSellingWinApp
         #endregion
 
         #region check
+        //kiểm tra người dùng
         private bool checkUserDetail(User tempUser)
         {
             validation = null;
@@ -136,10 +145,14 @@ namespace CakeSellingWinApp
                 {
                     userErrors = new UserErrors();
                     userErrors.usernameError = "Username is required";
+                    displayError(userErrors);
                     return false;
                 }
                 if ((userErrors = validation.checkUser(tempUser, checkDuplicateUserName)) != null)
+                {
+                    displayError(userErrors);
                     return false;
+                }
             }
             //Update
             else
@@ -147,10 +160,41 @@ namespace CakeSellingWinApp
                 string username = user.Username;
                 if (username.Equals(tempUser.Username))
                     checkDuplicateUserName = false;
-                if ((userErrors = validation.checkUser(user, checkDuplicateUserName)) != null)
+                if ((userErrors = validation.checkUser(tempUser, checkDuplicateUserName)) != null)
+                {
+                    displayError(userErrors);
                     return false;
+                }
             }
             return true;
+        }
+        //Hiển thị lỗi khi kiểm tra user
+        public void displayError(UserErrors userErrors)
+        {
+            if (userErrors.checkEmpty(userErrors.usernameError, true))
+                lbUsernameError.Text = userErrors.usernameError;
+            else
+                lbUsernameError.Text = string.Empty;
+            if (userErrors.checkEmpty(userErrors.fullnameError, true))
+                lbFullnameError.Text = userErrors.fullnameError;
+            else
+                lbFullnameError.Text = string.Empty;
+            if (userErrors.checkEmpty(userErrors.emailError, true))
+                lbEmailError.Text = userErrors.emailError;
+            else
+                lbEmailError.Text = string.Empty;
+            if (userErrors.checkEmpty(userErrors.passwordError, true))
+                lbPasswordError.Text = userErrors.passwordError;
+            else
+                lbPasswordError.Text = string.Empty;
+            if (userErrors.checkEmpty(userErrors.phonenumberError, true))
+                lbPhoneNumberError.Text = userErrors.phonenumberError;
+            else
+                lbPhoneNumberError.Text = string.Empty;
+            if (userErrors.checkEmpty(userErrors.addressError, true))
+                lbAddressError.Text = userErrors.addressError;
+            else
+                lbAddressError.Text = string.Empty;
         }
         public void checkRoleAndStatus(ref string role, ref bool status)
         {
@@ -167,6 +211,7 @@ namespace CakeSellingWinApp
                 status = Active;
             }
         }
+        //xóa đi khoảng trắng dư thừa - username, full name, và address
         private void checkRedudantString()
         {
             validation = null;

@@ -59,8 +59,9 @@ namespace CakeSellingWinApp
             this.panelWelcome.Controls.Add(this.lbWelcomeTitle);
             this.panelWelcome.Dock = System.Windows.Forms.DockStyle.Left;
             this.panelWelcome.Location = new System.Drawing.Point(0, 0);
+            this.panelWelcome.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelWelcome.Name = "panelWelcome";
-            this.panelWelcome.Size = new System.Drawing.Size(334, 441);
+            this.panelWelcome.Size = new System.Drawing.Size(382, 588);
             this.panelWelcome.TabIndex = 0;
             // 
             // pictureBoxLogo
@@ -68,9 +69,10 @@ namespace CakeSellingWinApp
             this.pictureBoxLogo.BackColor = System.Drawing.Color.Transparent;
             this.pictureBoxLogo.BackgroundImage = global::CakeSellingWinApp.Properties.Resources.cake;
             this.pictureBoxLogo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pictureBoxLogo.Location = new System.Drawing.Point(122, 12);
+            this.pictureBoxLogo.Location = new System.Drawing.Point(139, 16);
+            this.pictureBoxLogo.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.pictureBoxLogo.Name = "pictureBoxLogo";
-            this.pictureBoxLogo.Size = new System.Drawing.Size(100, 100);
+            this.pictureBoxLogo.Size = new System.Drawing.Size(114, 133);
             this.pictureBoxLogo.TabIndex = 2;
             this.pictureBoxLogo.TabStop = false;
             // 
@@ -79,9 +81,9 @@ namespace CakeSellingWinApp
             this.lbIntroduction.AutoSize = true;
             this.lbIntroduction.Font = new System.Drawing.Font("Segoe UI", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbIntroduction.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lbIntroduction.Location = new System.Drawing.Point(252, 395);
+            this.lbIntroduction.Location = new System.Drawing.Point(288, 527);
             this.lbIntroduction.Name = "lbIntroduction";
-            this.lbIntroduction.Size = new System.Drawing.Size(63, 26);
+            this.lbIntroduction.Size = new System.Drawing.Size(78, 38);
             this.lbIntroduction.TabIndex = 1;
             this.lbIntroduction.Text = "Develop By\r\nGroup 2";
             this.lbIntroduction.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -95,9 +97,9 @@ namespace CakeSellingWinApp
             this.lbWelcomeTitle.BackColor = System.Drawing.Color.Transparent;
             this.lbWelcomeTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.lbWelcomeTitle.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.lbWelcomeTitle.Location = new System.Drawing.Point(27, 176);
+            this.lbWelcomeTitle.Location = new System.Drawing.Point(12, 240);
             this.lbWelcomeTitle.Name = "lbWelcomeTitle";
-            this.lbWelcomeTitle.Size = new System.Drawing.Size(289, 82);
+            this.lbWelcomeTitle.Size = new System.Drawing.Size(356, 100);
             this.lbWelcomeTitle.TabIndex = 0;
             this.lbWelcomeTitle.Text = "Welcome to\r\nSelling Cake System";
             this.lbWelcomeTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -111,9 +113,10 @@ namespace CakeSellingWinApp
             this.panelLogin.Controls.Add(this.lbLoginTitle);
             this.panelLogin.Controls.Add(this.btnCloseApp);
             this.panelLogin.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelLogin.Location = new System.Drawing.Point(334, 0);
+            this.panelLogin.Location = new System.Drawing.Point(382, 0);
+            this.panelLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelLogin.Name = "panelLogin";
-            this.panelLogin.Size = new System.Drawing.Size(490, 441);
+            this.panelLogin.Size = new System.Drawing.Size(560, 588);
             this.panelLogin.TabIndex = 1;
             // 
             // lbLoginStatus
@@ -121,9 +124,9 @@ namespace CakeSellingWinApp
             this.lbLoginStatus.AutoSize = true;
             this.lbLoginStatus.Font = new System.Drawing.Font("Segoe UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbLoginStatus.ForeColor = System.Drawing.Color.Red;
-            this.lbLoginStatus.Location = new System.Drawing.Point(66, 268);
+            this.lbLoginStatus.Location = new System.Drawing.Point(75, 357);
             this.lbLoginStatus.Name = "lbLoginStatus";
-            this.lbLoginStatus.Size = new System.Drawing.Size(0, 20);
+            this.lbLoginStatus.Size = new System.Drawing.Size(0, 25);
             this.lbLoginStatus.TabIndex = 7;
             this.lbLoginStatus.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
@@ -133,10 +136,11 @@ namespace CakeSellingWinApp
             this.btnLogin.FlatAppearance.BorderSize = 0;
             this.btnLogin.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnLogin.ForeColor = System.Drawing.SystemColors.ButtonFace;
-            this.btnLogin.Location = new System.Drawing.Point(26, 304);
+            this.btnLogin.Location = new System.Drawing.Point(30, 405);
+            this.btnLogin.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnLogin.Name = "btnLogin";
-            this.btnLogin.Size = new System.Drawing.Size(144, 42);
-            this.btnLogin.TabIndex = 6;
+            this.btnLogin.Size = new System.Drawing.Size(165, 56);
+            this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "Login";
             this.btnLogin.UseVisualStyleBackColor = false;
             this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
@@ -147,9 +151,10 @@ namespace CakeSellingWinApp
             this.panelPassword.BackColor = System.Drawing.SystemColors.Window;
             this.panelPassword.Controls.Add(this.lbPassword);
             this.panelPassword.Controls.Add(this.txtPassword);
-            this.panelPassword.Location = new System.Drawing.Point(0, 210);
+            this.panelPassword.Location = new System.Drawing.Point(0, 280);
+            this.panelPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelPassword.Name = "panelPassword";
-            this.panelPassword.Size = new System.Drawing.Size(490, 45);
+            this.panelPassword.Size = new System.Drawing.Size(560, 60);
             this.panelPassword.TabIndex = 5;
             // 
             // lbPassword
@@ -157,9 +162,9 @@ namespace CakeSellingWinApp
             this.lbPassword.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbPassword.AutoSize = true;
             this.lbPassword.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbPassword.Location = new System.Drawing.Point(6, 9);
+            this.lbPassword.Location = new System.Drawing.Point(7, 12);
             this.lbPassword.Name = "lbPassword";
-            this.lbPassword.Size = new System.Drawing.Size(97, 25);
+            this.lbPassword.Size = new System.Drawing.Size(122, 32);
             this.lbPassword.TabIndex = 3;
             this.lbPassword.Text = "Password";
             // 
@@ -168,9 +173,10 @@ namespace CakeSellingWinApp
             this.txtPassword.BackColor = System.Drawing.SystemColors.Window;
             this.txtPassword.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtPassword.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtPassword.Location = new System.Drawing.Point(113, 12);
+            this.txtPassword.Location = new System.Drawing.Point(137, 12);
+            this.txtPassword.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtPassword.Name = "txtPassword";
-            this.txtPassword.Size = new System.Drawing.Size(365, 22);
+            this.txtPassword.Size = new System.Drawing.Size(417, 27);
             this.txtPassword.TabIndex = 2;
             this.txtPassword.UseSystemPasswordChar = true;
             // 
@@ -179,9 +185,10 @@ namespace CakeSellingWinApp
             this.panelUsername.BackColor = System.Drawing.SystemColors.Window;
             this.panelUsername.Controls.Add(this.lbUsername);
             this.panelUsername.Controls.Add(this.txtUsername);
-            this.panelUsername.Location = new System.Drawing.Point(0, 160);
+            this.panelUsername.Location = new System.Drawing.Point(0, 213);
+            this.panelUsername.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.panelUsername.Name = "panelUsername";
-            this.panelUsername.Size = new System.Drawing.Size(490, 45);
+            this.panelUsername.Size = new System.Drawing.Size(560, 60);
             this.panelUsername.TabIndex = 4;
             // 
             // lbUsername
@@ -189,9 +196,9 @@ namespace CakeSellingWinApp
             this.lbUsername.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.lbUsername.AutoSize = true;
             this.lbUsername.Font = new System.Drawing.Font("Segoe UI", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.lbUsername.Location = new System.Drawing.Point(3, 9);
+            this.lbUsername.Location = new System.Drawing.Point(3, 12);
             this.lbUsername.Name = "lbUsername";
-            this.lbUsername.Size = new System.Drawing.Size(101, 25);
+            this.lbUsername.Size = new System.Drawing.Size(128, 32);
             this.lbUsername.TabIndex = 2;
             this.lbUsername.Text = "Username";
             // 
@@ -200,9 +207,10 @@ namespace CakeSellingWinApp
             this.txtUsername.BackColor = System.Drawing.SystemColors.Window;
             this.txtUsername.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtUsername.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.txtUsername.Location = new System.Drawing.Point(113, 12);
+            this.txtUsername.Location = new System.Drawing.Point(137, 15);
+            this.txtUsername.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.txtUsername.Name = "txtUsername";
-            this.txtUsername.Size = new System.Drawing.Size(365, 22);
+            this.txtUsername.Size = new System.Drawing.Size(417, 27);
             this.txtUsername.TabIndex = 1;
             // 
             // lbLoginTitle
@@ -214,9 +222,9 @@ namespace CakeSellingWinApp
             this.lbLoginTitle.BackColor = System.Drawing.Color.Transparent;
             this.lbLoginTitle.Font = new System.Drawing.Font("Segoe UI Semibold", 22F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point);
             this.lbLoginTitle.ForeColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.lbLoginTitle.Location = new System.Drawing.Point(26, 96);
+            this.lbLoginTitle.Location = new System.Drawing.Point(30, 128);
             this.lbLoginTitle.Name = "lbLoginTitle";
-            this.lbLoginTitle.Size = new System.Drawing.Size(308, 41);
+            this.lbLoginTitle.Size = new System.Drawing.Size(384, 50);
             this.lbLoginTitle.TabIndex = 3;
             this.lbLoginTitle.Text = "Login to your account";
             this.lbLoginTitle.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -226,22 +234,24 @@ namespace CakeSellingWinApp
             this.btnCloseApp.FlatAppearance.BorderSize = 0;
             this.btnCloseApp.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnCloseApp.Font = new System.Drawing.Font("Segoe UI", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.btnCloseApp.Location = new System.Drawing.Point(440, 0);
+            this.btnCloseApp.Location = new System.Drawing.Point(503, 0);
+            this.btnCloseApp.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btnCloseApp.Name = "btnCloseApp";
-            this.btnCloseApp.Size = new System.Drawing.Size(50, 50);
-            this.btnCloseApp.TabIndex = 0;
+            this.btnCloseApp.Size = new System.Drawing.Size(57, 67);
+            this.btnCloseApp.TabIndex = 4;
             this.btnCloseApp.Text = "X";
             this.btnCloseApp.UseVisualStyleBackColor = true;
             this.btnCloseApp.Click += new System.EventHandler(this.btnCloseApp_Click);
             // 
             // frmLogin
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(824, 441);
+            this.ClientSize = new System.Drawing.Size(942, 588);
             this.Controls.Add(this.panelLogin);
             this.Controls.Add(this.panelWelcome);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmLogin";

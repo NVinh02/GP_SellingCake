@@ -14,7 +14,6 @@ namespace DataAccess.Repository
         void UpdateOrder(OrderDetail detail);
 
         IEnumerable<OrderDetail> GetOrderDetailsByOrderID(int orderID);
-        void UpdateOrderDetails(OrderDetail detail);
 
         void RemoveOrderDetails(OrderDetail detail);
     }

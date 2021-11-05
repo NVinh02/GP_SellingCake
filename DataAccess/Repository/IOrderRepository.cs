@@ -15,14 +15,12 @@ namespace DataAccess.Repository
         IEnumerable<Order> GetDeliveryOrderListByStaffID(int staffID);
         IEnumerable<Order> GetTakeawaytOrderList();
         IEnumerable<Order> GetTakeawaytOrderListByStaffId(int staffID);
-        IEnumerable<Order> GetOrderByCustomerNameAndStaffId(string customerName, int staffId);
-        IEnumerable<Order> GetOrderByCustomerPhoneAndStaffId(string customerPhone, int staffId);
+        IEnumerable<Order> GetOrdersByEitherCustomerNameOrPhoneOrBoth(string phone, string customerName);
         IEnumerable<Order> GetOrdersByEitherCustomerNameOrPhoneOrBothBasedOnStaffId(string phone, string customerName, int staffID);
         IEnumerable<Order> GetOrderListByIDAndStaffID(int orderId, int staffId);
         public void AddNewOrder(Order order);
         public void UpdateOrder(Order order);
         public Order GetOrderByID(int orderId);
         public Order GetOrderByIDAndStaffID(int orderId, int staffId);
-
     }
 }

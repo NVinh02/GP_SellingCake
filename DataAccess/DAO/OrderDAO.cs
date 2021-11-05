@@ -190,35 +190,6 @@ namespace DataAccess.DAO
             }
             return orders;
         }
-        public IEnumerable<Order> GetOrderByCustomerNameAndStaffID(string customerName, int staffID)
-        {
-            var orders = new List<Order>();
-            try
-            {
-                using var context = new CakeManagementContext();
-                orders = context.Orders.ToList().FindAll(order => order.Customername.ToLower().Contains(customerName.ToLower()) && order.Staffid == staffID);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            return orders;
-        }
-
-        public IEnumerable<Order> GetOrderByCustomerPhoneAndStaffID(string customerPhone, int staffID)
-        {
-            var orders = new List<Order>();
-            try
-            {
-                using var context = new CakeManagementContext();
-                orders = context.Orders.ToList().FindAll(order => order.Customerphonenumber.Equals(customerPhone) && order.Staffid == staffID);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
-            return orders;
-        }
 
         public IEnumerable<Order> GetOrderListByIDAndStaffID(int orderId, int staffID)
         {
@@ -257,6 +228,37 @@ namespace DataAccess.DAO
                 {
                     orders = context.Orders.ToList().FindAll
                         (c => c.Customerphonenumber.Contains(CustomerPhone) && c.Staffid == staffID);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return orders;
+        }
+
+        public IEnumerable<Order> SearchOrderByPhoneAndCustomerName(string CustomerPhone, string NameValue)
+        {
+            //List<Cake> cakes = new List<Cake>();
+            var orders = new List<Order>();
+            try
+            {
+                using var context = new CakeManagementContext();
+
+                if (CustomerPhone != "" && NameValue != "")
+                {
+                    orders = context.Orders.ToList().FindAll
+                        (c => c.Customerphonenumber.Contains(CustomerPhone) && c.Customername.ToLower().Contains(NameValue.ToLower()));
+                }
+                else if (NameValue != "")
+                {
+                    orders = context.Orders.ToList().FindAll
+                        (c => c.Customername.ToLower().Contains(NameValue.ToLower()));
+                }
+                else if (CustomerPhone != "")
+                {
+                    orders = context.Orders.ToList().FindAll
+                        (c => c.Customerphonenumber.Contains(CustomerPhone));
                 }
             }
             catch (Exception ex)

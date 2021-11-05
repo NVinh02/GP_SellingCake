@@ -17,8 +17,6 @@ namespace DataAccess.Repository
 
         public IEnumerable<OrderDetail> GetOrderDetailsByOrderID(int orderID) => OrderDetailDAO.Instance.GetOrderDetailByOrderID(orderID);
 
-        public void UpdateOrderDetails(OrderDetail detail) => OrderDetailDAO.Instance.Update(detail);
-
         public void RemoveOrderDetails(OrderDetail detail) => OrderDetailDAO.Instance.Remove(detail);
     }
 }

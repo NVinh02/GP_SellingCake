@@ -19,7 +19,7 @@ namespace CakeSellingWinApp
 
         public IOrderDetailRepository orderDetailRepository { get; set; }
         public ICakeRepository cakeRepository { get; set; }
-
+        public bool isAdmin { get; set; } //This is for admin when view this form
         public static int currentUserID = 0; //because the order when created will be bound with the staff that created it
                                              //so i have to throw the user id and user email from the login form to this very form
                                              //i know i can use automapper, but time out for testing data/code flow and stuff lul
@@ -83,6 +83,7 @@ namespace CakeSellingWinApp
                     //Locks out Customer address
                     //Locks out shipping date and shipping fee
 
+                    gbOrderDetailAction.Visible = false;
                     rbtnTakeaway.Enabled = false;
                     rbtnDelivery.Enabled = false;
                     dtpShippingDate.Enabled = false;
@@ -96,12 +97,23 @@ namespace CakeSellingWinApp
                     {
                         txtCustomerAddress.Enabled = false;
                         rbtnTakeaway.Checked = true;
+                        dtpShippingDate.Text = null;
+                        dtpShippingDate.Visible = false;
+                        lbShippingDate.Visible = false;
                     }
                     else if(updateOrderInfo.Shippingfee == 30000)
                     {
                         txtCustomerAddress.ReadOnly = true;
                         txtCustomerAddress.Text = updateOrderInfo.Customeraddress;
                         rbtnDelivery.Checked = true;
+                        dtpShippingDate.Text = updateOrderInfo.Shippingdate.ToString();
+                        dtpShippingDate.Enabled = false;
+                        if (isAdmin)
+                        {
+                            txtCustomerName.ReadOnly = true;
+                            txtCustomerPhoneNumber.ReadOnly = true;
+                            btnUpdate.Visible = false;
+                        }
                     }
                     //Load OrderDetails from current order
                         LoadOrderDetailsList();
@@ -174,7 +186,6 @@ namespace CakeSellingWinApp
             tableOrderDetail.Columns.Add("Price", typeof(decimal));
             tableOrderDetail.Columns.Add("Amount", typeof(int));
             tableOrderDetail.Columns.Add("Category", typeof(string));
-            tableOrderDetail.Columns.Add("Status", typeof(string));
         }
 
         //This is just loading and has yet to be bind
@@ -197,21 +208,11 @@ namespace CakeSellingWinApp
                 //pull: OrderID, CakeID, Amount, TotalPrice
                 foreach (OrderDetail orderDetail in listOrderDetails)
                 {
-                    MessageBox.Show(
-                        "CakeID CakeName TotalPrice Amount Status \n" +
-
-                        orderDetail.Cakeid //Cake ID
-                            + " " + cakeRepository.GetCakeByID(orderDetail.Cakeid).Cakename //Cake Name
-                        + " " + orderDetail.Totalprice //Total Price
-                        + " " + orderDetail.Amount //Amount
-                        + " " + cakeRepository.GetCakeByID(orderDetail.Cakeid).Status); //Cakestatus
-
                     tableOrderDetail.Rows.Add   (orderDetail.Cakeid,
                                                 cakeRepository.GetCakeByID(orderDetail.Cakeid).Cakename,
                                                 orderDetail.Totalprice,
                                                 orderDetail.Amount,
-                                                cakeRepository.GetCakeByID(orderDetail.Cakeid).Category,
-                                                cakeRepository.GetCakeByID(orderDetail.Cakeid).Status == true ? "Active" : "Inactive"
+                                                cakeRepository.GetCakeByID(orderDetail.Cakeid).Category
                                                 );
                 }
 
@@ -333,8 +334,6 @@ namespace CakeSellingWinApp
                 cakeList.Add(item);
             }
 
-            //if 
-
             //reload the item in cart
             LoadItemList();
             //display the new total order price after changes
@@ -357,29 +356,11 @@ namespace CakeSellingWinApp
             }
             
             cakeList.Remove(del);
-            if (!InsertOrUpdate)
-            {
-                RemoveCakeFromOrderDetails(del);
-            }
 
             //reload the item in cart
             LoadItemList();
             //display the new total order price after changes
             CalTotalPriceOfOrder();
-        }
-
-        private void RemoveCakeFromOrderDetails(Cake c)
-        {
-            //Passing (to be deleted) Cake c from btnRemove to this. Search and remove from orderDetailRepo
-
-            IEnumerable<OrderDetail> list =  orderDetailRepository.GetOrderDetailsByOrderID(SelectedOrderID);
-            foreach(OrderDetail item in list)
-            {
-                if ((item.Cakeid) == c.Cakeid)
-                {
-                    orderDetailRepository.RemoveOrderDetails(item); 
-                }
-            }
         }
 
         /*---------------------------------------------------------------------------------------------------*/
@@ -654,8 +635,6 @@ namespace CakeSellingWinApp
                         Amount = original.Amount - c.Amount //the recalculate stock part is here 
                     };
                     
-                    //Update Existing order details
-                    orderDetailRepository.UpdateOrderDetails(orderItem);
                     
                     cakeRepository.UpdateCake(updateCake);
                     //run update for the cake
@@ -669,56 +648,5 @@ namespace CakeSellingWinApp
             }
         }
 
-        //For updating order details of cake when update (stuff from OrderDetail class)
-        frmCakeDetails frmCakeDetails;
-        private void dgvDetailList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
-        {
-            //ID, StaffID, Price, cusName, cusAdd, cusPhone, shipFee ,createdDate, ShippedDate
-
-            //CakeID, cakename, price, amount, category, status
-
-            int CakeId = 0;
-            int Amount = 0;
-            decimal TotalPrice = 0;
-
-            string cakeName = " ";
-
-            if (e != null)
-            {
-                int index = e.RowIndex;
-                DataGridViewRow selectRow = dgvDetailList.Rows[index];
-                CakeId = int.Parse(selectRow.Cells[0].Value.ToString());
-                Amount = int.Parse(selectRow.Cells[3].Value.ToString());
-                cakeName = selectRow.Cells[1].Value.ToString();
-
-            }
-
-
-            Cake original = cakeRepository.GetCakeByID(CakeId);
-            MessageBox.Show("Order ID" + " CakeID" + " Cake Name" + "  Amount" + " TotalPrice" 
-                +SelectedOrderID + " " + CakeId +" " +cakeName +" " + Amount + " " + TotalPrice);
-
-            Cake cakeUpdate = new Cake
-            {
-                Cakeid = CakeId,
-                Cakename = cakeName,
-                Amount = Amount,
-                Price = original.Price,
-                Category = original.Category,
-                Status = original.Status
-            };
-
-            frmCakeDetails = new frmCakeDetails
-            {
-                OrderUpdate = true,
-                OrderId = SelectedOrderID,
-                cakeInfo = cakeUpdate,
-                cakeRepository = cakeRepository,
-                orderDetailRepository = orderDetailRepository,
-                //updateOrderDetail = orderDetails
-                CurrentOrderAmount = Amount
-            };
-            frmCakeDetails.Show();
-        }
     }
 }

@@ -246,7 +246,6 @@ namespace CakeSellingWinApp
             this.dgvDetailList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dgvDetailList.Size = new System.Drawing.Size(731, 265);
             this.dgvDetailList.TabIndex = 73;
-            this.dgvDetailList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvDetailList_CellDoubleClick);
             // 
             // lbQuantity
             // 

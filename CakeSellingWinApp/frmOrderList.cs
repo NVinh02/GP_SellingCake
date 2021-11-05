@@ -62,6 +62,7 @@ namespace CakeSellingWinApp
         private void clearErrorText()
         {
             lbSearchIDError.Text = string.Empty;
+            lbCustomerSearchError.Text = string.Empty;
         }
 
         private void LoadOrderList()
@@ -129,7 +130,10 @@ namespace CakeSellingWinApp
             frmNewOrder.currentUserID = staff.Userid;
             //newOrder.Show();
             if (newOrder.ShowDialog() == DialogResult.OK)
+            {
+                list = orderRepository.GetOrdersByStaffID(staff.Userid).Reverse();
                 LoadOrderList();
+            }
         }
 
         private void btnFilterDeliveryOrder_Click(object sender, EventArgs e)
@@ -140,7 +144,10 @@ namespace CakeSellingWinApp
             txtOrderID.Text = string.Empty;
             CleanDataTable();
             list = null;
-            list = orderRepository.GetDeliveryOrderListByStaffID(staff.Userid).Reverse();
+            if (staff.Role.Equals("Admin"))
+                list = orderRepository.GetDeliveryOrderList().Reverse();
+            else
+                list = orderRepository.GetDeliveryOrderListByStaffID(staff.Userid).Reverse();
             LoadOrderList();
         }
 
@@ -152,72 +159,27 @@ namespace CakeSellingWinApp
             txtOrderID.Text = string.Empty;
             CleanDataTable();
             list = null;
-            list = orderRepository.GetTakeawaytOrderListByStaffId(staff.Userid).Reverse();
-            LoadOrderList();
-        }
-
-        private void btnSearchCustomerName_Click(object sender, EventArgs e)
-        {
-            txtCustomerPhone.Text = string.Empty;
-            txtOrderID.Text = string.Empty;
-
-            //validation for input
-            if (txtCustomerName.Text.Trim().Equals(""))
-            {
-                MessageBox.Show("Please don't leave the field blank when searching");
-                return;
-            }
-            if (!Validation.checkCustomerName(txtCustomerName.Text))
-            {
-                MessageBox.Show("Can only contain alphabet and whitespace character");
-                return;
-            }
-
-            //clean the datetable and load the new data on it
-            CleanDataTable();
-            list = null;
-            list = orderRepository.GetOrderByCustomerNameAndStaffId(txtCustomerName.Text.Trim(), staff.Userid).Reverse();
-            LoadOrderList();
-        }
-
-        private void btnSearchCustomerPhone_Click(object sender, EventArgs e)
-        {
-            txtCustomerName.Text = string.Empty;
-            txtOrderID.Text = string.Empty;
-
-            //validation for input
-            if (txtCustomerPhone.Text.Trim().Equals(""))
-            {
-                MessageBox.Show("Please don't leave the field blank when searching");
-                return;
-            }
-            if (!Validation.checkCustomerPhoneNumber(txtCustomerPhone.Text.Trim()))
-            {
-                MessageBox.Show("Phone Number can only contain number and has to have exactly 10 characters");
-                return;
-
-            }
-
-            //clean the datetable and load the new data on it
-            CleanDataTable();
-            list = null;
-            list = orderRepository.GetOrderByCustomerPhoneAndStaffId(txtCustomerPhone.Text.Trim(), staff.Userid).Reverse();
+            if (staff.Role.Equals("Admin"))
+                list = orderRepository.GetTakeawaytOrderList().Reverse();
+            else
+                list = orderRepository.GetTakeawaytOrderListByStaffId(staff.Userid).Reverse();
             LoadOrderList();
         }
 
         private void btnSearchOrderID_Click(object sender, EventArgs e)
         {
+            List<Order> tmp = new List<Order>();
             txtCustomerName.Text = string.Empty;
             txtCustomerPhone.Text = string.Empty;
             clearErrorText();
             //validation for input
-            if (txtOrderID.Text.Trim().Equals(""))
+            if (Validation.checkBlank(txtOrderID.Text))
             {
                 lbSearchIDError.Text="Not allow blank";
                 return;
             }
 
-            Regex regex = new Regex(@"^[0-9]+$");
+            Regex regex = new Regex(@"[0-9]+[-]{0,1}$");
             if (!regex.IsMatch(txtOrderID.Text))
             {
                 lbSearchIDError.Text="Number only";
@@ -234,7 +196,13 @@ namespace CakeSellingWinApp
             //clean the datetable and load the new data on it
             CleanDataTable();
             list = null;
-            list = orderRepository.GetOrderListByIDAndStaffID(orderID, staff.Userid);
+            if (staff.Role.Equals("Admin")) {
+
+                tmp.Add(orderRepository.GetOrderByID(orderID));
+                list = tmp;
+            }
+            else
+                list = orderRepository.GetOrderListByIDAndStaffID(orderID, staff.Userid);
             LoadOrderList();
         }
 
@@ -274,7 +242,7 @@ namespace CakeSellingWinApp
             }
 
             Order order = getSelectedOrder();
-
+            bool isAdmin = staff.Role == "Admin" ? true : false;
             //Call to frmNewOrder for Update
             frmNewOrder frmNewOrder = new frmNewOrder
             {
@@ -291,8 +259,11 @@ namespace CakeSellingWinApp
             frmNewOrder.currentUserEmail = staff.Email;
             frmNewOrder.currentUserID = staff.Userid;
             frmNewOrder.Show();
-            //if (frmNewOrder.ShowDialog() == DialogResult.OK)
-            LoadOrderList();
+            if (frmNewOrder.ShowDialog() == DialogResult.OK)
+            {
+                list = orderRepository.GetOrdersByStaffID(staff.Userid).Reverse();
+                LoadOrderList();
+            }
         }
 
         private void btnSearchCustomerNameAndPhone_Click(object sender, EventArgs e)
@@ -300,9 +271,18 @@ namespace CakeSellingWinApp
             try
             {
                 clearErrorText();
-                list = orderRepository.GetOrdersByEitherCustomerNameOrPhoneOrBothBasedOnStaffId(txtCustomerPhone.Text, txtCustomerName.Text, staff.Userid);
-                LoadOrderList();
-
+                if (Validation.checkBlank(txtCustomerName.Text) && Validation.checkBlank(txtCustomerPhone.Text))
+                {
+                    lbCustomerSearchError.Text = "Need more information`";
+                }
+                else
+                {
+                    if (staff.Role.Equals("Admin"))
+                        list = orderRepository.GetOrdersByEitherCustomerNameOrPhoneOrBoth(txtCustomerPhone.Text, txtCustomerName.Text);
+                    else
+                        list = orderRepository.GetOrdersByEitherCustomerNameOrPhoneOrBothBasedOnStaffId(txtCustomerPhone.Text, txtCustomerName.Text, staff.Userid);
+                    LoadOrderList();
+                }
             }
             catch (Exception ex)
             {
