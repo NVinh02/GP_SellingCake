@@ -60,6 +60,7 @@ namespace CakeSellingWinApp
             this.lbShippingMethod = new System.Windows.Forms.Label();
             this.gbOrderDetailAction = new System.Windows.Forms.GroupBox();
             this.lbStockError = new System.Windows.Forms.Label();
+            this.lbShippingStatus = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dgvDetailList)).BeginInit();
             this.gbOrderInfo.SuspendLayout();
             this.gbOrderDetailAction.SuspendLayout();
@@ -130,9 +131,9 @@ namespace CakeSellingWinApp
             this.lbOrderPrice.AutoSize = true;
             this.lbOrderPrice.Location = new System.Drawing.Point(16, 125);
             this.lbOrderPrice.Name = "lbOrderPrice";
-            this.lbOrderPrice.Size = new System.Drawing.Size(66, 15);
+            this.lbOrderPrice.Size = new System.Drawing.Size(32, 15);
             this.lbOrderPrice.TabIndex = 85;
-            this.lbOrderPrice.Text = "Order Price";
+            this.lbOrderPrice.Text = "Total";
             // 
             // lbCustomerAddress
             // 
@@ -163,6 +164,7 @@ namespace CakeSellingWinApp
             // 
             // dtpShippingDate
             // 
+            this.dtpShippingDate.CustomFormat = "dd/MM/yyyy";
             this.dtpShippingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
             this.dtpShippingDate.Location = new System.Drawing.Point(458, 70);
             this.dtpShippingDate.Name = "dtpShippingDate";
@@ -380,11 +382,20 @@ namespace CakeSellingWinApp
             this.lbStockError.TabIndex = 96;
             this.lbStockError.Text = "lbStockError";
             // 
+            // lbShippingStatus
+            // 
+            this.lbShippingStatus.AutoSize = true;
+            this.lbShippingStatus.Location = new System.Drawing.Point(28, 533);
+            this.lbShippingStatus.Name = "lbShippingStatus";
+            this.lbShippingStatus.Size = new System.Drawing.Size(0, 15);
+            this.lbShippingStatus.TabIndex = 96;
+            // 
             // frmNewOrder
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(707, 560);
+            this.Controls.Add(this.lbShippingStatus);
             this.Controls.Add(this.gbOrderDetailAction);
             this.Controls.Add(this.gbOrderInfo);
             this.Controls.Add(this.btnUpdate);
@@ -440,5 +451,6 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.Label lbCustomerAddressError;
         private System.Windows.Forms.Label lbCustomerPhoneNumberError;
         private System.Windows.Forms.Label lbCustomerNameError;
+        private System.Windows.Forms.Label lbShippingStatus;
     }
 }

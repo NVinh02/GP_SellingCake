@@ -63,6 +63,11 @@ namespace DataAccess
                 using var context = new CakeManagementContext();
                 user = context.Users.SingleOrDefault(temp
                     => temp.Username.Equals(username) && temp.Password.Equals(password));
+                if (user is not null)
+                {
+                    if (!user.Username.Equals(username))
+                        user = null;
+                }
             }
             catch (Exception ex)
             {

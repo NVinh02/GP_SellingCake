@@ -101,6 +101,7 @@ namespace CakeSellingWinApp
                             dtpShippingDate.Text = null;
                             dtpShippingDate.Visible = false;
                             lbShippingDate.Visible = false;
+                            btnUpdate.Visible = false;
                         }
                         else if (updateOrderInfo.Shippingfee == 30000)
                         {
@@ -120,9 +121,14 @@ namespace CakeSellingWinApp
                         //Check shipped date
                         if (updateOrderInfo.Shippingdate < DateTime.Now)
                         {
-                            MessageBox.Show("The order has already been shipped.", "Cannot update order.", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            this.Close();
-                        };
+                            lbShippingStatus.Text = "The order has already been shipped.";
+                            txtCustomerName.ReadOnly = true;
+                            txtCustomerPhoneNumber.ReadOnly = true;
+                            btnUpdate.Visible = false;
+                        } else
+                        {
+                            lbShippingStatus.Text = "";
+                        }
 
                         //Load OrderDetails from current order
                         LoadOrderDetailsList();
@@ -449,11 +455,14 @@ namespace CakeSellingWinApp
                         lbCustomerAddressError.Text = "Address is in wrong format";
                         Error = true;
                     }
-                    DateTime now = DateTime.Today;
                     //this is to check whether or not the date for shipping is approriate (not in the past shipping date)
-                    if (DateTime.Parse(dtpShippingDate.Text) < now || now.ToString("dd/MM/yyyy").Equals(dtpShippingDate.Text))
+                    //if (DateTime.Parse(dtpShippingDate.Text) < now || now.ToString("dd/MM/yyyy").Equals(dtpShippingDate.Text)
+                    //  || now.ToString("MM/dd/yyyy").Equals(dtpShippingDate.Text))
+                    DateTime dateTime = Convert.ToDateTime(dtpShippingDate.Value).Date;
+                    DateTime Now = DateTime.Today;
+                    if (DateTime.Compare(dateTime, Now) == 0 || DateTime.Compare(dateTime, Now) < 0)
                     {
-                        lbShippingDateError.Text = "Shipping Date must be tomorrow or after";
+                        lbShippingDateError.Text = "Must be tomorrow or after";
                         Error = true;
                     }
                     if (Error)

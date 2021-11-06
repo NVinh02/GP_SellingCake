@@ -28,7 +28,7 @@ namespace CakeSellingWinApp
         #region Event
         private void SizeOfUserDetailForm()
         {
-            //Insert
+             //Insert
             if (CreateOrUpdate)
             {
                 //Insert: true; Update: false
@@ -45,12 +45,16 @@ namespace CakeSellingWinApp
                 {
                     pnExtraInfo.Visible = false;
                     lbTitle.Text = "Profile";
+                    //cấu hình bên máy Phượng
+                    //gbUserInfo.Size = new Size { Width = 856, Height = 323 };
                     //Cấu hình bên máy Vinh
                     gbUserInfo.Size = new Size { Width = 749, Height = 240 };
                 } else
                 {
                     lbTitle.Text = "Update";
                     btnSave.Text = "Save";
+                    //cấu hình bên máy Phượng
+                    //gbUserInfo.Size = new Size { Width = 856, Height = 427 };
                 }
             }
         }

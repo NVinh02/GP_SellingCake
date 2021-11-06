@@ -263,6 +263,7 @@ namespace CakeSellingWinApp
             this.Controls.Add(this.lbTitle);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "frmCakeDetails";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "frmCakeDetails";
             this.Load += new System.EventHandler(this.frmCakeDetails_Load);
             this.CakeInfoBox.ResumeLayout(false);

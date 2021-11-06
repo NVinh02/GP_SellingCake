@@ -105,7 +105,7 @@ namespace CakeSellingWinApp
                 Error = false;
             } else if (!Validation.checkCakePrice(decimal.Parse(Price)))
             {
-                lbPriceError.Text = "Price can only be 1-10,000,000vnd";
+                lbPriceError.Text = "Price can only be 5000-10,000,000vnd";
                 Error = false;
             } else
             {

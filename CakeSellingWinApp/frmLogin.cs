@@ -61,8 +61,7 @@ namespace CakeSellingWinApp
             }
             else
             {
-                MessageBox.Show($"{userErrors.usernameError}\n{userErrors.passwordError}", "Login",
-                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                lbLoginStatus.Text = $"{userErrors.usernameError}\n{userErrors.passwordError}";
             }
         }
 
@@ -92,7 +91,7 @@ namespace CakeSellingWinApp
             }
             else if (user.Status == false)
             {
-                lbLoginStatus.Text = "Your account have been banned!";
+                lbLoginStatus.Text = "Your account has been banned!";
             }
             return result;
         }

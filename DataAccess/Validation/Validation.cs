@@ -150,7 +150,7 @@ namespace DataAccess.Validation
         //Specification: the number has to be in the range of 1 to 10 000 000
         public static bool checkCakePrice (decimal price)
         {
-            if (price<1 || price >10000000)
+            if (price<5000 || price >10000000)
             {
                 return false;
             }

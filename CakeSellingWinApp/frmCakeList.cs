@@ -43,6 +43,7 @@ namespace CakeSellingWinApp
         private void resetAllComponents()
         {
             txtSearchID.Text = "";
+            txtSearchName.Text = "";
             cboStatusFilter.SelectedIndex = 0;
             dgvCakeList.CellDoubleClick += dgvCakeList_CellDoubleClick;
             list = cakeRepository.GetCakeList(true);
@@ -109,6 +110,9 @@ namespace CakeSellingWinApp
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            string ID = txtSearchID.Text;
+            string Name = txtSearchName.Text;
+            bool status = cboStatusFilter.Text == "Active" ? true : false;
             frmCakeDetails details = new frmCakeDetails()
             {
                 cakeRepository = cakeRepository,
@@ -117,13 +121,13 @@ namespace CakeSellingWinApp
             };
             if (details.ShowDialog() == DialogResult.OK)
             {
-                if(!txtSearchID.Text.Equals(""))
+                if(!Validation.checkBlank(ID) && !Validation.checkBlank(Name))
                 {
                     list = cakeRepository.SearchCake(txtSearchID.Text, 
-                        txtSearchName.Text,cboStatusFilter.Text=="Active"?true:false);
+                        txtSearchName.Text, status);
                 } else
                 {
-                    list = cakeRepository.GetCakeList(cboStatusFilter.Text == "Active" ? true : false);
+                    list = cakeRepository.GetCakeList(status);
                 }
                 LoadCakeList();
             }
@@ -168,6 +172,8 @@ namespace CakeSellingWinApp
 
         private void dgvCakeList_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
+            string ID = txtSearchID.Text;
+            string Name = txtSearchName.Text;
             bool status = cboStatusFilter.Text == "Active" ? true : false;
             frmCakeDetails details = new frmCakeDetails
             {
@@ -178,7 +184,15 @@ namespace CakeSellingWinApp
             };
             if (details.ShowDialog() == DialogResult.OK)
             {
-                list = cakeRepository.GetCakeList(status);
+                if (!Validation.checkBlank(ID) && !Validation.checkBlank(Name))
+                {
+                    list = cakeRepository.SearchCake(txtSearchID.Text,
+                        txtSearchName.Text, status);
+                }
+                else
+                {
+                    list = cakeRepository.GetCakeList(status);
+                }
                 LoadCakeList();
             }
         }
