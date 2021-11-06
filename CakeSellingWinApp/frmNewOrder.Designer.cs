@@ -74,7 +74,7 @@ namespace CakeSellingWinApp
             // 
             // txtCustomerAddress
             // 
-            this.txtCustomerAddress.Location = new System.Drawing.Point(509, 18);
+            this.txtCustomerAddress.Location = new System.Drawing.Point(458, 18);
             this.txtCustomerAddress.Name = "txtCustomerAddress";
             this.txtCustomerAddress.Size = new System.Drawing.Size(199, 23);
             this.txtCustomerAddress.TabIndex = 91;
@@ -104,7 +104,7 @@ namespace CakeSellingWinApp
             // rbtnDelivery
             // 
             this.rbtnDelivery.AutoSize = true;
-            this.rbtnDelivery.Location = new System.Drawing.Point(613, 123);
+            this.rbtnDelivery.Location = new System.Drawing.Point(562, 123);
             this.rbtnDelivery.Name = "rbtnDelivery";
             this.rbtnDelivery.Size = new System.Drawing.Size(67, 19);
             this.rbtnDelivery.TabIndex = 87;
@@ -116,7 +116,7 @@ namespace CakeSellingWinApp
             // rbtnTakeaway
             // 
             this.rbtnTakeaway.AutoSize = true;
-            this.rbtnTakeaway.Location = new System.Drawing.Point(509, 123);
+            this.rbtnTakeaway.Location = new System.Drawing.Point(458, 123);
             this.rbtnTakeaway.Name = "rbtnTakeaway";
             this.rbtnTakeaway.Size = new System.Drawing.Size(75, 19);
             this.rbtnTakeaway.TabIndex = 86;
@@ -137,7 +137,7 @@ namespace CakeSellingWinApp
             // lbCustomerAddress
             // 
             this.lbCustomerAddress.AutoSize = true;
-            this.lbCustomerAddress.Location = new System.Drawing.Point(387, 21);
+            this.lbCustomerAddress.Location = new System.Drawing.Point(336, 21);
             this.lbCustomerAddress.Name = "lbCustomerAddress";
             this.lbCustomerAddress.Size = new System.Drawing.Size(104, 15);
             this.lbCustomerAddress.TabIndex = 84;
@@ -164,7 +164,7 @@ namespace CakeSellingWinApp
             // dtpShippingDate
             // 
             this.dtpShippingDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-            this.dtpShippingDate.Location = new System.Drawing.Point(509, 70);
+            this.dtpShippingDate.Location = new System.Drawing.Point(458, 70);
             this.dtpShippingDate.Name = "dtpShippingDate";
             this.dtpShippingDate.Size = new System.Drawing.Size(199, 23);
             this.dtpShippingDate.TabIndex = 81;
@@ -172,7 +172,7 @@ namespace CakeSellingWinApp
             // lbShippingDate
             // 
             this.lbShippingDate.AutoSize = true;
-            this.lbShippingDate.Location = new System.Drawing.Point(387, 73);
+            this.lbShippingDate.Location = new System.Drawing.Point(336, 73);
             this.lbShippingDate.Name = "lbShippingDate";
             this.lbShippingDate.Size = new System.Drawing.Size(81, 15);
             this.lbShippingDate.TabIndex = 80;
@@ -180,7 +180,7 @@ namespace CakeSellingWinApp
             // 
             // btnBack
             // 
-            this.btnBack.Location = new System.Drawing.Point(668, 525);
+            this.btnBack.Location = new System.Drawing.Point(617, 525);
             this.btnBack.Name = "btnBack";
             this.btnBack.Size = new System.Drawing.Size(75, 23);
             this.btnBack.TabIndex = 79;
@@ -190,7 +190,7 @@ namespace CakeSellingWinApp
             // 
             // btnCreate
             // 
-            this.btnCreate.Location = new System.Drawing.Point(572, 525);
+            this.btnCreate.Location = new System.Drawing.Point(521, 525);
             this.btnCreate.Name = "btnCreate";
             this.btnCreate.Size = new System.Drawing.Size(75, 23);
             this.btnCreate.TabIndex = 78;
@@ -239,12 +239,12 @@ namespace CakeSellingWinApp
             // dgvDetailList
             // 
             this.dgvDetailList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvDetailList.Location = new System.Drawing.Point(12, 254);
+            this.dgvDetailList.Location = new System.Drawing.Point(82, 254);
             this.dgvDetailList.Name = "dgvDetailList";
             this.dgvDetailList.ReadOnly = true;
             this.dgvDetailList.RowTemplate.Height = 25;
             this.dgvDetailList.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvDetailList.Size = new System.Drawing.Size(731, 265);
+            this.dgvDetailList.Size = new System.Drawing.Size(542, 265);
             this.dgvDetailList.TabIndex = 73;
             // 
             // lbQuantity
@@ -267,7 +267,7 @@ namespace CakeSellingWinApp
             // 
             // btnUpdate
             // 
-            this.btnUpdate.Location = new System.Drawing.Point(572, 525);
+            this.btnUpdate.Location = new System.Drawing.Point(521, 525);
             this.btnUpdate.Name = "btnUpdate";
             this.btnUpdate.Size = new System.Drawing.Size(75, 23);
             this.btnUpdate.TabIndex = 93;
@@ -296,7 +296,7 @@ namespace CakeSellingWinApp
             this.gbOrderInfo.Controls.Add(this.lbCustomerName);
             this.gbOrderInfo.Location = new System.Drawing.Point(12, 10);
             this.gbOrderInfo.Name = "gbOrderInfo";
-            this.gbOrderInfo.Size = new System.Drawing.Size(731, 159);
+            this.gbOrderInfo.Size = new System.Drawing.Size(680, 159);
             this.gbOrderInfo.TabIndex = 94;
             this.gbOrderInfo.TabStop = false;
             this.gbOrderInfo.Text = "Order details";
@@ -306,7 +306,7 @@ namespace CakeSellingWinApp
             this.lbShippingDateError.AutoSize = true;
             this.lbShippingDateError.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbShippingDateError.ForeColor = System.Drawing.Color.Red;
-            this.lbShippingDateError.Location = new System.Drawing.Point(509, 96);
+            this.lbShippingDateError.Location = new System.Drawing.Point(458, 96);
             this.lbShippingDateError.Name = "lbShippingDateError";
             this.lbShippingDateError.Size = new System.Drawing.Size(113, 15);
             this.lbShippingDateError.TabIndex = 100;
@@ -317,7 +317,7 @@ namespace CakeSellingWinApp
             this.lbCustomerAddressError.AutoSize = true;
             this.lbCustomerAddressError.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.lbCustomerAddressError.ForeColor = System.Drawing.Color.Red;
-            this.lbCustomerAddressError.Location = new System.Drawing.Point(509, 44);
+            this.lbCustomerAddressError.Location = new System.Drawing.Point(458, 44);
             this.lbCustomerAddressError.Name = "lbCustomerAddressError";
             this.lbCustomerAddressError.Size = new System.Drawing.Size(136, 15);
             this.lbCustomerAddressError.TabIndex = 99;
@@ -348,7 +348,7 @@ namespace CakeSellingWinApp
             // lbShippingMethod
             // 
             this.lbShippingMethod.AutoSize = true;
-            this.lbShippingMethod.Location = new System.Drawing.Point(387, 125);
+            this.lbShippingMethod.Location = new System.Drawing.Point(336, 125);
             this.lbShippingMethod.Name = "lbShippingMethod";
             this.lbShippingMethod.Size = new System.Drawing.Size(99, 15);
             this.lbShippingMethod.TabIndex = 92;
@@ -363,7 +363,7 @@ namespace CakeSellingWinApp
             this.gbOrderDetailAction.Controls.Add(this.lbQuantity);
             this.gbOrderDetailAction.Controls.Add(this.lbProduct);
             this.gbOrderDetailAction.Controls.Add(this.btnRemove);
-            this.gbOrderDetailAction.Location = new System.Drawing.Point(62, 175);
+            this.gbOrderDetailAction.Location = new System.Drawing.Point(39, 175);
             this.gbOrderDetailAction.Name = "gbOrderDetailAction";
             this.gbOrderDetailAction.Size = new System.Drawing.Size(630, 73);
             this.gbOrderDetailAction.TabIndex = 95;
@@ -384,7 +384,7 @@ namespace CakeSellingWinApp
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(755, 560);
+            this.ClientSize = new System.Drawing.Size(707, 560);
             this.Controls.Add(this.gbOrderDetailAction);
             this.Controls.Add(this.gbOrderInfo);
             this.Controls.Add(this.btnUpdate);

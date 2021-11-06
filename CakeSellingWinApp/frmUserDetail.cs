@@ -36,9 +36,9 @@ namespace CakeSellingWinApp
                 pnExtraInfo.Visible = false;
                 btnSave.Text = "Create";
                 //cấu hình bên máy Phượng
-                gbUserInfo.Size = new Size { Width = 856, Height = 323 };
+                //gbUserInfo.Size = new Size { Width = 856, Height = 323 };
                 //Cấu hình bên máy Vinh
-                //gbUserInfo.Size = new Size { Width = 749, Height = 240 };
+                gbUserInfo.Size = new Size { Width = 749, Height = 240 };
             } else
             {
                 if (isProfile)
@@ -46,7 +46,7 @@ namespace CakeSellingWinApp
                     pnExtraInfo.Visible = false;
                     lbTitle.Text = "Profile";
                     //Cấu hình bên máy Vinh
-                    //gbUserInfo.Size = new Size { Width = 749, Height = 240 };
+                    gbUserInfo.Size = new Size { Width = 749, Height = 240 };
                 } else
                 {
                     lbTitle.Text = "Update";
@@ -110,31 +110,38 @@ namespace CakeSellingWinApp
                     Fullname = txtFullName.Text,
                     Email = txtEmail.Text,
                     Password = txtPassword.Text,
-                    Phonenumber =txtPhoneNumber.Text,
+                    Phonenumber = txtPhoneNumber.Text,
                     Address = txtAddress.Text,
                     Role = role,
                     Status = status,
                 };
                 if (checkUserDetail(TempUser))
                 {
-                    //Add a new member
-                    if (CreateOrUpdate)
-                    {
-                        UserRepo.InsertUser(TempUser);
-                        Close();
-                    }
-                        
-                    //Update a member 
-                    else
+                    if (isProfile)
                     {
                         TempUser.Userid = user.Userid;
                         UserRepo.UpdateUser(TempUser);
                     }
-                } 
+                    else
+                    {
+                        //Add a new member
+                        if (CreateOrUpdate)
+                        {
+                            UserRepo.InsertUser(TempUser);
+                        }
+                        //Update a member 
+                        else
+                        {
+                            TempUser.Userid = user.Userid;
+                            UserRepo.UpdateUser(TempUser);
+                        }
+                        Close();
+                    }
+                }
                 else
                     LoadUserDetail();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message, CreateOrUpdate == true ? "Add a new member" : "Update a member");
             }

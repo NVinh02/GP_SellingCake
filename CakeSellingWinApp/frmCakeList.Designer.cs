@@ -34,10 +34,11 @@ namespace CakeSellingWinApp
             this.btnAdd = new System.Windows.Forms.Button();
             this.panelListView = new System.Windows.Forms.Panel();
             this.panelAction = new System.Windows.Forms.Panel();
+            this.gbListFilter = new System.Windows.Forms.GroupBox();
+            this.cboStatusFilter = new System.Windows.Forms.ComboBox();
             this.lbListStatus = new System.Windows.Forms.Label();
             this.ActionBox = new System.Windows.Forms.GroupBox();
             this.btnChangeStatus = new System.Windows.Forms.Button();
-            this.cboStatusFilter = new System.Windows.Forms.ComboBox();
             this.SearchBox = new System.Windows.Forms.GroupBox();
             this.lbSearchError = new System.Windows.Forms.Label();
             this.lbSearchName = new System.Windows.Forms.Label();
@@ -45,23 +46,22 @@ namespace CakeSellingWinApp
             this.txtSearchName = new System.Windows.Forms.TextBox();
             this.txtSearchID = new System.Windows.Forms.TextBox();
             this.btnSearch = new System.Windows.Forms.Button();
-            this.gbListFilter = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCakeList)).BeginInit();
             this.panelListView.SuspendLayout();
             this.panelAction.SuspendLayout();
+            this.gbListFilter.SuspendLayout();
             this.ActionBox.SuspendLayout();
             this.SearchBox.SuspendLayout();
-            this.gbListFilter.SuspendLayout();
             this.SuspendLayout();
             // 
             // dgvCakeList
             // 
             this.dgvCakeList.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.dgvCakeList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvCakeList.Location = new System.Drawing.Point(12, 8);
+            this.dgvCakeList.Location = new System.Drawing.Point(57, 8);
             this.dgvCakeList.Name = "dgvCakeList";
             this.dgvCakeList.RowTemplate.Height = 25;
-            this.dgvCakeList.Size = new System.Drawing.Size(750, 320);
+            this.dgvCakeList.Size = new System.Drawing.Size(645, 320);
             this.dgvCakeList.TabIndex = 0;
             this.dgvCakeList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCakeList_CellClick);
             // 
@@ -108,6 +108,29 @@ namespace CakeSellingWinApp
             this.panelAction.Size = new System.Drawing.Size(774, 159);
             this.panelAction.TabIndex = 4;
             // 
+            // gbListFilter
+            // 
+            this.gbListFilter.Controls.Add(this.cboStatusFilter);
+            this.gbListFilter.Location = new System.Drawing.Point(372, 23);
+            this.gbListFilter.Name = "gbListFilter";
+            this.gbListFilter.Size = new System.Drawing.Size(176, 111);
+            this.gbListFilter.TabIndex = 14;
+            this.gbListFilter.TabStop = false;
+            this.gbListFilter.Text = "Status";
+            // 
+            // cboStatusFilter
+            // 
+            this.cboStatusFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cboStatusFilter.FormattingEnabled = true;
+            this.cboStatusFilter.Items.AddRange(new object[] {
+            "Active",
+            "Inactive"});
+            this.cboStatusFilter.Location = new System.Drawing.Point(33, 49);
+            this.cboStatusFilter.Name = "cboStatusFilter";
+            this.cboStatusFilter.Size = new System.Drawing.Size(121, 23);
+            this.cboStatusFilter.TabIndex = 7;
+            this.cboStatusFilter.SelectedIndexChanged += new System.EventHandler(this.cboStatusFilter_SelectedIndexChanged);
+            // 
             // lbListStatus
             // 
             this.lbListStatus.AutoSize = true;
@@ -138,18 +161,6 @@ namespace CakeSellingWinApp
             this.btnChangeStatus.Text = "Inactive";
             this.btnChangeStatus.UseVisualStyleBackColor = true;
             this.btnChangeStatus.Click += new System.EventHandler(this.btnChangeStatus_Click);
-            // 
-            // cboStatusFilter
-            // 
-            this.cboStatusFilter.FormattingEnabled = true;
-            this.cboStatusFilter.Items.AddRange(new object[] {
-            "Active",
-            "Inactive"});
-            this.cboStatusFilter.Location = new System.Drawing.Point(33, 49);
-            this.cboStatusFilter.Name = "cboStatusFilter";
-            this.cboStatusFilter.Size = new System.Drawing.Size(121, 23);
-            this.cboStatusFilter.TabIndex = 7;
-            this.cboStatusFilter.SelectedIndexChanged += new System.EventHandler(this.cboStatusFilter_SelectedIndexChanged);
             // 
             // SearchBox
             // 
@@ -218,16 +229,6 @@ namespace CakeSellingWinApp
             this.btnSearch.UseVisualStyleBackColor = true;
             this.btnSearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // gbListFilter
-            // 
-            this.gbListFilter.Controls.Add(this.cboStatusFilter);
-            this.gbListFilter.Location = new System.Drawing.Point(372, 23);
-            this.gbListFilter.Name = "gbListFilter";
-            this.gbListFilter.Size = new System.Drawing.Size(176, 111);
-            this.gbListFilter.TabIndex = 14;
-            this.gbListFilter.TabStop = false;
-            this.gbListFilter.Text = "Status";
-            // 
             // frmCakeList
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -244,10 +245,10 @@ namespace CakeSellingWinApp
             this.panelListView.ResumeLayout(false);
             this.panelAction.ResumeLayout(false);
             this.panelAction.PerformLayout();
+            this.gbListFilter.ResumeLayout(false);
             this.ActionBox.ResumeLayout(false);
             this.SearchBox.ResumeLayout(false);
             this.SearchBox.PerformLayout();
-            this.gbListFilter.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }

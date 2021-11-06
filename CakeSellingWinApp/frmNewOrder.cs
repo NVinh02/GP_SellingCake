@@ -50,7 +50,7 @@ namespace CakeSellingWinApp
         /*---------------------------------------------------------------------------------------------------*/
         private void frmNewOrder_Load(object sender, EventArgs e)
         {
-            if (currentUserID == 0)
+            if (currentUserID != 0)
             {
                 btnCreate.Visible = true;
                 btnUpdate.Visible = false;

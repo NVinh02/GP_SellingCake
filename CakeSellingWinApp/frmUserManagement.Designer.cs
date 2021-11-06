@@ -128,6 +128,7 @@ namespace CakeSellingWinApp
             // 
             // cbStatus
             // 
+            this.cbStatus.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbStatus.FormattingEnabled = true;
             this.cbStatus.Location = new System.Drawing.Point(35, 54);
             this.cbStatus.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
