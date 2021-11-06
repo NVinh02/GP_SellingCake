@@ -43,7 +43,10 @@ namespace CakeSellingWinApp
 
         private void btnCakeList_Click(object sender, EventArgs e)
         {
-            openChildForm(new frmCakeList());
+            openChildForm(new frmCakeList
+            {
+                userInfo = userInfo
+            });
         }
 
         private void btnStaffList_Click(object sender, EventArgs e)
@@ -72,16 +75,27 @@ namespace CakeSellingWinApp
 
         private void frmManagement_Load(object sender, EventArgs e)
         {
-            if (userInfo.Role.Equals("Admin"))
+            if (userInfo != null)
             {
-                btnOrder.Visible = false;
+                if (userInfo.Role.Equals("Admin"))
+                {
+                    btnOrder.Visible = false;
+                }
+                else
+                {
+                    btnCakeList.Visible = false;
+                    btnOrderList.Visible = false;
+                    btnStaffList.Visible = false;
+                }
+                lbWelcome.Text = "Welcome " + userInfo.Fullname;
             } else
             {
-                btnCakeList.Visible = false;
-                btnOrderList.Visible = false;
-                btnStaffList.Visible = false;
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmManagement_Load(sender, e);
+                }
             }
-            lbWelcome.Text = "Welcome " + userInfo.Fullname;
         }
 
         private void btnProfile_Click(object sender, EventArgs e)
@@ -91,7 +105,8 @@ namespace CakeSellingWinApp
                 user = userInfo,
                 UserRepo = userRepository,
                 CreateOrUpdate = false,
-                isProfile = true
+                isProfile = true,
+                loginUser = userInfo
             });
         }
     }

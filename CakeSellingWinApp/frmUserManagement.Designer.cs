@@ -29,14 +29,16 @@ namespace CakeSellingWinApp
         /// </summary>
         private void InitializeComponent()
         {
-            this.bntLoad = new System.Windows.Forms.Button();
+            this.btnLoad = new System.Windows.Forms.Button();
             this.btnCreate = new System.Windows.Forms.Button();
             this.btnActive = new System.Windows.Forms.Button();
             this.gbButton = new System.Windows.Forms.GroupBox();
             this.dvgUserList = new System.Windows.Forms.DataGridView();
             this.gbRoleActive = new System.Windows.Forms.GroupBox();
             this.cbStatus = new System.Windows.Forms.ComboBox();
+            this.lbStatusError = new System.Windows.Forms.Label();
             this.gbName = new System.Windows.Forms.GroupBox();
+            this.lbSearchError = new System.Windows.Forms.Label();
             this.lbSearchUserName = new System.Windows.Forms.Label();
             this.lbSearchFullName = new System.Windows.Forms.Label();
             this.txtSearchUserName = new System.Windows.Forms.TextBox();
@@ -48,18 +50,18 @@ namespace CakeSellingWinApp
             this.gbName.SuspendLayout();
             this.SuspendLayout();
             // 
-            // bntLoad
+            // btnLoad
             // 
-            this.bntLoad.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.bntLoad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.bntLoad.Location = new System.Drawing.Point(19, 21);
-            this.bntLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.bntLoad.Name = "bntLoad";
-            this.bntLoad.Size = new System.Drawing.Size(91, 22);
-            this.bntLoad.TabIndex = 15;
-            this.bntLoad.Text = "Reload";
-            this.bntLoad.UseVisualStyleBackColor = true;
-            this.bntLoad.Click += new System.EventHandler(this.bntLoad_Click);
+            this.btnLoad.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.btnLoad.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.btnLoad.Location = new System.Drawing.Point(19, 21);
+            this.btnLoad.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.btnLoad.Name = "btnLoad";
+            this.btnLoad.Size = new System.Drawing.Size(91, 22);
+            this.btnLoad.TabIndex = 15;
+            this.btnLoad.Text = "Reload";
+            this.btnLoad.UseVisualStyleBackColor = true;
+            this.btnLoad.Click += new System.EventHandler(this.btnLoad_Click);
             // 
             // btnCreate
             // 
@@ -89,7 +91,7 @@ namespace CakeSellingWinApp
             // 
             // gbButton
             // 
-            this.gbButton.Controls.Add(this.bntLoad);
+            this.gbButton.Controls.Add(this.btnLoad);
             this.gbButton.Controls.Add(this.btnCreate);
             this.gbButton.Controls.Add(this.btnActive);
             this.gbButton.Location = new System.Drawing.Point(555, 11);
@@ -101,12 +103,12 @@ namespace CakeSellingWinApp
             // dvgUserList
             // 
             this.dvgUserList.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dvgUserList.Location = new System.Drawing.Point(12, 161);
+            this.dvgUserList.Location = new System.Drawing.Point(12, 183);
             this.dvgUserList.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.dvgUserList.Name = "dvgUserList";
             this.dvgUserList.RowHeadersWidth = 51;
             this.dvgUserList.RowTemplate.Height = 29;
-            this.dvgUserList.Size = new System.Drawing.Size(750, 328);
+            this.dvgUserList.Size = new System.Drawing.Size(750, 307);
             this.dvgUserList.TabIndex = 18;
             this.dvgUserList.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUserList_CellClick_1);
             this.dvgUserList.CellDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dvgUserList_CellDoubleClick_1);
@@ -119,7 +121,7 @@ namespace CakeSellingWinApp
             this.gbRoleActive.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbRoleActive.Name = "gbRoleActive";
             this.gbRoleActive.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbRoleActive.Size = new System.Drawing.Size(201, 123);
+            this.gbRoleActive.Size = new System.Drawing.Size(201, 137);
             this.gbRoleActive.TabIndex = 17;
             this.gbRoleActive.TabStop = false;
             this.gbRoleActive.Text = "Status";
@@ -134,9 +136,21 @@ namespace CakeSellingWinApp
             this.cbStatus.TabIndex = 13;
             this.cbStatus.SelectedIndexChanged += new System.EventHandler(this.cbStatus_SelectedIndexChanged);
             // 
+            // lbStatusError
+            // 
+            this.lbStatusError.AutoSize = true;
+            this.lbStatusError.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.lbStatusError.ForeColor = System.Drawing.Color.Black;
+            this.lbStatusError.Location = new System.Drawing.Point(22, 160);
+            this.lbStatusError.Name = "lbStatusError";
+            this.lbStatusError.Size = new System.Drawing.Size(100, 21);
+            this.lbStatusError.TabIndex = 21;
+            this.lbStatusError.Text = "lbStatusError";
+            // 
             // gbName
             // 
             this.gbName.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.gbName.Controls.Add(this.lbSearchError);
             this.gbName.Controls.Add(this.lbSearchUserName);
             this.gbName.Controls.Add(this.lbSearchFullName);
             this.gbName.Controls.Add(this.txtSearchUserName);
@@ -147,10 +161,20 @@ namespace CakeSellingWinApp
             this.gbName.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.gbName.Name = "gbName";
             this.gbName.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.gbName.Size = new System.Drawing.Size(262, 123);
+            this.gbName.Size = new System.Drawing.Size(262, 137);
             this.gbName.TabIndex = 13;
             this.gbName.TabStop = false;
             this.gbName.Text = "Search Full Name/ UserName";
+            // 
+            // lbSearchError
+            // 
+            this.lbSearchError.AutoSize = true;
+            this.lbSearchError.ForeColor = System.Drawing.Color.Red;
+            this.lbSearchError.Location = new System.Drawing.Point(6, 108);
+            this.lbSearchError.Name = "lbSearchError";
+            this.lbSearchError.Size = new System.Drawing.Size(77, 15);
+            this.lbSearchError.TabIndex = 20;
+            this.lbSearchError.Text = "lbSearchError";
             // 
             // lbSearchUserName
             // 
@@ -185,7 +209,7 @@ namespace CakeSellingWinApp
             // 
             this.btnSearch.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.btnSearch.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.btnSearch.Location = new System.Drawing.Point(166, 94);
+            this.btnSearch.Location = new System.Drawing.Point(166, 108);
             this.btnSearch.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(82, 22);
@@ -208,6 +232,7 @@ namespace CakeSellingWinApp
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(774, 500);
+            this.Controls.Add(this.lbStatusError);
             this.Controls.Add(this.gbButton);
             this.Controls.Add(this.dvgUserList);
             this.Controls.Add(this.gbName);
@@ -224,11 +249,12 @@ namespace CakeSellingWinApp
             this.gbName.ResumeLayout(false);
             this.gbName.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Button bntLoad;
+        private System.Windows.Forms.Button btnLoad;
         private System.Windows.Forms.Button btnCreate;
         private System.Windows.Forms.Button btnActive;
         private System.Windows.Forms.GroupBox gbName;
@@ -241,5 +267,7 @@ namespace CakeSellingWinApp
         private System.Windows.Forms.TextBox txtSearchUserName;
         private System.Windows.Forms.DataGridView dvgUserList;
         private System.Windows.Forms.GroupBox gbButton;
+        private System.Windows.Forms.Label lbSearchError;
+        private System.Windows.Forms.Label lbStatusError;
     }
 }

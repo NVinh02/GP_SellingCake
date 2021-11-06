@@ -18,10 +18,9 @@ namespace CakeSellingWinApp
         #endregion
         public frmUserManagement()
         {
-            if (userRepository == null)
-                userRepository = new UserRepository();
             InitializeComponent();
-            LoadUserList();
+            if (loginUser is not null)
+                LoadUserList();
         }
 
         #region Event
@@ -74,8 +73,22 @@ namespace CakeSellingWinApp
         }
         //Load user
         private void frmUserManagement_Load(object sender, EventArgs e)
-        {                
-            dvgUserList.CellDoubleClick += dvgUserList_CellDoubleClick_1;
+        {
+            lbSearchError.Text = String.Empty;
+            lbStatusError.Text = String.Empty;
+            if (loginUser is not null)
+            {
+                LoadUserList();
+                dvgUserList.CellDoubleClick += dvgUserList_CellDoubleClick_1;
+            }
+            else
+            {
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmUserManagement_Load(sender, e);
+                }
+            }
         }
         //Load User
         //Load List of users
@@ -91,19 +104,22 @@ namespace CakeSellingWinApp
                 {
                     table = setColumnNameOfTable(table);
                     users = searchDataSource;
-                    foreach (var user in users)
+                    if (users is not null)
                     {
-                        string status = user.Status.ToString();
-                        table.Rows.Add(user.Userid, user.Username, user.Fullname
-                            , user.Email, user.Phonenumber, user.Password,
-                            user.Address, user.Role, status);
+                        foreach (var user in users)
+                        {
+                            string status = user.Status.ToString();
+                            table.Rows.Add(user.Userid, user.Username, user.Fullname
+                                , user.Email, user.Phonenumber, user.Password,
+                                user.Address, user.Role, status);
+                        }
                     }
                 }
                 // load user
                 else
                 {
                     table = setColumnNameOfTable(table);
-                    users = userRepository.GetUsers().OrderBy(temp => temp.Role);// sai chỗ này
+                    users = userRepository.GetUsers().OrderBy(temp => temp.Role);
                     //get Role list
                     var RoleList = new List<String>();
                     RoleList.Add("True");
@@ -187,17 +203,25 @@ namespace CakeSellingWinApp
                 catch (Exception ex)
                 {
                     if (e.RowIndex > 0)
-                        MessageBox.Show(ex.Message, "Get User", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("You shall not choose empty row", "Get User", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
             return user;
         }
         //Load User by btn Load
-        private void bntLoad_Click(object sender, EventArgs e)
+        private void btnLoad_Click(object sender, EventArgs e)
         {
-            txtSearchFullName.Text = String.Empty;
-            txtSearchUserName.Text = String.Empty;
-            LoadUserList();
+            if (btnLoad.Text.Equals("Login"))
+            {
+                frmLogin login = new frmLogin();
+                login.Show();
+                this.Hide();
+            } else
+            {
+                txtSearchFullName.Text = String.Empty;
+                txtSearchUserName.Text = String.Empty;
+                LoadUserList();
+            }
         }
         //Create new User by btn Create
         private void btnCreate_Click(object sender, EventArgs e)
@@ -206,6 +230,7 @@ namespace CakeSellingWinApp
             {
                 Text = "Add a new member",
                 loginUser = loginUser,
+                user = null,
                 CreateOrUpdate = true, //Insert: true, Update: false
                 UserRepo = userRepository
             };
@@ -217,11 +242,13 @@ namespace CakeSellingWinApp
         //Search by the Full name and Username
         private void btnSearch_Click(object sender, EventArgs e)
         {
+            lbSearchError.Text = String.Empty;
+            lbStatusError.Text = String.Empty;
             bool isNullOrEmptySearchFullName = String.IsNullOrEmpty(txtSearchFullName.Text);
             bool isNullOrEmptySearchUserName = String.IsNullOrEmpty(txtSearchUserName.Text);
             if (isNullOrEmptySearchFullName && isNullOrEmptySearchUserName)
             {
-               MessageBox.Show("The fields of searching shall be filled in one of them","",MessageBoxButtons.OK, MessageBoxIcon.Information);
+                lbSearchError.Text = "No key word to search";
             } else
             {
                 IEnumerable<User> searchDataSource = null;
@@ -229,44 +256,30 @@ namespace CakeSellingWinApp
                     && isNullOrEmptySearchFullName == false)
                 {
                     searchDataSource = userRepository.SearchUserByFullNameAndUserName(txtSearchFullName.Text, txtSearchUserName.Text);
-                    if (searchDataSource.Any())
-                    {
-                        LoadUserList(true, searchDataSource);
-                    }
-                    else
-                    {
-                        MessageBox.Show("There is no result matching with full name and username", "Search Member", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                } else if (isNullOrEmptySearchFullName == false)
+                    if (searchDataSource.Any() == false)
+                        lbSearchError.Text = "No matching result";
+                }
+                else if (isNullOrEmptySearchFullName == false)
                 {
                     searchDataSource = searchDataSource = userRepository.SearchUserByFullName(txtSearchFullName.Text);
-
-                    if (searchDataSource.Any())
-                    {
-                        LoadUserList(true, searchDataSource);
-                    }
-                    else
-                    {
-                        MessageBox.Show("There is no result matching with full name", "Search Member", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                } else
+                    if (searchDataSource.Any() == false)
+                        lbSearchError.Text = "No result with full name";
+                }
+                else
                 {
                     searchDataSource = searchDataSource = userRepository.SearchUserByUserName(txtSearchUserName.Text);
-                    if (searchDataSource.Count() > 0)
-                    {
-                        LoadUserList(true, searchDataSource);
-                    }
-                    else
-                    {
-                        MessageBox.Show("There is no result matching with user name", "Load Users", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    if (searchDataSource.Any() == false)
+                        lbSearchError.Text = "No result with username";
                 }
+                LoadUserList(true, searchDataSource);
             }
         }
 
         //Search by role
         private void cbStatus_SelectedIndexChanged(object sender, EventArgs e)
         {
+            lbSearchError.Text = String.Empty;
+            lbStatusError.Text = String.Empty;
             try
             {
                 if (cbStatus.DataSource != null)
@@ -276,11 +289,9 @@ namespace CakeSellingWinApp
                     {
                         IEnumerable<User> searchDataSource = userRepository.SearchUserByStatus(status);
                         // status exists
-                        if (searchDataSource.Any())
-                            LoadUserList(true, searchDataSource);
-                        // status does not exist
-                        else
-                            MessageBox.Show("No result matches with status", "Search status", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (searchDataSource.Any() == false)
+                            lbStatusError.Text = "No result found";
+                        LoadUserList(true, searchDataSource);
                     }
                 }
             }
@@ -298,12 +309,12 @@ namespace CakeSellingWinApp
             {
                 if (user.Userid.Equals(loginUser.Userid))
                 {
-                    MessageBox.Show($"You cannot {btnActive.Text.ToLower()} this {user.Fullname}", $"{btnActive.Text} a user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    MessageBox.Show($"You cannot {btnActive.Text.ToLower()} {user.Fullname}", $"{btnActive.Text} a user", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
                 else
                 {
                     DialogResult result;
-                    result = MessageBox.Show($"Do you want to {btnActive.Text.ToLower()} this {user.Fullname}?", $"{btnActive.Text} a user", MessageBoxButtons.OKCancel);
+                    result = MessageBox.Show($"Do you want to {btnActive.Text.ToLower()} {user.Fullname}?", $"{btnActive.Text} a user", MessageBoxButtons.OKCancel);
                     if (result == DialogResult.OK)
                     {
                         try

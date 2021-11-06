@@ -50,82 +50,99 @@ namespace CakeSellingWinApp
         /*---------------------------------------------------------------------------------------------------*/
         private void frmNewOrder_Load(object sender, EventArgs e)
         {
-            btnCreate.Visible = true;
-            btnUpdate.Visible = false;
-            clearErrorText();
-
-            var cakes = cakeRepository.GetCakeList(true);
-            rbtnTakeaway.Checked = true; //default value for type of order is takeaway
-            txtCustomerAddress.Enabled = false;// if takeaway then customer address and shipping date in unvaliable for input
-            dtpShippingDate.Enabled = false;
-            try
+            if (currentUserID == 0)
             {
+                btnCreate.Visible = true;
+                btnUpdate.Visible = false;
+                clearErrorText();
 
-                //load the cake catalogue and bind it to the binding source
-                source = new BindingSource();
-                source.DataSource = cakes;
-
-                //bind the cake binding source into the cbo
-                cboProduct.DataSource = null;
-                cboProduct.DataSource = source;
-
-                //modified how the cbo display
-                cboProduct.DisplayMember = "Cakename"; //display name of the cake
-                cboProduct.ValueMember = "Cakeid"; //but value when take out is the cake id
-
-                //Check if form is for Create or Update
-                if (!InsertOrUpdate)//Update
+                var cakes = cakeRepository.GetCakeList(true);
+                rbtnTakeaway.Checked = true; //default value for type of order is takeaway
+                txtCustomerAddress.Enabled = false;// if takeaway then customer address and shipping date in unvaliable for input
+                dtpShippingDate.Enabled = false;
+                try
                 {
-                    btnCreate.Visible = false;
-                    btnUpdate.Visible = true;
-                    //Load exisiting order info into form
-                    //In Update form: Completely disable checkbox Takeaway/Delivery
-                    //Locks out Customer address
-                    //Locks out shipping date and shipping fee
 
-                    gbOrderDetailAction.Visible = false;
-                    rbtnTakeaway.Enabled = false;
-                    rbtnDelivery.Enabled = false;
-                    dtpShippingDate.Enabled = false;
+                    //load the cake catalogue and bind it to the binding source
+                    source = new BindingSource();
+                    source.DataSource = cakes;
 
-                    txtCustomerName.Text = updateOrderInfo.Customername.ToString();
-                    txtCustomerPhoneNumber.Text = updateOrderInfo.Customerphonenumber.ToString();
-                    
+                    //bind the cake binding source into the cbo
+                    cboProduct.DataSource = null;
+                    cboProduct.DataSource = source;
 
-                    //Radio button check based on shipping fee
-                    if(updateOrderInfo.Shippingfee == 0)
+                    //modified how the cbo display
+                    cboProduct.DisplayMember = "Cakename"; //display name of the cake
+                    cboProduct.ValueMember = "Cakeid"; //but value when take out is the cake id
+
+                    //Check if form is for Create or Update
+                    if (!InsertOrUpdate)//Update
                     {
-                        txtCustomerAddress.Enabled = false;
-                        rbtnTakeaway.Checked = true;
-                        dtpShippingDate.Text = null;
-                        dtpShippingDate.Visible = false;
-                        lbShippingDate.Visible = false;
-                    }
-                    else if(updateOrderInfo.Shippingfee == 30000)
-                    {
-                        txtCustomerAddress.ReadOnly = true;
-                        txtCustomerAddress.Text = updateOrderInfo.Customeraddress;
-                        rbtnDelivery.Checked = true;
-                        dtpShippingDate.Text = updateOrderInfo.Shippingdate.ToString();
+                        btnCreate.Visible = false;
+                        btnUpdate.Visible = true;
+                        //Load exisiting order info into form
+                        //In Update form: Completely disable checkbox Takeaway/Delivery
+                        //Locks out Customer address
+                        //Locks out shipping date and shipping fee
+
+                        gbOrderDetailAction.Visible = false;
+                        rbtnTakeaway.Enabled = false;
+                        rbtnDelivery.Enabled = false;
                         dtpShippingDate.Enabled = false;
-                        if (isAdmin)
+
+                        txtCustomerName.Text = updateOrderInfo.Customername.ToString();
+                        txtCustomerPhoneNumber.Text = updateOrderInfo.Customerphonenumber.ToString();
+
+                        //Radio button check based on shipping fee
+                        if (updateOrderInfo.Shippingfee == 0)
                         {
-                            txtCustomerName.ReadOnly = true;
-                            txtCustomerPhoneNumber.ReadOnly = true;
-                            btnUpdate.Visible = false;
+                            txtCustomerAddress.Enabled = false;
+                            rbtnTakeaway.Checked = true;
+                            dtpShippingDate.Text = null;
+                            dtpShippingDate.Visible = false;
+                            lbShippingDate.Visible = false;
                         }
-                    }
-                    //Load OrderDetails from current order
+                        else if (updateOrderInfo.Shippingfee == 30000)
+                        {
+                            txtCustomerAddress.ReadOnly = true;
+                            txtCustomerAddress.Text = updateOrderInfo.Customeraddress;
+                            rbtnDelivery.Checked = true;
+                            dtpShippingDate.Text = updateOrderInfo.Shippingdate.ToString();
+                            dtpShippingDate.Enabled = false;
+                            if (isAdmin)
+                            {
+                                txtCustomerName.ReadOnly = true;
+                                txtCustomerPhoneNumber.ReadOnly = true;
+                                btnUpdate.Visible = false;
+                            }
+                        }
+
+                        //Check shipped date
+                        if (updateOrderInfo.Shippingdate < DateTime.Now)
+                        {
+                            MessageBox.Show("The order has already been shipped.", "Cannot update order.", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            this.Close();
+                        };
+
+                        //Load OrderDetails from current order
                         LoadOrderDetailsList();
+                    }
+                    else
+                    {
+                        LoadItemList();
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    LoadItemList();
+                    MessageBox.Show(ex.Message, InsertOrUpdate ? "Form new Order Load" : "Form Update Order Load");
                 }
-            }
-            catch (Exception ex)
+            } else
             {
-                MessageBox.Show(ex.Message, InsertOrUpdate ? "Form new Order Load" : "Form Update Order Load");
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmNewOrder_Load(sender, e);
+                }
             }
             
         }
@@ -603,6 +620,7 @@ namespace CakeSellingWinApp
                         Totalprice = price,
                         Customername = txtCustomerName.Text,
                         Customerphonenumber = txtCustomerPhoneNumber.Text,
+                        Customeraddress = updateOrderInfo.Customeraddress,
                         Createddate = updateOrderInfo.Createddate,
                         Shippingdate = DateTime.Parse(dtpShippingDate.Text),
                         Shippingfee = 0

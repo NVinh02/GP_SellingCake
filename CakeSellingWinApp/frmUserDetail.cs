@@ -56,10 +56,21 @@ namespace CakeSellingWinApp
         }
         private void frmUserDetail_Load(object sender, EventArgs e)
         {
-            SizeOfUserDetailForm();
-            LoadUserDetail();
-            // Không hiển thị text của các label error khi update hay insert lần đầu
+            // Không hiển thị text của các label error
             ClearLabelError();
+            if (loginUser is not null)
+            {
+                SizeOfUserDetailForm();
+                LoadUserDetail();
+            }
+            else
+            {
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmUserDetail_Load(sender, e);
+                }
+            }
         }
         private void LoadUserDetail()
         {
@@ -76,7 +87,6 @@ namespace CakeSellingWinApp
                 lbStatusInformation.Text = user.Status == true? "Active" : "Inactive";
             }
         }
-
         private void ClearLabelError()
         {
             lbUsernameError.Text= String.Empty;
@@ -111,13 +121,14 @@ namespace CakeSellingWinApp
                     if (CreateOrUpdate)
                     {
                         UserRepo.InsertUser(TempUser);
-                        MessageBox.Show("Add a new user Successfully!", "Add a new user", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    } //Update a member 
+                        Close();
+                    }
+                        
+                    //Update a member 
                     else
                     {
                         TempUser.Userid = user.Userid;
                         UserRepo.UpdateUser(TempUser);
-                        MessageBox.Show("Update a user Successfully!", "Update an user", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 } 
                 else
@@ -128,7 +139,17 @@ namespace CakeSellingWinApp
                 MessageBox.Show(ex.Message, CreateOrUpdate == true ? "Add a new member" : "Update a member");
             }
         }
-        private void btnCancel_Click(object sender, EventArgs e) => Close();
+        private void btnCancel_Click(object sender, EventArgs e)
+        {
+            if (btnCancel.Text.Equals("Login"))
+            {
+                frmLogin login = new frmLogin();
+                this.Hide();
+                login.ShowDialog();
+            }
+            else
+                Close();
+        }
         #endregion
 
         #region check

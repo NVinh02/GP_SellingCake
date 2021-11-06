@@ -18,6 +18,7 @@ namespace CakeSellingWinApp
         public ICakeRepository cakeRepository { get; set; }
         public Cake cakeInfo { get; set; }
         public bool InsertOrUpdate { get; set; }
+        public User userInfo { get; set; }
 
         //-----------------
         //Update order vars
@@ -36,28 +37,37 @@ namespace CakeSellingWinApp
 
         private void frmCakeDetails_Load(object sender, EventArgs e)
         {
-            cboCategory.SelectedIndex = 0;
-            if (InsertOrUpdate == true)
+            if (userInfo is not null)
             {
-                lbTitle.Text = "Edit";
-                btnConfirm.Text = "Save";
-                txtCakeID.Text = cakeInfo.Cakeid.ToString();
-                txtCakeName.Text = cakeInfo.Cakename;
-                txtPrice.Text = cakeInfo.Price.ToString();
-                txtAmount.Text = cakeInfo.Amount.ToString();
-                cboCategory.Text = cakeInfo.Category.Trim();
-                txtStatus.Text = cakeInfo.Status == true ? "Active" : "Inactive";
+                cboCategory.SelectedIndex = 0;
+                if (InsertOrUpdate == true)
+                {
+                    lbTitle.Text = "Edit";
+                    btnConfirm.Text = "Save";
+                    txtCakeID.Text = cakeInfo.Cakeid.ToString();
+                    txtCakeName.Text = cakeInfo.Cakename;
+                    txtPrice.Text = cakeInfo.Price.ToString();
+                    txtAmount.Text = cakeInfo.Amount.ToString();
+                    cboCategory.Text = cakeInfo.Category.Trim();
+                    txtStatus.Text = cakeInfo.Status == true ? "Active" : "Inactive";
+                }
+                else
+                {
+                    lbTitle.Text = "Add";
+                    btnConfirm.Text = "Add";
+                    lbCakeID.Visible = false;
+                    txtCakeID.Visible = false;
+                    lbStatus.Visible = false;
+                    txtStatus.Visible = false;
+                }
             } else
             {
-                lbTitle.Text = "Add";
-                btnConfirm.Text = "Add";
-                lbCakeID.Visible = false;
-                txtCakeID.Visible = false;
-                lbStatus.Visible = false;
-                txtStatus.Visible = false;
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmCakeDetails_Load(sender, e);
+                }
             }
-
-
         }
 
 
@@ -169,7 +179,7 @@ namespace CakeSellingWinApp
             }
         }
 
-        private void button2_Click(object sender, EventArgs e) => Close();
+        private void btnCancel_Click(object sender, EventArgs e) => Close();
 
     }
 }

@@ -112,7 +112,20 @@ namespace CakeSellingWinApp
             }
         }
 
-        private void frmOrderList_Load(object sender, EventArgs e) => resetAllComponents();
+        private void frmOrderList_Load(object sender, EventArgs e)
+        {
+            if (staff is not null)
+            {
+                resetAllComponents();
+            } else
+            {
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmOrderList_Load(sender, e);
+                }
+            }
+        }
 
         private void btnReload_Click(object sender, EventArgs e) => resetAllComponents();
 

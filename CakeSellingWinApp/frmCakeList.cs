@@ -19,6 +19,7 @@ namespace CakeSellingWinApp
         private IEnumerable<Cake> list = null;
         private int SelectedCakeID;
         private ICakeRepository cakeRepository = new CakeRepository();
+        public User userInfo { get; set; }
 
         public frmCakeList()
         {
@@ -88,7 +89,21 @@ namespace CakeSellingWinApp
             }
         }
 
-        private void frmCakeList_Load(object sender, EventArgs e) => resetAllComponents();
+        private void frmCakeList_Load(object sender, EventArgs e)
+        {
+            if (userInfo != null)
+            {
+                resetAllComponents();
+            }
+            else
+            {
+                frmLogin login = new frmLogin();
+                if (login.ShowDialog() == DialogResult.OK)
+                {
+                    frmCakeList_Load(sender, e);
+                }
+            }
+        }
 
         private void btnReload_Click(object sender, EventArgs e) => resetAllComponents();
 
@@ -97,7 +112,8 @@ namespace CakeSellingWinApp
             frmCakeDetails details = new frmCakeDetails()
             {
                 cakeRepository = cakeRepository,
-                InsertOrUpdate = false
+                InsertOrUpdate = false,
+                userInfo = userInfo
             };
             if (details.ShowDialog() == DialogResult.OK)
             {
@@ -157,7 +173,8 @@ namespace CakeSellingWinApp
             {
                 cakeRepository = cakeRepository,
                 cakeInfo = GetSelectedCake(),
-                InsertOrUpdate = true
+                InsertOrUpdate = true,
+                userInfo = userInfo
             };
             if (details.ShowDialog() == DialogResult.OK)
             {

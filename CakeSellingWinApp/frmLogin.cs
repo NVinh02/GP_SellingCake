@@ -51,6 +51,7 @@ namespace CakeSellingWinApp
                         userInfo = user
                     };
                     this.Hide();
+                    this.DialogResult = DialogResult.OK;
                     if (management.ShowDialog() == DialogResult.Cancel)
                     {
                         LoadfrmLogin();
